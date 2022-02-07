@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 18:40:24 by kyukim            #+#    #+#             */
-/*   Updated: 2022/02/06 19:05:54 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/02/07 12:51:31 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,4 @@ t_list	*sh_lstnew(void *content)
 	new->content = content;
 	new->next = NULL;
 	return (new);
-}
-
-t_arg	*arg_new(void)
-{
-	t_arg	*arg;
-
-	arg = malloc(sizeof(t_arg));
-	if (!arg)
-		return (NULL);
-	arg->arg = NULL;
-	arg->next = NULL;
-	return (arg);
-}
-
-t_cmd	*cmd_new(void)
-{
-	t_cmd	*cmd;
-
-	cmd = malloc(sizeof(t_cmd));
-	if (!cmd)
-		return (NULL);
-	cmd->args = NULL;
-	cmd->cmd = NULL;
-	cmd->option = NULL;
-	cmd->next = NULL;
-	return (cmd);
 }

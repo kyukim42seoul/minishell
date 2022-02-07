@@ -6,7 +6,7 @@
 #    By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/04 15:55:45 by kyukim            #+#    #+#              #
-#    Updated: 2022/02/06 18:40:38 by kyukim           ###   ########.fr        #
+#    Updated: 2022/02/07 13:41:03 by kyukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJECTS = main.o \
 	lst.o \
 
 
-all : $(NAME)
+all : $(NAME) clean #.o 파일 보기 싫어서 임시조치
 
 $(NAME) : $(OBJECTS)
 	$(CC) -o $(NAME) $(CFLAGS) $(LIBRARYS) $(OBJECTS)

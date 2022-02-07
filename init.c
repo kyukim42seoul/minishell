@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 17:13:17 by kyukim            #+#    #+#             */
-/*   Updated: 2022/02/06 18:59:08 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/02/07 13:02:54 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	init_info(t_info **info)
 {
-	(*info) = (t_info *)malloc(sizeof(t_info));
+	(*info) = malloc(sizeof(t_info));
 	(*info)->cmd = 0;
 	(*info)->pipe_flag = -1;
 	(*info)->redirection_flag = -1;
@@ -22,13 +22,18 @@ int	init_info(t_info **info)
 	return (EXIT_SUCCESS);
 }
 
-int	init_cmd_s(t_cmd **cmd_s)
+int	init_mark(t_mark **mark)
 {
-	(*cmd_s) = (t_cmd *)malloc(sizeof(t_cmd));
-	(*cmd_s)->cmd = NULL;
-	(*cmd_s)->option = NULL;
-	(*cmd_s)->args = arg_new();
-	(*cmd_s)->next = NULL;
+	(*mark) = malloc(sizeof(t_mark));
+	(*mark)->double_quote = 0;
+	(*mark)->quote = 0;
+	(*mark)->space = 0;
+	(*mark)->l_double_shift = 0;
+	(*mark)->r_double_shift = 0;
+	(*mark)->l_shift = 0;
+	(*mark)->r_shift = 0;
+	(*mark)->pipe = 0;
+	(*mark)->option = 0;
 	return (EXIT_SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:55:53 by kyukim            #+#    #+#             */
-/*   Updated: 2022/02/06 18:50:11 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/02/07 13:24:25 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,12 @@ int	main(int argc, char *argv[], char *env[])
 	char	*full_cmd;
 	char	**cmds;
 	t_info	*info;
-	t_cmd	*cmd_s;
 
 	temp = argc;
 	str = argv[0];
 	idx = 0;
 	cmds = NULL;
 	init_info(&info);
-	cmd_s = cmd_new();
 	check_info(info);
 	copy_env(env);
 	while (1)
@@ -68,13 +66,7 @@ int	main(int argc, char *argv[], char *env[])
 		else if (full_cmd)
 		{
 			printf("full_cmd : %s\n", full_cmd);
-			tokenize_fullcmd(cmd_s, full_cmd, cmds);
-			while (cmd_s->args->next)
-			{
-				printf("comma string : %s\n", cmd_s->args->arg);
-				cmd_s->args = cmd_s->args->next;
-			}
-			printf("comma string : %s\n", cmd_s->args->arg);
+			tokenize_fullcmd(info, full_cmd);
 		}
 		else
 			break ;
