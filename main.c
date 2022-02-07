@@ -6,16 +6,16 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:55:53 by kyukim            #+#    #+#             */
-/*   Updated: 2022/02/04 19:09:21 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/02/06 18:50:11 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 int	copy_env(char *env[])
 {
-	int	index;
-	int	lenth;
+	int		index;
+	int		lenth;
 	t_list	*head;
 	t_list	*current;
 	t_list	*check;
@@ -26,7 +26,8 @@ int	copy_env(char *env[])
 	while (env[index] != NULL)
 	{
 		lenth = sh_strchr(env[index], '=') - env[index];
-		current = sh_lstnew((void *)sh_strchr(env[index], '=') + 1);
+		current = sh_lstnew(NULL);
+		current->content = sh_strchr(env[index], '=') + 1;
 		current->key = sh_substr(env[index], 0, lenth);
 		sh_lstadd_back(&head, current);
 		index++;
@@ -43,26 +44,42 @@ int	copy_env(char *env[])
 
 int	main(int argc, char *argv[], char *env[])
 {
-	int	idx;
-	int	temp;
+	int		idx;
+	int		temp;
 	char	*str;
-	char	*cmd;
+	char	*full_cmd;
+	char	**cmds;
+	t_info	*info;
+	t_cmd	*cmd_s;
 
 	temp = argc;
 	str = argv[0];
 	idx = 0;
+	cmds = NULL;
+	init_info(&info);
+	cmd_s = cmd_new();
+	check_info(info);
 	copy_env(env);
 	while (1)
 	{
-		cmd = readline("> ");	//enter 쳤을 때 cmd 에 할당
-		if (sh_strcmp(cmd, "exit") == 0)
-			break;
-		else if (cmd)
-			printf("cmd : %s\n", cmd);
+		full_cmd = readline("> ");//enter 쳤을 때 full_cmd 에 할당
+		if (sh_strcmp(full_cmd, "exit") == 0)
+			break ;
+		else if (full_cmd)
+		{
+			printf("full_cmd : %s\n", full_cmd);
+			tokenize_fullcmd(cmd_s, full_cmd, cmds);
+			while (cmd_s->args->next)
+			{
+				printf("comma string : %s\n", cmd_s->args->arg);
+				cmd_s->args = cmd_s->args->next;
+			}
+			printf("comma string : %s\n", cmd_s->args->arg);
+		}
 		else
-			break;
-		add_history(cmd);
-		free(cmd);
+			break ;
+		add_history(full_cmd);
+		free(full_cmd);
 	}
 	return (EXIT_SUCCESS);
 }

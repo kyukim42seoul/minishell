@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:25:01 by kyukim            #+#    #+#             */
-/*   Updated: 2022/02/04 19:09:41 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/02/06 19:06:05 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,6 @@ char	*sh_strchr(const char *s, int c)
 	if (cc == '\0' && *s == '\0')
 		return ((char *)s);
 	return (NULL);
-}
-
-t_list	*sh_lstnew(void *content)
-{
-	t_list	*new;
-
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return (NULL);
-	new->content = content;
-	new->next = NULL;
-	return (new);
 }
 
 t_list	*sh_lstlast(t_list *lst)
@@ -74,6 +62,8 @@ char	*sh_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*s2;
 	char	*temp;
+
+	printf("substr_here %s %d %zu\n", s, start, len);
 
 	s2 = (char *)malloc(sizeof(char) * (len + 1));
 	temp = s2;

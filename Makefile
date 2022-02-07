@@ -6,7 +6,7 @@
 #    By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/04 15:55:45 by kyukim            #+#    #+#              #
-#    Updated: 2022/02/04 18:03:48 by kyukim           ###   ########.fr        #
+#    Updated: 2022/02/06 18:40:38 by kyukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,10 @@ CFLAGS = -Wall -Wextra -Werror
 LIBRARYS = -lreadline
 
 OBJECTS = main.o \
-	util.o
-
+	util.o \
+	init.o \
+	tokenize.o \
+	lst.o \
 
 
 all : $(NAME)
