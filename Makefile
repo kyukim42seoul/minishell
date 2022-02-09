@@ -1,8 +1,8 @@
 NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -L/Users/kyukim/.brew/opt/readline/lib
-CPPFLAGS = -I/Users/kyukim/.brew/opt/readline/include
+LDFLAGS = -L/Users/kbaek/.brew/opt/readline/lib
+CPPFLAGS = -I/Users/kabek/.brew/opt/readline/include
 LIBRARYS = -lreadline
 
 OBJECTS = proto.o \
@@ -10,7 +10,7 @@ OBJECTS = proto.o \
 all : $(NAME) clean #.o 파일 보기 싫어서 임시조치
 
 $(NAME) : $(OBJECTS)
-	$(CC) -o $(NAME) $(CFLAGS) $(LIBRARYS) $(OBJECTS)
+	$(CC) -o $(NAME) $(CFLAGS) $(LIBRARYS) $(LDFLAGS) $(CPPFLAGS) $(OBJECTS)
 
 clean :
 	rm -f $(OBJECTS)

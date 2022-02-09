@@ -1,5 +1,16 @@
 #include "proto.h"
 
+void	interrupt(int signum)
+{
+	if (signum != SIGINT)
+		return ;
+	write(STDOUT_FILENO, "\n", 1);
+	if (rl_on_new_line() == -1)
+		exit(1);
+	rl_replace_line("", 1);
+	rl_redisplay();
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	// int		temp_argc;
