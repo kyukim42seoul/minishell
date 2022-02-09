@@ -10,8 +10,8 @@ int main()
     printf("%d\n", isatty(0));
 
     // 파일은 터미널에 연결되어 있지 않으므로 0을 출력한다.
-    fd = open("test100", O_RDWR);
-    printf("%d\n", isatty(fd));
+    fd = open("temp.txt", O_RDWR);
+    printf(" %d %d\n", fd, isatty(fd));
     close(fd);
 
     fd = open("/dev/ttyS0", O_RDONLY);
