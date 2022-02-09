@@ -17,6 +17,7 @@
 # include <sys/ioctl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stdbool.h>
 
 //	함수 공간
 

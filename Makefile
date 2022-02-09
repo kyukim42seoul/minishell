@@ -10,7 +10,7 @@ OBJECTS = proto.o \
 all : $(NAME) clean #.o 파일 보기 싫어서 임시조치
 
 $(NAME) : $(OBJECTS)
-	$(CC) -o $(NAME) $(CFLAGS) $(LIBRARYS) $(OBJECTS)
+	$(CC) -o $(NAME) $(CFLAGS) $(LIBRARYS) $(OBJECTS) $(CPPFLAGS) $(LDFLAGS)
 
 clean :
 	rm -f $(OBJECTS)
