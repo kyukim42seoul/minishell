@@ -21,5 +21,10 @@
 
 //	함수 공간
 
+// typedef struct s_rb
+// {
+// 	t_node			*root;
+// 	t_rb_cmp_fn		compare;
+// }					t_rb;
 
 #endif
