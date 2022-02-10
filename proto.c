@@ -25,16 +25,23 @@ void	set_signal()
 	signal(SIGQUIT, SIG_IGN); //ctrl + /
 }
 
+void	env_init(t_csh *chs, char **env)
+{
+
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	int		temp_argc;
 	char	**temp_argv;
 	char	**temp_env;
 	char	*full_cmd;
+	t_csh	csh;
 
 	temp_argc = argc;
 	temp_argv = argv;
 	temp_env = env;
+	env_init(&csh, env);
 	set_signal();
 	while (1)
 	{
