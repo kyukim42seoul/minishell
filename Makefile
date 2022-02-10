@@ -9,6 +9,10 @@ CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
 LIBRARYS = -lreadline
 
 OBJECTS = proto.o \
+	init.o \
+	copy.o \
+	util.o \
+	lst.o \
 
 all : $(NAME)
 

@@ -20,7 +20,7 @@ void	set_signal()
 	//tcsetattr의 옵션으로 들어가는 optional_actions에 TCSNOW는 환경 변수 0으로 등록되어 있는데, 속성을 바로 변경한다는 것을 의미한다.
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~(ECHOCTL);
-    tcsetattr(STDIN_FILENO, TCSANOW, &term); 
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	signal(SIGINT, signal_handler); //ctrl + c
 	signal(SIGQUIT, SIG_IGN); //ctrl + /
 }
@@ -29,13 +29,14 @@ int	main(int argc, char *argv[], char *env[])
 {
 	int		temp_argc;
 	char	**temp_argv;
-	char	**temp_env;
 	char	*full_cmd;
+	t_info	*info;
 
 	temp_argc = argc;
 	temp_argv = argv;
-	temp_env = env;
 	set_signal();
+	init_info(&info);
+	copy_env(info, env);
 	while (1)
 	{
 		full_cmd = readline("in> ");
