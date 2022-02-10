@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 16:25:01 by kyukim            #+#    #+#             */
-/*   Updated: 2022/02/06 19:06:05 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/02/10 17:45:05 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ char	*sh_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*s2;
 	char	*temp;
-
-	printf("substr_here %s %d %zu\n", s, start, len);
 
 	s2 = (char *)malloc(sizeof(char) * (len + 1));
 	temp = s2;

@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 17:25:28 by kyukim            #+#    #+#             */
-/*   Updated: 2022/02/07 13:59:34 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/02/10 21:03:47 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,13 @@ int	tokenize_fullcmd(t_info *info, char *full_cmd)
 	t_info	*temp;
 	char	*full_cmd_buf;
 	int		mark_syntex;
+	char	**splited_cmd;
+	int		index;
 //	char	*str_start;
 //	char	*str_end;
 
 	temp = info;
+	index = 0;
 	if (mark == NULL)
 		init_mark(&mark);
 	full_cmd_buf = full_cmd;
@@ -120,7 +123,14 @@ int	tokenize_fullcmd(t_info *info, char *full_cmd)
 	printf("Marks : dq %d q %d sp %d lsh %d rsh %d ldsh %d rdsh %d pipe %d option %d\n", \
 	mark->double_quote, mark->quote, mark->space, mark->l_shift, mark->r_shift, mark->l_double_shift, mark->r_double_shift, mark->pipe, mark->option);
 	init_mark(&mark);
-
+	printf("a\n");
+	splited_cmd = sh_split(full_cmd, ' ');
+	printf("b\n");
+	while (splited_cmd[index])
+	{
+		printf("split : %s\n", splited_cmd[index]);
+		index++;
+	}
 /*	while (sh_strchr(str_start, '"'))
 	{
 		if (sh_strchr(str_start, '"'))

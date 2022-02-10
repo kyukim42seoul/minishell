@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:56:53 by kyukim            #+#    #+#             */
-/*   Updated: 2022/02/07 12:59:34 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/02/10 20:28:02 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,18 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+#define	O_ENV 1;
+#define T_EXPORT 2;
+
+// enum	env_type
+// {
+// 	o_env = 1,
+// 	t_export
+// }
+
 typedef struct s_list
 {
+	int				type;
 	void			*key;
 	void			*content;
 	struct s_list	*next;
@@ -43,6 +53,7 @@ typedef struct s_info
 	int				pipe_flag;
 	int				redirection_flag;
 	int				double_shift_flag;
+	t_list			*head;
 }					t_info;
 
 typedef struct s_mark
@@ -75,5 +86,8 @@ int	tokenize_fullcmd(t_info *info, char *full_cmd);
 
 //lst.c
 t_list	*sh_lstnew(void *content);
+
+//split.c
+char	**sh_split(char const *s, char c);
 
 #endif
