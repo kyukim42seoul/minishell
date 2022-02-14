@@ -1,28 +1,35 @@
+
 NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-
 LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
-
 CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
-
 LIBRARYS = -lreadline
 
-OBJECTS = proto.o \
-	init.o \
-	copy.o \
-	util.o \
-	lst.o \
+LIB_NAME	= libft.a
+# SRCS_DIR	= ./srcs/
+LIB_DIR		= ./lib/
+
+OBJECTS = ./srcs/proto.o \
+		./srcs/init.o \
+		./srcs/copy.o \
+		./srcs/util.o \
+		./srcs/lst.o \
+
+# ALLSRCS	= $(addprefix $(SRCS_DIR), $(OBJECTS))
 
 all : $(NAME)
 
 $(NAME) : $(OBJECTS)
-	@$(CC) -o $(NAME) $(CFLAGS) $(LIBRARYS) $(OBJECTS) $(CPPFLAGS) $(LDFLAGS)
+	@make -C $(LIB_DIR)
+	$(CC) -o $(NAME) $(CFLAGS) $(LIBRARYS) $(OBJECTS) $(CPPFLAGS) $(LDFLAGS) $(LIB_DIR)/$(LIB_NAME)
 
 clean :
+	@make -C $(LIB_DIR) clean
 	rm -f $(OBJECTS)
 
 fclean : clean
+	@make -C $(LIB_DIR) fclean
 	rm -f $(NAME)
 
 re : fclean all
