@@ -47,7 +47,7 @@ int	main(int argc, char *argv[], char *env[])
             printf("exit\n");
 			exit (-1);
 		}
-		printf("out> %s\n", full_cmd);
+		// printf("out> %s\n", full_cmd);
 		add_history(full_cmd);
 		free(full_cmd);
 	}
