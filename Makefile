@@ -18,6 +18,8 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/copy.o \
 		./srcs/util.o \
 		./srcs/lst.o \
+		./srcs/tokenize.o \
+		./srcs/cmd_env.o \
 
 # ALLSRCS	= $(addprefix $(SRCS_DIR), $(OBJECTS))
 

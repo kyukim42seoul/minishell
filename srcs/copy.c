@@ -23,9 +23,9 @@ int	copy_env(t_info *info, char *env[])
 	check = info->head->next;
 	while (check->next != NULL)
 	{
-		printf("type : %d KEY : %s VALUE : %s\n", check->type, (char *)check->key, (char *)check->content);
+		printf("%s=%s\n", (char *)check->key, (char *)check->content);
 		check = check->next;
 	}
-	printf("type : %d KEY : %s VALUE : %s\n", check->type, (char *)check->key, (char *)check->content);
+	printf("%s=%s\n", (char *)check->key, (char *)check->content);
 	return (EXIT_SUCCESS);
 }

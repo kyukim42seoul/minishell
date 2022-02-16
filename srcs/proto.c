@@ -47,7 +47,8 @@ int	main(int argc, char *argv[], char *env[])
             printf("exit\n");
 			exit (-1);
 		}
-		// printf("out> %s\n", full_cmd);
+		// info->cmd = ft_strdup(&full_cmd);
+		input_tokenize(full_cmd, info);
 		add_history(full_cmd);
 		free(full_cmd);
 	}
