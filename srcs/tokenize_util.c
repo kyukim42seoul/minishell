@@ -2,30 +2,21 @@
 
 int quotation_len(char *s, int i, int type)
 {
-	int len;
+	char	c;
+	int		len;
 
-	len = 0;
 	if (type == SINGLE)
-	{
-		i++;
-		while (s[i])
-		{
-			if (s[i] == '\'')
-				break ;
-			len++;
-			i++;
-		}
-	}
+		c = '\'';
 	else if (type == DOUBLE)
+		c = '\"';
+	len = 0;
+	i++;
+	while (s[i])
 	{
+		if (s[i] == c)
+			break ;
+		len++;
 		i++;
-		while (s[i])
-		{
-			if (s[i] == '\"')
-				break ;
-			len++;
-			i++;
-		}
 	}
 	len = len + 2;
 	return(len);

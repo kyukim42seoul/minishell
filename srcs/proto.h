@@ -104,7 +104,7 @@ t_token	*kb_lstlast(t_token *lst);
 t_token	*kb_lstnew(void);
 
 //tokenize.c
-void	input_tokenize(char *full_command, t_info *info);
+void	tokenize(char *full_command, t_info *info);
 int 	characters_len(char *cmd, int i);
 
 //cmd_env.c

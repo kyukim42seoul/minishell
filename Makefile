@@ -19,7 +19,7 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/util.o \
 		./srcs/lst.o \
 		./srcs/tokenize.o \
-		./srcs/cmd_env.o \
+		./srcs/tokenize_cmd_env.o \
 		./srcs/tokenize_util.o \
 		./srcs/print_node.o \
 

@@ -42,30 +42,29 @@ char	*path_change_check(char *cmd, t_info *info)
 {
 	int i;
 	int quotat;
-	int type;
 	t_flag flag;
 
-	quotat = 0;
 	i = 0;
+	quotat = 0;
 	flag.num = 0;
 	while (cmd[i])
 	{
-		type = check_status_type(cmd[i]);
-		if (type == DOUBLE)
+		flag.type[0] = check_status_type(cmd[i]);
+		if (flag.type[0]  == DOUBLE)
 		{
 			if (quotat == 0)
 				quotat = DOUBLE;
 			else if (quotat == DOUBLE)
 				quotat = 0;
 		}
-		else if (type == SINGLE)
+		else if (flag.type[0]  == SINGLE)
 		{
 			if (quotat == 0)
 				quotat = SINGLE;
 			else if (quotat == SINGLE)
 				quotat = 0;
 		}
-		else if ((type == PATH) && (quotat != SINGLE))
+		else if ((flag.type[0]  == PATH) && (quotat != SINGLE))
 		{
 			flag.len[flag.num] = characters_len(cmd, i + 1);
 			flag.i_cur[flag.num] = i;
@@ -104,7 +103,7 @@ int quotation_check(char *s, int i)
 	return (status);
 }
 
-void	input_tokenize(char *full_command, t_info *info)
+void	tokenize(char *full_command, t_info *info)
 {
 	int		i;
 	int 	type;

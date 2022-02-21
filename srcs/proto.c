@@ -48,7 +48,7 @@ int	main(int argc, char *argv[], char *env[])
 			exit (-1);
 		}
 		// info->cmd = ft_strdup(&full_cmd);
-		input_tokenize(full_cmd, info);
+		tokenize(full_cmd, info);
 		add_history(full_cmd);
 		free(full_cmd);
 	}
