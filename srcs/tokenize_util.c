@@ -60,6 +60,8 @@ void	token_insert(t_info *info, int type, char *data)
 {
 	t_token	*current;
 
+	if (!(*data))
+		return ;
 	current = kb_lstnew();
 	current->type = type;
 	current->data = data;
