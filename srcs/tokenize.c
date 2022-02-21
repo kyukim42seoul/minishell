@@ -21,7 +21,7 @@ int	check_status_type(char c)
 	return (CHARACTERS);
 }
 
-int path_len(char *cmd, int i)
+int characters_len(char *cmd, int i)
 {
 	int len;
 	int type;
@@ -32,8 +32,8 @@ int path_len(char *cmd, int i)
 		type = check_status_type(cmd[i]);
 		if (type != CHARACTERS)
 			break ;
-		i++;
 		len++;
+		i++;
 	}
 	return (len);
 }
@@ -41,8 +41,8 @@ int path_len(char *cmd, int i)
 char	*path_change_check(char *cmd, t_info *info)
 {
 	int i;
-	int type;
 	int quotat;
+	int type;
 	t_flag flag;
 
 	quotat = 0;
@@ -67,13 +67,13 @@ char	*path_change_check(char *cmd, t_info *info)
 		}
 		else if ((type == PATH) && (quotat != SINGLE))
 		{
-			flag.len[flag.num] = path_len(cmd, i + 1);
+			flag.len[flag.num] = characters_len(cmd, i + 1);
 			flag.i_cur[flag.num] = i;
 			flag.num++;
 		}
 		i++;	
 	}
-	return (chang_cmd_to_env(cmd, flag, info));
+	return (change_cmd_to_env(cmd, flag, info));
 }
 
 int quotation_check(char *s, int i)
@@ -106,8 +106,9 @@ int quotation_check(char *s, int i)
 
 void	input_tokenize(char *full_command, t_info *info)
 {
-	//int		index;
-	//char *cmd;
+	int		i;
+	int 	type;
+	t_flag	flag;
 
 	if (!full_command)
 		return ;
@@ -115,15 +116,21 @@ void	input_tokenize(char *full_command, t_info *info)
 	if (quotation_check(full_command, 0))
 		return (exit(-1));
 	full_command = path_change_check(full_command, info);
-
-	// splited = command_split(full_command);
-
-	// while (**splited)
-	// {
-	// 	current->data = **splited;
-	// 	current->type = check_type(**splited);
-	// 	sh_lstadd_back(&info->t_head, current);
-	// 	splited++;
-	// }
-	// check = info->t_head->next;
+	flag.num = 0;
+	i = 0;
+	while (full_command[i])
+	{
+		type = check_status_type(full_command[i]);
+		if (type != FTSPACE)
+		{
+			flag.i_cur[flag.num] = i;
+			flag.type[flag.num] = type;
+			flag.len[flag.num] = token_len_check(full_command, i, &flag);
+			i = i + flag.len[flag.num];
+			flag.num++;
+		}
+		else
+			i++;
+	}
+	make_token_node(full_command, flag, info);
 }

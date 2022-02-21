@@ -18,11 +18,10 @@ char	*take_env_value(t_list *head, char *key, int len)
 
 char *cmd_key_to_value(char *cmd, t_flag *flag, int i, char *vlaue)
 {
-	char *start;
-	char *end;
-	char *temp;
-	int 	last_len;
-
+	char	*start;
+	char	*end;
+	char	*temp;
+	int		last_len;
 
 	start = ft_substr(cmd, 0, flag->i_cur[i]);
 	temp = ft_strjoin(start, vlaue);
@@ -40,7 +39,8 @@ char *cmd_key_to_value(char *cmd, t_flag *flag, int i, char *vlaue)
 	}
 	return (start);
 }
-char *chang_cmd_to_env(char *cmd, t_flag flag, t_info *info)
+
+char *change_cmd_to_env(char *cmd, t_flag flag, t_info *info)
 {
 	char *str;
 	char *env_key;
@@ -48,7 +48,6 @@ char *chang_cmd_to_env(char *cmd, t_flag flag, t_info *info)
 	int i;
 
 	str = cmd;
-	printf("before = %s\n", str);
 	i = 0;
 	while (i < flag.num)
 	{
@@ -57,6 +56,5 @@ char *chang_cmd_to_env(char *cmd, t_flag flag, t_info *info)
 		str = cmd_key_to_value(str, &flag, i, env_value);
 		i++;
 	}
-	printf("after = %s\n", str);
 	return (str);
 }

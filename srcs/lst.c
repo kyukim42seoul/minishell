@@ -28,3 +28,23 @@ void	sh_lstadd_back(t_list **lst, t_list *new)
 	sh_lstlast(*lst)->next = new;
 	new->next = NULL;
 }
+
+t_token	*kb_lstnew(void)
+{
+	t_token	*new;
+
+	new = malloc(sizeof(t_token));
+	if (!new)
+		return (NULL);
+	new->next = NULL;
+	return (new);
+}
+
+t_token	*kb_lstlast(t_token *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
