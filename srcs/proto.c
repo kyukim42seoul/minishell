@@ -25,12 +25,20 @@ void	set_signal()
 	signal(SIGQUIT, SIG_IGN); //ctrl + /
 }
 
+
+/*
+	main 함수 설명
+
+*/
+
+
 int	main(int argc, char *argv[], char *env[])
 {
 	int		temp_argc;
 	char	**temp_argv;
 	char	*full_cmd;
 	t_info	*info;
+	t_token	*temp;
 
 	temp_argc = argc;
 	temp_argv = argv;
@@ -47,8 +55,14 @@ int	main(int argc, char *argv[], char *env[])
             printf("exit\n");
 			exit (-1);
 		}
-		// info->cmd = ft_strdup(&full_cmd);
 		tokenize(full_cmd, info);
+		temp = kb_lstnew();
+		temp->type = PIPE;
+		lstadd_front(&info->t_head, temp);
+		info->t_head = temp;
+		set_type(info->t_head->next);
+		if (syntax_hub(info->t_head->next, info->debug) == EXIT_FAILURE)
+			printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, info->debug->error_point_data);
 		add_history(full_cmd);
 		free(full_cmd);
 	}

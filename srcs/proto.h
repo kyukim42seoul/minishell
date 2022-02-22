@@ -36,6 +36,7 @@
 # define 	DOUBLE 9
 # define	BUILTIN 10
 # define	OPTION 11
+# define	CMD 12
 
 # define	STANDARD 100
 
@@ -73,6 +74,12 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef struct s_debug
+{
+	char			*syntax_error;
+	void			*error_point_data;
+}					t_debug;
+
 typedef struct s_info
 {
 	char			*cmd;
@@ -81,6 +88,7 @@ typedef struct s_info
 	int				double_shift_flag;
 	t_list			*head;
 	t_token			*t_head;
+	t_debug			*debug;
 }					t_info;
 
 
@@ -102,6 +110,7 @@ t_list	*sh_lstlast(t_list *lst);
 void	sh_lstadd_back(t_list **lst, t_list *new);
 t_token	*kb_lstlast(t_token *lst);
 t_token	*kb_lstnew(void);
+void	lstadd_front(t_token **lst, t_token *new);
 
 //tokenize.c
 void	tokenize(char *full_command, t_info *info);
@@ -116,5 +125,13 @@ int		token_len_check(char *s, int i, t_flag *flag);
 
 //print_node.c
 void	print_t_token(t_info *info);
+void	print_env(t_info *info);
+
+//syntax.c
+int		syntax_hub(t_token *tokens, t_debug *debug);
+
+//set_type.c
+int		set_type(t_token *tokens);
+int	syntax_word(t_token *tokens,t_debug *debug);
 
 #endif

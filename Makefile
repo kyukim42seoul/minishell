@@ -22,10 +22,12 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/tokenize_cmd_env.o \
 		./srcs/tokenize_util.o \
 		./srcs/print_node.o \
+		./srcs/syntax.o \
+		./srcs/set_type.o \
 
 # ALLSRCS	= $(addprefix $(SRCS_DIR), $(OBJECTS))
 
-all : $(NAME)
+all : $(NAME) clean
 
 $(NAME) : $(OBJECTS)
 	@make -C $(LIB_DIR)

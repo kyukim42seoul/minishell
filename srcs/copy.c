@@ -5,7 +5,6 @@ int	copy_env(t_info *info, char *env[])
 	int		index;
 	int		lenth;
 	t_list	*current;
-	t_list	*check;
 
 	index = 0;
 	lenth = 0;
@@ -20,12 +19,6 @@ int	copy_env(t_info *info, char *env[])
 		sh_lstadd_back(&info->head, current);
 		index++;
 	}
-	check = info->head->next;
-	while (check->next != NULL)
-	{
-		printf("%s=%s\n", (char *)check->key, (char *)check->content);
-		check = check->next;
-	}
-	printf("%s=%s\n", (char *)check->key, (char *)check->content);
+	print_env(info);
 	return (EXIT_SUCCESS);
 }
