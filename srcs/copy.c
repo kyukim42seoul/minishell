@@ -8,7 +8,7 @@ int	copy_env(t_info *info, char *env[])
 
 	index = 0;
 	lenth = 0;
-	info->head = NULL;
+	info->head = sh_lstnew(NULL);
 	while (env[index] != NULL)
 	{
 		lenth = sh_strchr(env[index], '=') - env[index];
