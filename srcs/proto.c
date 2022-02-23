@@ -56,12 +56,15 @@ int	main(int argc, char *argv[], char *env[])
 			exit (-1);
 		}
 		tokenize(full_cmd, info);
-		temp = kb_lstnew();
-		temp->type = PIPE;
-		lstadd_front(&info->t_head, temp);
-		info->t_head = temp;
-		set_type(info->t_head->next);
-		if (syntax_hub(info->t_head->next, info->debug) == EXIT_FAILURE)
+		if (info->t_head != NULL)
+		{
+			temp = kb_lstnew();
+			temp->type = PIPE;
+			lstadd_front(&info->t_head, temp);
+			info->t_head = temp;
+		}
+		set_type(info->t_head);
+		if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
 			printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, info->debug->error_point_data);
 		add_history(full_cmd);
 		free(full_cmd);

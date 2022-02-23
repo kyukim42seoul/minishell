@@ -100,11 +100,14 @@ int	check_order(t_token *tokens,t_debug *debug)
 	}
 }
 
-int	syntax_hub(t_token *tokens,t_debug *debug)		//양방향 리스트 / 0(OK), 1(FailL), 2(Not Complete)
+int	syntax_hub(t_token *head,t_debug *debug)		//양방향 리스트 / 0(OK), 1(FailL), 2(Not Complete)
 {
 	t_token	*cur;
 
-	cur = tokens;
+	cur = 0;
+	if (head == NULL)
+		return (EXIT_FAILURE);
+	cur = head->next;
 	while (cur->next)
 	{
 		if (check_order(cur, debug) == EXIT_FAILURE)

@@ -128,10 +128,10 @@ void	print_t_token(t_info *info);
 void	print_env(t_info *info);
 
 //syntax.c
-int		syntax_hub(t_token *tokens, t_debug *debug);
+int		syntax_hub(t_token *head, t_debug *debug);
 
 //set_type.c
-int		set_type(t_token *tokens);
-int	syntax_word(t_token *tokens,t_debug *debug);
+int		set_type(t_token *head);
+int		syntax_word(t_token *tokens,t_debug *debug);
 
 #endif
