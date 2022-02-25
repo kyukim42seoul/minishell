@@ -1,6 +1,6 @@
 
 NAME = minishell
-CC = gcc
+CC = gcc -g3 -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
 CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
@@ -24,6 +24,7 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/print_node.o \
 		./srcs/syntax.o \
 		./srcs/set_type.o \
+		./srcs/implement_cmd.o \
 
 # ALLSRCS	= $(addprefix $(SRCS_DIR), $(OBJECTS))
 

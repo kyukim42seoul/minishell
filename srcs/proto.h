@@ -134,4 +134,6 @@ int		syntax_hub(t_token *tokens, t_debug *debug);
 int		set_type(t_token *tokens);
 int	syntax_word(t_token *tokens,t_debug *debug);
 
+
+void	implement_cmd(t_info *info, int *exit_signal);
 #endif

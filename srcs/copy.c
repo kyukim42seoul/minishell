@@ -19,6 +19,6 @@ int	copy_env(t_info *info, char *env[])
 		sh_lstadd_back(&info->head, current);
 		index++;
 	}
-	print_env(info);
+	//print_env(info);
 	return (EXIT_SUCCESS);
 }
