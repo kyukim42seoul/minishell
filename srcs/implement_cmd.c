@@ -1,6 +1,6 @@
 #include "proto.h"
 
-char **made(t_info *info)
+char **made_temp(t_info *info)
 {
 	char **s = NULL;
 	int len;
@@ -29,6 +29,37 @@ char **made(t_info *info)
 	return (s);
 }
 
+void	print_export(t_info *info, int fd)
+{
+	t_list *check;
+
+	check = info->head;
+	while (check != NULL)
+	{
+		ft_putstr_fd("declare -x ", fd);
+		ft_putstr_fd((char *)check->key, fd);
+		ft_putchar_fd('=', fd);
+		ft_putstr_fd((char *)check->content, fd);
+		ft_putchar_fd('\n', fd);
+		check = check->next;
+	}
+}
+
+int	str_len(char **str)
+{
+	int len;
+	char **temp;
+
+	len = 0;
+	temp = str;
+	while (*temp)
+	{
+		len++;
+		temp++;
+	}
+	return (len);
+}
+
 /*
 	[예시]
 	export test 		-> export 에서 출력 o, env 에서 출력 x
@@ -38,9 +69,18 @@ char **made(t_info *info)
 */
 void	builtin_export(t_info *info, int fd)
 {
-	char **str;
+	char	**str;
+	int		i;
 
-	str = made(info);
+	str = made_temp(info);
+	if (str_len(str) == 1)
+		print_export(info, fd);
+	else
+	{
+		i = 0;
+
+	}
+
 	printf("%d\n", fd);
 }
 
@@ -49,7 +89,7 @@ void	builtin_env(t_info *info, int fd)
 	t_list *check;
 
 	check = info->head;
-	while (check->next != NULL)
+	while (check != NULL)
 	{
 		if (check->content != NULL)
 		{	
@@ -59,13 +99,6 @@ void	builtin_env(t_info *info, int fd)
 			ft_putchar_fd('\n', fd);
 		}
 		check = check->next;
-	}
-	if (check->content != NULL)
-	{	
-		ft_putstr_fd((char *)check->key, fd);
-		ft_putchar_fd('=', fd);
-		ft_putstr_fd((char *)check->content, fd);
-		ft_putchar_fd('\n', fd);
 	}
 }
 
