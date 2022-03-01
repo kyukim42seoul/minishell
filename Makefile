@@ -24,8 +24,9 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/print_node.o \
 		./srcs/syntax.o \
 		./srcs/set_type.o \
-		./srcs/implement_cmd.o \
-		./srcs/builtin.o \
+		./srcs/builtin/builtin.o \
+		./srcs/builtin/builtin_util.o \
+		./srcs/builtin/builtin_util2.o \
 
 # ALLSRCS	= $(addprefix $(SRCS_DIR), $(OBJECTS))
 

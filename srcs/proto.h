@@ -132,11 +132,26 @@ int		syntax_hub(t_token *tokens, t_debug *debug);
 
 //set_type.c
 int		set_type(t_token *tokens);
-int	syntax_word(t_token *tokens,t_debug *debug);
+int		syntax_word(t_token *tokens,t_debug *debug);
+
+//builtin.c
+void			implement_cmd(t_info *info, int *exit_signal);
+int				str_len(char **str);
+char			**made_temp(t_info *info);
+
+//builtin_util.c
+void	builtin_env(t_info *info, int fd);
+void	builtin_export(t_info *info, int fd, int *exit_signal);
 
 
-void	implement_cmd(t_info *info, int *exit_signal);
-char **made_temp(t_info *info);
-int	str_len(char **str);
+
+//builtin_util2.c
 void	builtin_unset(t_info *info, int *exit_signal);
+
+
+
+// void		implement_cmd(t_info *info, int *exit_signal);
+// char 	**made_temp(t_info *info);
+// int			str_len(char **str);
+// void		builtin_unset(t_info *info, int *exit_signal);
 #endif
