@@ -2,12 +2,12 @@
 NAME = minishell
 CC = gcc -g3 -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
-CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
-LIBRARYS = -lreadline
-# LDFLAGS = -L/usr/local/opt/readline/lib
-# CPPFLAGS = -I/usr/local/opt/readline/include
+# LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
+# CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
 # LIBRARYS = -lreadline
+LDFLAGS = -L/usr/local/opt/readline/lib
+CPPFLAGS = -I/usr/local/opt/readline/include
+LIBRARYS = -lreadline
 
 LIB_NAME	= libft.a
 # SRCS_DIR	= ./srcs/
@@ -25,8 +25,13 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/syntax.o \
 		./srcs/set_type.o \
 		./srcs/builtin/builtin.o \
-		./srcs/builtin/builtin_util.o \
-		./srcs/builtin/builtin_util2.o \
+		./srcs/builtin/builtin_env.o \
+		./srcs/builtin/builtin_unset.o \
+		./srcs/builtin/builtin_export.o \
+		./srcs/builtin/builtin_pwd.o \
+		./srcs/builtin/builtin_cd.o \
+		./srcs/builtin/builtin_echo.o \
+
 
 # ALLSRCS	= $(addprefix $(SRCS_DIR), $(OBJECTS))
 

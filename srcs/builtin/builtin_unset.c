@@ -57,7 +57,7 @@ void	builtin_unset(t_info *info, int *exit_signal)
 			else
 			{
 				printf("bash: unset: `%s': not a valid identifier\n", *str);
-				*exit_signal = 1;	
+				*exit_signal = 1;
 			}
 		}
 	}

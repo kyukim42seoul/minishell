@@ -53,15 +53,15 @@ void	implement_cmd(t_info *info, int *exit_signal)
 	fd[0] = STDIN_FILENO;
 	fd[1] = STDOUT_FILENO; 
 	if (!ft_strncmp("env", info->t_head->next->data, 4))
-		builtin_env(info, fd[1]);
+		builtin_env(info, fd[1], exit_signal);
 	else if (!ft_strncmp("export", info->t_head->next->data, 7))
 		builtin_export(info, fd[1], exit_signal);
 	else if (!ft_strncmp("unset", info->t_head->next->data, 6))
 		builtin_unset(info, exit_signal);
-	// else if (!ft_strncmp("pwd", cmd, 4))
-	// 	builtin_pwd(info, exit_signal);
-	// else if (!ft_strncmp("cd", cmd, 3))
-	// 	builtin_cd(info, exit_signal);
+	else if (!ft_strncmp("pwd", info->t_head->next->data, 4))
+		builtin_pwd(info, fd[1], exit_signal);
+	else if (!ft_strncmp("cd", info->t_head->next->data, 3))
+		builtin_cd(info, fd[1], exit_signal);
 	// else if (!ft_strncmp("echo", cmd, 5))
 	// 	builtin_echo(info, exit_signal);
 	// else if (!ft_strncmp("exit", cmd, 5))

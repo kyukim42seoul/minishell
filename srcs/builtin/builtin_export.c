@@ -137,25 +137,4 @@ void	builtin_export(t_info *info, int fd, int *exit_signal)
 				export_value(info, *str, i, 3);
 		}
 	}
-
-	printf("%d\n", fd);
-}
-
-
-void	builtin_env(t_info *info, int fd)
-{
-	t_list *check;
-
-	check = info->head;
-	while (check != NULL)
-	{
-		if (check->content != NULL)
-		{	
-			ft_putstr_fd((char *)check->key, fd);
-			ft_putchar_fd('=', fd);
-			ft_putstr_fd((char *)check->content, fd);
-			ft_putchar_fd('\n', fd);
-		}
-		check = check->next;
-	}
 }

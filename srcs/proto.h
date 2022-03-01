@@ -139,17 +139,31 @@ void			implement_cmd(t_info *info, int *exit_signal);
 int				str_len(char **str);
 char			**made_temp(t_info *info);
 
-//builtin_util.c
-void	builtin_env(t_info *info, int fd);
+//builtin_env.c
+void	builtin_env(t_info *info, int fd, int *exit_signal);
+
+//builtin_export.c
 void	builtin_export(t_info *info, int fd, int *exit_signal);
 
-
-
-//builtin_util2.c
+//builtin_unset.c
 void	builtin_unset(t_info *info, int *exit_signal);
 
+//builtin_pwd.c
+void	builtin_pwd(t_info *info, int fd, int *exit_signal);
+
+//builtin_cd.c
+
+//builtin_echo.c
+
+//builtin_exit.c
 
 
+// void	builtin_env(t_info *info, int fd, int *exit_signal);
+// void	builtin_export(t_info *info, int fd, int *exit_signal);
+// //builtin_util2.c
+// void	builtin_unset(t_info *info, int *exit_signal);
+// //builtin_pwd.c
+// void	builtin_pwd(t_info *info, int fd, int *exit_signal);
 // void		implement_cmd(t_info *info, int *exit_signal);
 // char 	**made_temp(t_info *info);
 // int			str_len(char **str);
