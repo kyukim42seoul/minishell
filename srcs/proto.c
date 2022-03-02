@@ -66,6 +66,7 @@ int	main(int argc, char *argv[], char *env[])
 		set_type(info->t_head);
 		if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
 			printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, info->debug->error_point_data);
+		parse_tree(info);
 		add_history(full_cmd);
 		free(full_cmd);
 	}

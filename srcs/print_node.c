@@ -37,3 +37,34 @@ void	print_env(t_info *info)
 	}
 	printf("%s=%s\n", (char *)check->key, (char *)check->content);
 }
+
+void	padding(int level)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = level * 16;
+	while (i < len)
+	{
+		printf(" ");
+		i++;
+	}
+}
+
+void	print_tree(t_tree *root, int level)
+{
+	if (root == NULL)
+	{
+		padding(level);
+		printf("<NULL>\n");
+		return ;
+	}
+	else
+	{
+		print_tree(root->right, level + 1);
+		padding(level);
+		printf("<%d : \"%s\">\n", root->type, root->data);
+		print_tree(root->left, level + 1);
+	}
+}

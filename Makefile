@@ -2,12 +2,12 @@
 NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
-CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
+#LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
+#CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
 LIBRARYS = -lreadline
-# LDFLAGS = -L/usr/local/opt/readline/lib
-# CPPFLAGS = -I/usr/local/opt/readline/include
-# LIBRARYS = -lreadline
+ LDFLAGS = -L/usr/local/opt/readline/lib
+ CPPFLAGS = -I/usr/local/opt/readline/include
+ LIBRARYS = -lreadline
 
 LIB_NAME	= libft.a
 # SRCS_DIR	= ./srcs/
@@ -24,6 +24,8 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/print_node.o \
 		./srcs/syntax.o \
 		./srcs/set_type.o \
+		./srcs/parse.o \
+		./srcs/tree_util.o \
 
 # ALLSRCS	= $(addprefix $(SRCS_DIR), $(OBJECTS))
 

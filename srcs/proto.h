@@ -65,7 +65,13 @@ typedef	struct s_token
 	struct s_token	*prev;
 }				t_token;
 
-
+typedef struct s_tree
+{
+	int				type;
+	char			*data;
+	struct s_tree	*left;
+	struct s_tree	*right;
+}				t_tree;
 typedef struct s_list
 {
 	int				type;
@@ -90,8 +96,6 @@ typedef struct s_info
 	t_token			*t_head;
 	t_debug			*debug;
 }					t_info;
-
-
 
 //init.c
 int		init_info(t_info **info);
@@ -126,6 +130,7 @@ int		token_len_check(char *s, int i, t_flag *flag);
 //print_node.c
 void	print_t_token(t_info *info);
 void	print_env(t_info *info);
+void	print_tree(t_tree *root, int level);
 
 //syntax.c
 int		syntax_hub(t_token *head, t_debug *debug);
@@ -133,5 +138,17 @@ int		syntax_hub(t_token *head, t_debug *debug);
 //set_type.c
 int		set_type(t_token *head);
 int		syntax_word(t_token *tokens,t_debug *debug);
+
+//tree_util.c
+t_tree	*dup_node(t_token *token);
+t_tree	*type_only_node(int type);
+t_tree	*tree_pipe(t_tree *root, t_token *token);
+void	left_subtree(t_tree *root, t_tree *sub);
+void	right_subtree(t_tree *root, t_tree *sub);
+t_tree	*tree_io(t_tree *root, t_token *token);
+t_tree	*tree_bin(t_tree *root, t_token *token);
+
+//parse.c
+int		parse_tree(t_info *info);
 
 #endif
