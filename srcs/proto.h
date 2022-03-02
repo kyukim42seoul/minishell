@@ -155,6 +155,7 @@ void	builtin_pwd(t_info *info, int fd, int *exit_signal);
 //builtin_cd.c
 void	builtin_cd(t_info *info, int *exit_signal);
 //builtin_echo.c
+void	builtin_echo(t_info *info, int fd, int *exit_signal);
 
 //builtin_exit.c
 

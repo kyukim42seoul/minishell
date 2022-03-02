@@ -72,8 +72,8 @@ void	implement_cmd(t_info *info, int *exit_signal)
 		builtin_pwd(info, fd[1], exit_signal);
 	else if (!ft_strncmp("cd", info->t_head->next->data, 3))
 		builtin_cd(info, exit_signal);
-	// else if (!ft_strncmp("echo", cmd, 5))
-	// 	builtin_echo(info, exit_signal);
+	else if (!ft_strncmp("echo", info->t_head->next->data, 5))
+		builtin_echo(info, fd[1], exit_signal);
 	// else if (!ft_strncmp("exit", cmd, 5))
 	// 	builtin_exit(info, exit_signal);
 	
