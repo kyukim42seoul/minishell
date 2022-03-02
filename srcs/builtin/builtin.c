@@ -1,5 +1,15 @@
 #include "../proto.h"
 
+void	env_add(t_info *info, char *key, char *content)
+{
+	t_list *check;
+
+	check = sh_lstnew(NULL);
+	check->type = O_ENV;
+	check->content = content;
+	check->key = key;
+	sh_lstadd_back(&info->head, check);
+}
 char **made_temp(t_info *info)
 {
 	char **s = NULL;
@@ -61,7 +71,7 @@ void	implement_cmd(t_info *info, int *exit_signal)
 	else if (!ft_strncmp("pwd", info->t_head->next->data, 4))
 		builtin_pwd(info, fd[1], exit_signal);
 	else if (!ft_strncmp("cd", info->t_head->next->data, 3))
-		builtin_cd(info, fd[1], exit_signal);
+		builtin_cd(info, exit_signal);
 	// else if (!ft_strncmp("echo", cmd, 5))
 	// 	builtin_echo(info, exit_signal);
 	// else if (!ft_strncmp("exit", cmd, 5))

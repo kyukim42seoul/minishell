@@ -138,6 +138,7 @@ int		syntax_word(t_token *tokens,t_debug *debug);
 void			implement_cmd(t_info *info, int *exit_signal);
 int				str_len(char **str);
 char			**made_temp(t_info *info);
+void	env_add(t_info *info, char *key, char *content);
 
 //builtin_env.c
 void	builtin_env(t_info *info, int fd, int *exit_signal);
@@ -152,7 +153,7 @@ void	builtin_unset(t_info *info, int *exit_signal);
 void	builtin_pwd(t_info *info, int fd, int *exit_signal);
 
 //builtin_cd.c
-
+void	builtin_cd(t_info *info, int *exit_signal);
 //builtin_echo.c
 
 //builtin_exit.c
