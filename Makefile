@@ -31,6 +31,7 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/builtin/builtin_pwd.o \
 		./srcs/builtin/builtin_cd.o \
 		./srcs/builtin/builtin_echo.o \
+		./srcs/builtin/builtin_exit.o \
 
 
 # ALLSRCS	= $(addprefix $(SRCS_DIR), $(OBJECTS))

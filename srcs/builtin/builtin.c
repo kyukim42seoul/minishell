@@ -59,7 +59,6 @@ void	implement_cmd(t_info *info, int *exit_signal)
 {
 	int fd[2];
 
-	*exit_signal = 0;
 	fd[0] = STDIN_FILENO;
 	fd[1] = STDOUT_FILENO; 
 	if (!ft_strncmp("env", info->t_head->next->data, 4))
@@ -74,7 +73,6 @@ void	implement_cmd(t_info *info, int *exit_signal)
 		builtin_cd(info, exit_signal);
 	else if (!ft_strncmp("echo", info->t_head->next->data, 5))
 		builtin_echo(info, fd[1], exit_signal);
-	// else if (!ft_strncmp("exit", cmd, 5))
-	// 	builtin_exit(info, exit_signal);
-	
+	else if (!ft_strncmp("exit", info->t_head->next->data, 5))
+		builtin_exit(info, exit_signal);
 }

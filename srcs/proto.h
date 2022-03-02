@@ -158,7 +158,7 @@ void	builtin_cd(t_info *info, int *exit_signal);
 void	builtin_echo(t_info *info, int fd, int *exit_signal);
 
 //builtin_exit.c
-
+void	builtin_exit(t_info *info, int *exit_signal);
 
 // void	builtin_env(t_info *info, int fd, int *exit_signal);
 // void	builtin_export(t_info *info, int fd, int *exit_signal);
