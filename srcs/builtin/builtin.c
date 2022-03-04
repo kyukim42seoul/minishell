@@ -10,6 +10,7 @@ void	env_add(t_info *info, char *key, char *content)
 	check->key = key;
 	sh_lstadd_back(&info->head, check);
 }
+
 char **made_temp(t_info *info)
 {
 	char **s = NULL;
@@ -53,7 +54,6 @@ int	str_len(char **str)
 	}
 	return (len);
 }
-
 
 void	implement_cmd(t_info *info, int *exit_signal)
 {
