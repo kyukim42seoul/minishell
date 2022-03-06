@@ -37,6 +37,12 @@
 # define	BUILTIN 10
 # define	OPTION 11
 # define	CMD 12
+# define	PSPIPE 13
+# define	PSCMD 14
+# define	PSIO 15
+# define	PSREDIR 16
+# define	PSBIN 17
+
 
 # define	STANDARD 100
 
@@ -68,7 +74,7 @@ typedef	struct s_token
 typedef struct s_tree
 {
 	int				type;
-	char			*data;
+	char			**data;
 	struct s_tree	*left;
 	struct s_tree	*right;
 }				t_tree;
@@ -94,6 +100,7 @@ typedef struct s_info
 	int				double_shift_flag;
 	t_list			*head;
 	t_token			*t_head;
+	t_tree			*root;
 	t_debug			*debug;
 }					t_info;
 
@@ -107,6 +114,8 @@ int		copy_env(t_info *info, char *env[]);
 size_t	sh_strlen(const char *s);
 char	*sh_substr(char const *s, unsigned int start, size_t len);
 char	*sh_strchr(const char *s, int c);
+char	**add_str(char **str, char **new);
+void	check_data(char *message, char **data);
 
 //lst.c
 t_list	*sh_lstnew(void *content);
@@ -142,11 +151,14 @@ int		syntax_word(t_token *tokens,t_debug *debug);
 //tree_util.c
 t_tree	*dup_node(t_token *token);
 t_tree	*type_only_node(int type);
-t_tree	*tree_pipe(t_tree *root, t_token *token);
+t_tree	*tree_pipe(t_tree *root, t_tree *new);
 void	left_subtree(t_tree *root, t_tree *sub);
 void	right_subtree(t_tree *root, t_tree *sub);
-t_tree	*tree_io(t_tree *root, t_token *token);
-t_tree	*tree_bin(t_tree *root, t_token *token);
+t_tree	*tree_io(t_tree *root, t_tree *new);
+t_tree	*tree_bin(t_tree *root, t_tree *new);
+t_tree	*tree_arg(t_tree *root, t_tree *new);
+void	postorder_del_tree(t_tree *root);
+void	del_node(t_tree *node);
 
 //parse.c
 int		parse_tree(t_info *info);

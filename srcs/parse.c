@@ -2,25 +2,42 @@
 
 int	parse_tree(t_info *info)
 {
+	static int	test_index;
 	t_token	*token;
-	t_tree	*tree;
+	t_tree	*root;
+	t_tree	*new_node;
 
+	if (info->t_head == NULL)
+		return (EXIT_FAILURE);
 	token = info->t_head->next;
-	tree = 0;
-	tree = tree_pipe(tree, token);				//기본 트리 생성
+	root = 0;
+	new_node = 0;
+	root = tree_pipe(root, NULL);
 	while (token->next)
 	{
-		printf("treeing : %d : %s\n", token->type, token->data);
-		if (token->type == PIPE)
-			tree = tree_pipe(tree, token);
-		else if (token->type >= LEFT_REDI && token->type <= RIGHT_DOUBLE_REDI)
-			tree = tree_io(tree, token);
-		else if (token->type == CMD || token->type == BUILTIN)
-			tree = tree_bin(tree, token);
+		test_index++;
+		new_node = dup_node(token);
+		if (new_node->type == PIPE)
+			root = tree_pipe(root, new_node);
+		else if (new_node->type >= LEFT_REDI && new_node->type <= RIGHT_DOUBLE_REDI)
+			root = tree_io(root, new_node);
+		else if (new_node->type == CMD || new_node->type == BUILTIN)
+			root = tree_bin(root, new_node);
+		else if (new_node->type == CHARACTERS)
+			root = tree_arg(root, new_node);
+//		print_tree(root, 0);																//tree 생성 과정 확인용
 		token = token->next;
 	}
-	if (token->type == PIPE)
-			tree = tree_pipe(tree, token);
-	print_tree(tree, 0);
+	new_node = dup_node(token);
+	if (new_node->type == PIPE)
+		root = tree_pipe(root, new_node);
+	else if (new_node->type >= LEFT_REDI && new_node->type <= RIGHT_DOUBLE_REDI)
+		root = tree_io(root, new_node);
+	else if (new_node->type == CMD || new_node->type == BUILTIN)
+		root = tree_bin(root, new_node);
+	else if (new_node->type == CHARACTERS)
+		root = tree_arg(root, new_node);
+	print_tree(root, 0);																	//완성된 트리
+	info->root = root;
 	return (EXIT_SUCCESS);
 }

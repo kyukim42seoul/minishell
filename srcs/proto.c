@@ -69,6 +69,8 @@ int	main(int argc, char *argv[], char *env[])
 		parse_tree(info);
 		add_history(full_cmd);
 		free(full_cmd);
+		postorder_del_tree(info->root);
+		info->root = 0;
 	}
 	return (EXIT_SUCCESS);
 }

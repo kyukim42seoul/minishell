@@ -54,6 +54,9 @@ void	padding(int level)
 
 void	print_tree(t_tree *root, int level)
 {
+	int	index;
+
+	index =0;
 	if (root == NULL)
 	{
 		padding(level);
@@ -64,7 +67,16 @@ void	print_tree(t_tree *root, int level)
 	{
 		print_tree(root->right, level + 1);
 		padding(level);
-		printf("<%d : \"%s\">\n", root->type, root->data);
+		if (root->data)
+		{
+			printf("<%d : ", root->type);
+			while (root->data[index])
+			{
+				printf("\"%s\" ", root->data[index]);
+				index++;
+			}
+			printf(">\n");
+		}
 		print_tree(root->left, level + 1);
 	}
 }

@@ -62,7 +62,7 @@ int	syntax_redir(t_token *tokens,t_debug *debug)	// 앞에 PIPE 혹은 BUILTIN �
 	return (EXIT_SUCCESS);
 }
 
-int	syntax_word(t_token *tokens,t_debug *debug)	// 앞에 redir(4) 혹은 BUILTIN 혹은 CMD 가 있어야 한다.
+int	syntax_word(t_token *tokens,t_debug *debug)	// 앞에 REDIR(or DOUBLE REDIR) 혹은 BUILTIN 혹은 CMD 가 있어야 한다.
 {
 	t_token	*cur;
 
@@ -83,7 +83,6 @@ int	syntax_word(t_token *tokens,t_debug *debug)	// 앞에 redir(4) 혹은 BUILTI
 
 int	check_order(t_token *tokens,t_debug *debug)
 {
-	printf("checking : %s\n", tokens->data);
 	if (tokens->type == PIPE)
 		return (syntax_pipe(tokens, debug));
 	else if (tokens->type == BUILTIN || tokens->type == CMD)
