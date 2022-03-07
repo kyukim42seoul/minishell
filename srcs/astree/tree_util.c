@@ -1,4 +1,4 @@
-# include "proto.h"
+# include "../proto.h"
 
 void	del_node(t_tree *node)
 {

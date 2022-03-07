@@ -1,4 +1,4 @@
-# include "proto.h"
+# include "../proto.h"
 
 int	parse_tree(t_info *info)
 {
@@ -7,7 +7,7 @@ int	parse_tree(t_info *info)
 	t_tree	*root;
 	t_tree	*new_node;
 
-	if (info->t_head == NULL)
+	if (info->t_head->next == NULL)
 		return (EXIT_FAILURE);
 	token = info->t_head->next;
 	root = 0;
