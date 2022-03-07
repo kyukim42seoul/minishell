@@ -163,4 +163,31 @@ void	del_node(t_tree *node);
 //parse.c
 int		parse_tree(t_info *info);
 
+//builtin.c
+void			implement_cmd(t_info *info, int *exit_signal);
+int				str_len(char **str);
+char			**made_temp(t_info *info);
+void	env_add(t_info *info, char *key, char *content);
+
+//builtin_env.c
+void	builtin_env(t_info *info, int fd, int *exit_signal);
+
+//builtin_export.c
+void	builtin_export(t_info *info, int fd, int *exit_signal);
+
+//builtin_unset.c
+void	builtin_unset(t_info *info, int *exit_signal);
+
+//builtin_pwd.c
+void	builtin_pwd(t_info *info, int fd, int *exit_signal);
+
+//builtin_cd.c
+void	builtin_cd(t_info *info, int *exit_signal);
+//builtin_echo.c
+void	builtin_echo(t_info *info, int fd, int *exit_signal);
+
+//builtin_exit.c
+void	builtin_exit(t_info *info, int *exit_signal);
+
+
 #endif
