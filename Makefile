@@ -6,8 +6,8 @@ CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
 CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
 LIBRARYS = -lreadline
-#  LDFLAGS = -L/usr/local/opt/readline/lib
-#  CPPFLAGS = -I/usr/local/opt/readline/include
+# LDFLAGS = -L/usr/local/opt/readline/lib
+# CPPFLAGS = -I/usr/local/opt/readline/include
 #  LIBRARYS = -lreadline
 
 LIB_NAME	= libft.a
@@ -25,8 +25,8 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/print_node.o \
 		./srcs/syntax.o \
 		./srcs/set_type.o \
-		./srcs/parse.o \
-		./srcs/tree_util.o \
+		./srcs/astree/parse.o \
+		./srcs/astree/tree_util.o \
 		./srcs/builtin/builtin.o \
 		./srcs/builtin/builtin_env.o \
 		./srcs/builtin/builtin_unset.o \
@@ -35,6 +35,7 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/builtin/builtin_cd.o \
 		./srcs/builtin/builtin_echo.o \
 		./srcs/builtin/builtin_exit.o \
+
 
 
 # ALLSRCS	= $(addprefix $(SRCS_DIR), $(OBJECTS))
