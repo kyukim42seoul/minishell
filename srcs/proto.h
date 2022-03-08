@@ -105,6 +105,8 @@ typedef struct s_info
 	t_debug			*debug;
 }					t_info;
 
+typedef void (*VisitFuncPtr)(int data);
+
 //init.c
 int		init_info(t_info **info);
 
@@ -160,6 +162,7 @@ t_tree	*tree_bin(t_tree *root, t_tree *new);
 t_tree	*tree_arg(t_tree *root, t_tree *new);
 void	postorder_del_tree(t_tree *root);
 void	del_node(t_tree *node);
+t_tree	*tree_search_type(t_tree *root, int type);
 
 //parse.c
 int		parse_tree(t_info *info);
@@ -193,5 +196,7 @@ void	builtin_exit(t_info *info, int *exit_signal);
 //cmd.c
 void	exec_pipe(t_tree *root);
 
+//action/action_tree.c
+void	action_tree(t_info *info, int *exit_signal);
 
 #endif
