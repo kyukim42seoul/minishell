@@ -1,4 +1,4 @@
-#include "proto.h"
+# include "proto.h"
 
 /*
 pipe(3) 단독 -> 2(PIPE)
@@ -19,11 +19,13 @@ int	syntax_cmd(t_token *tokens,t_debug *debug)	// 앞에 PIPE 가 있어야 한�
 		return (EXIT_SUCCESS);
 }
 
-int	syntax_pipe(t_token *tokens,t_debug *debug)	// 뒤에 BUILTIN 혹은 CMD 가 있어야 한다.
+int	syntax_pipe(t_token *tokens,t_debug *debug)		// 뒤에 BUILTIN 혹은 CMD 가 있어야 한다.
 {
 	t_token	*cur;
 
 	cur = tokens->next;
+	if (cur == NULL)
+		return (EXIT_FAILURE);						// "|"" 뒤에 토큰이 없는 경우
 	if (tokens->type == PIPE && tokens->prev == NULL)
 		return (EXIT_SUCCESS);
 	if (cur->type == BUILTIN || cur->type == CMD)

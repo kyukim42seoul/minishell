@@ -42,7 +42,7 @@ t_tree	*dup_node(t_token *token)
 		return (NULL);
 	new->type = token->type;
 	new->data = (char **)malloc(sizeof(char *) * 2);
-	new->data[0] = token->data;
+	new->data[0] = ft_strdup(token->data);
 	new->data[1] = NULL;
 	new->left = NULL;
 	new->right = NULL;
@@ -142,26 +142,44 @@ int	check_io_leaf(t_tree *io_node)
 t_tree	*tree_io(t_tree *root, t_tree *new)
 {
 	t_tree	*buf;
+	t_tree	*temp;
 	t_tree	*cmd_node;
 	t_tree	*io_node;
 	t_tree	*cur_root;
 
 	buf = 0;
+	temp = 0;
 	cmd_node = 0;
 	io_node = 0;
 	cur_root = root;
 	while (cur_root->right != NULL)
 		cur_root = cur_root->right;
 	cmd_node = tree_search_type(cur_root, PSCMD);
+	io_node = cmd_node->left;
 	if (new->type == LEFT_DOUBLE_REDI)
 	{
-		if (cmd_node->left->left->left)
+		if (io_node->left->left)
 		{
-			buf = cmd_node->left;
-			cmd_node->left = type_only_node(PSIO);
-			cmd_node->left->right = buf;
-			left_subtree(cmd_node->left, type_only_node(PSREDIR));
-			left_subtree(cmd_node->left->left, new);
+			if ((io_node->left->left->type >= LEFT_REDI && io_node->left->left->type <= RIGHT_REDI) || io_node->left->left->type == RIGHT_DOUBLE_REDI)
+			{
+				buf = cmd_node->left;
+				cmd_node->left = type_only_node(PSIO);
+				cmd_node->left->right = buf;
+				left_subtree(cmd_node->left, type_only_node(PSREDIR));
+				left_subtree(cmd_node->left->left, new);
+			}
+			else
+			{
+				while (io_node->left->left->type == LEFT_DOUBLE_REDI)
+				{
+					buf = io_node;
+					io_node = io_node->right;
+				}
+				buf->right = type_only_node(PSIO);
+				buf->right->left = type_only_node(PSREDIR);
+				buf->right->left->left = new;
+				buf->right->right = io_node;
+			}
 		}
 		else
 			left_subtree(cmd_node->left->left, new);

@@ -7,6 +7,8 @@ int	parse_tree(t_info *info)
 	t_tree	*root;
 	t_tree	*new_node;
 
+	if (info->t_head == NULL)
+		return (EXIT_FAILURE);
 	if (info->t_head->next == NULL)
 		return (EXIT_FAILURE);
 	token = info->t_head->next;
@@ -37,7 +39,7 @@ int	parse_tree(t_info *info)
 		root = tree_bin(root, new_node);
 	else if (new_node->type == CHARACTERS)
 		root = tree_arg(root, new_node);
-	print_tree(root, 0);																	//완성된 트리
+//	print_tree(root, 0);																	//완성된 트리
 	info->root = root;
 	return (EXIT_SUCCESS);
 }
