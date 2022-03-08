@@ -190,5 +190,8 @@ void	builtin_echo(t_info *info, int fd, int *exit_signal);
 //builtin_exit.c
 void	builtin_exit(t_info *info, int *exit_signal);
 
+//cmd.c
+void	exec_pipe(t_tree *root);
+
 
 #endif

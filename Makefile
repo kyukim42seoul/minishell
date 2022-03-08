@@ -3,11 +3,11 @@ NAME = minishell
 CC = gcc
 # CC = gcc -g3 -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
-CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
+#LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
+#CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
 LIBRARYS = -lreadline
-# LDFLAGS = -L/usr/local/opt/readline/lib
-# CPPFLAGS = -I/usr/local/opt/readline/include
+LDFLAGS = -L/usr/local/opt/readline/lib
+CPPFLAGS = -I/usr/local/opt/readline/include
 #  LIBRARYS = -lreadline
 
 LIB_NAME	= libft.a
@@ -35,7 +35,7 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/builtin/builtin_cd.o \
 		./srcs/builtin/builtin_echo.o \
 		./srcs/builtin/builtin_exit.o \
-
+		./srcs/cmd/exec_pipe.o \
 
 
 # ALLSRCS	= $(addprefix $(SRCS_DIR), $(OBJECTS))
