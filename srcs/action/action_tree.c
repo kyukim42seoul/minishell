@@ -74,7 +74,6 @@ int single_tree(t_info *info, t_tree *tree)
 	PreorderTraverse(info, tree, preorder);
 	info->double_shift_flag = 0;
 	return (1);
-
 }
 
 int	check_builtin(t_tree *tree)
@@ -121,7 +120,7 @@ void	action_tree(t_info *info, int *exit_signal)
 		exec_pipe(info, cur_tree, fd);
 		check = wait(&status);
 		printf("It's parent\n");
-		// print_tree(info->root, 0);
+		print_tree(info->root, 0);
 		return ;
 	}
 	*exit_signal = 1;
