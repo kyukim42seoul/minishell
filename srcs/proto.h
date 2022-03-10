@@ -201,7 +201,7 @@ void	builtin_echo(char **str, int fd, int *exit_signal);
 void	builtin_exit(char **str, int *exit_signal);
 
 //cmd.c
-void	exec_pipe(t_info *info, t_tree *root, int fd[2]);
+void	exec_pipe(t_info *info, t_tree *root);
 
 //action/action_tree.c
 void	action_tree(t_info *info, int *exit_signal);

@@ -66,11 +66,12 @@ int	check_builtin(t_tree *tree)
 		return (1);
 	return(0);
 }
-void	exec_pipe(t_info *info, t_tree *root, int fd[2])
+void	exec_pipe(t_info *info, t_tree *root)
 {
 	pid_t	pid;
 	// int stdin_dup = dup(0);
 	// int stdout_dup = dup(1);
+	int fd[2];
 
 	if (root->right)
 	{
