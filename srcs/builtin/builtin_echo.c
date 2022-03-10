@@ -18,13 +18,11 @@ int	echo_option_check(char *str)
 	return (1);
 }
 
-void	builtin_echo(t_info *info, int fd, int *exit_signal)
+void	builtin_echo(char **str, int fd, int *exit_signal)
 {
 	int option;
-	char	**str;
 	int i;
 
-	str = made_temp(info);
 	option = 0;
 	i = 1;
 	if (str[i] ==  NULL)

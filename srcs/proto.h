@@ -77,6 +77,7 @@ typedef struct s_tree
 	char			**data;
 	struct s_tree	*left;
 	struct s_tree	*right;
+	char			*err_message;
 }				t_tree;
 
 typedef struct s_list
@@ -103,9 +104,16 @@ typedef struct s_info
 	t_token			*t_head;
 	t_tree			*root;
 	t_debug			*debug;
+	t_fd			*fd;
 }					t_info;
 
-typedef void (*VisitFuncPtr)(int data);
+typedef struct s_fd
+{
+	int fd[2];
+	struct s_fd *next;
+}				t_fd;
+
+typedef void (*VisitFuncPtr)(t_info *info, t_tree *tree);
 
 //init.c
 int		init_info(t_info **info);
@@ -168,33 +176,33 @@ t_tree	*tree_search_type(t_tree *root, int type);
 int		parse_tree(t_info *info);
 
 //builtin.c
-void			implement_cmd(t_info *info, int *exit_signal);
+void	implement_cmd(t_info *info, char **cmd, int *exit_signal);
 int				str_len(char **str);
 char			**made_temp(t_info *info);
 void	env_add(t_info *info, char *key, char *content);
 
 //builtin_env.c
-void	builtin_env(t_info *info, int fd, int *exit_signal);
+void	builtin_env(t_info *info, char **str, int fd, int *exit_signal);
 
 //builtin_export.c
-void	builtin_export(t_info *info, int fd, int *exit_signal);
+void	builtin_export(t_info *info, char **str, int fd, int *exit_signal);
 
 //builtin_unset.c
-void	builtin_unset(t_info *info, int *exit_signal);
+void	builtin_unset(t_info *info, char **str, int *exit_signal);
 
 //builtin_pwd.c
-void	builtin_pwd(t_info *info, int fd, int *exit_signal);
+void	builtin_pwd(char **str, int fd, int *exit_signal);
 
 //builtin_cd.c
-void	builtin_cd(t_info *info, int *exit_signal);
+void	builtin_cd(t_info *info, char **str, int *exit_signal);
 //builtin_echo.c
-void	builtin_echo(t_info *info, int fd, int *exit_signal);
+void	builtin_echo(char **str, int fd, int *exit_signal);
 
 //builtin_exit.c
-void	builtin_exit(t_info *info, int *exit_signal);
+void	builtin_exit(char **str, int *exit_signal);
 
 //cmd.c
-void	exec_pipe(t_tree *root);
+void	exec_pipe(t_info *info, t_tree *root, int fd[2]);
 
 //action/action_tree.c
 void	action_tree(t_info *info, int *exit_signal);

@@ -13,50 +13,67 @@
 	}
 */
 
-void	exec_pipe(t_tree *root)
+void	set_fd(int fd[2])
 {
-//	int		fd[2];
-	int		status;
+	close(fd[0]);
+	dup2(fd[1], STDOUT_FILENO);
+	close(fd[1]);
+}
+
+void	exec_pipe(t_info *info, t_tree *root, int fd[2])
+{
 	pid_t	pid;
-	pid_t	check;
 
-	check = 0;
-/*	if (pipe(fd) < 0)
+	if (root->right)
 	{
-		printf("exec_pipe : failed open pipe()\n");
-		return ;
-	}*/
-	pid = fork();
-	if (pid == 0)
-	{
-		root->right = NULL;
-		printf("It's child\n");
-		print_tree(root, 0);
-		return ;
-	}
-	else
-	{
-		while (check <= 0)
+		if (pipe(fd) < 0)
 		{
-			check = wait(&status);
+			printf("exec_pipe : failed open pipe()\n");
+			return ;
 		}
-		printf("It's parent\n");
-		print_tree(root, 0);
+	}
+	pid = fork();
+	if (pid < 0)
 		return ;
+	else if (pid == 0)
+	{
+		if (root->right)
+			set_fd(fd);
+		printf("It's child\n");
+		root->right = NULL;
+		print_tree(root, 0);
+		single_tree(info, root);
+		exit (0);
 	}
 }
-//전위 순회 루트->왼쪽->오른쪽 순서 
-void		PreorderTraverse(t_tree *bt, VisitFuncPtr action)
+
+void	preorder(t_info *info, t_tree *tree)
 {
-	if (bt == NULL)
-		return ;
-	action(bt->data);
-	PreorderTraverse(bt->left, action);
-	PreorderTraverse(bt->right, action);
+	int i = 0;
+
+	if ((tree->type >= LEFT_REDI) && (tree->type <= RIGHT_DOUBLE_REDI))
+		printf("type redi\n\n");
+	else if (tree->type == CMD)
+		implement_cmd(info, tree->data, &i);
+	
 }
 
-int single_tree(t_info *info, t_tree *tree, int fds[2])
+//전위 순회 루트->왼쪽->오른쪽 순서 
+void		PreorderTraverse(t_info *info, t_tree *tree, VisitFuncPtr action)
 {
+	if (tree == NULL)
+		return ;
+	action(info, tree);
+	PreorderTraverse(info, tree->left, action);
+	PreorderTraverse(info, tree->right, action);
+}
+
+int single_tree(t_info *info, t_tree *tree)
+{
+	
+	PreorderTraverse(info, tree, preorder);
+	info->double_shift_flag = 0;
+	return (1);
 
 }
 
@@ -81,14 +98,16 @@ int	check_builtin(t_tree *tree)
 void	action_tree(t_info *info, int *exit_signal)
 {
 	t_tree	*cur_tree;
-	int 	fds[2];
 	int		result;
+	int 	fd[2];
+	pid_t	check;
+	int		status;
 
-	pipe(fds);
+	status = 0;
 	cur_tree = info->root;
 	if (!(cur_tree->right) && check_builtin(cur_tree))
 	{
-		result = single_tree(info, cur_tree->left, fds);
+		result = single_tree(info, cur_tree->left);
 		if (result < 0)
 			printf("error\n");
 	}
@@ -96,10 +115,14 @@ void	action_tree(t_info *info, int *exit_signal)
 	{
 		while (cur_tree->right)
 		{
-			exec_pipe(cur_tree);
+			exec_pipe(info, cur_tree, fd);
 			cur_tree = cur_tree->right;
 		}
-		exec_pipe(cur_tree);
+		exec_pipe(info, cur_tree, fd);
+		check = wait(&status);
+		printf("It's parent\n");
+		// print_tree(info->root, 0);
+		return ;
 	}
 	*exit_signal = 1;
 }

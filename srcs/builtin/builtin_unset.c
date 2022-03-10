@@ -41,12 +41,10 @@ void	rm_env(t_info *info, char *str)
 	}
 }
 
-void	builtin_unset(t_info *info, int *exit_signal)
+void	builtin_unset(t_info *info, char **str, int *exit_signal)
 {
-	char	**str;
 	int		len;
 
-	str = made_temp(info);
 	len = str_len(str);
 	if (len > 1)
 	{

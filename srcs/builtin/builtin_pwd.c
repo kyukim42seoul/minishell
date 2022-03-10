@@ -1,11 +1,9 @@
 #include "../proto.h"
 
-void	builtin_pwd(t_info *info, int fd, int *exit_signal)
+void	builtin_pwd(char **str, int fd, int *exit_signal)
 {
 	char *s;
-	char **str;
 
-	str = made_temp(info);
 	if (*(++str))
 	{
 		if (((*str)[0] == '-' && (*str)[1] && (*str)[1] != '-')
