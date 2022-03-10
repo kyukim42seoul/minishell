@@ -108,7 +108,9 @@ typedef struct s_info
 	t_token			*t_head;
 	t_tree			*root;
 	t_debug			*debug;
-	t_fd			*fd;
+	// t_fd			*fd;
+	int 			prein_pip;
+	// int 			preout_pip;
 }					t_info;
 
 

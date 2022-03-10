@@ -13,11 +13,30 @@
 	}
 */
 
-void	set_fd(int fd[2])
+void	set_fd(t_info *info, t_tree *tree, int *in, int *out)
 {
-	close(fd[0]);
-	dup2(fd[1], STDOUT_FILENO);
-	close(fd[1]);
+	char temp[1];
+	t_tree *t;
+
+	if (info->pipe_flag != 0)
+	{
+		dup2(info->prein_pip, 0);
+		// close(info->prein_pip);
+		read(0, temp, 1);
+		// printf("oh yeah == %s\n", temp);
+		write(1, temp, 1);
+		//write(1, "___", 3);
+	}
+	if (tree->right)
+	{
+		write(1, "\nok\n", 3);
+		dup2(*out, 1);
+		info->pipe_flag = 1;
+		close(*in);
+		close(*out);
+	}
+	t = tree_search_type(tree, 17);
+	write(1, t->left->data[0], 1);
 }
 
 void	preorder(t_info *info, t_tree *tree)
@@ -66,13 +85,23 @@ int	check_builtin(t_tree *tree)
 		return (1);
 	return(0);
 }
+void	close_dup(int *stin, int *stout)
+{
+	dup2(*stin, 0);
+	dup2(*stout, 1);
+	close(*stin);
+	close(*stout);
+	// close(info->prein_pip);
+}
 void	exec_pipe(t_info *info, t_tree *root)
 {
 	pid_t	pid;
-	// int stdin_dup = dup(0);
-	// int stdout_dup = dup(1);
+	int stdin_dup;
+	int stdout_dup;
 	int fd[2];
 
+	stdin_dup = dup(0);
+	stdout_dup = dup(1);
 	if (root->right)
 	{
 		if (pipe(fd) < 0)
@@ -80,39 +109,87 @@ void	exec_pipe(t_info *info, t_tree *root)
 			printf("exec_pipe : failed open pipe()\n");
 			return ;
 		}
+		printf("fd[0] = %d\n", fd[0]);
 	}
 	pid = fork();
 	if (pid < 0)
 		return ;
 	else if (pid == 0)
 	{
+		//set_fd(info, root, &fd[0], &fd[1]);
+		if (info->pipe_flag != 0)
+		{
+			dup2(info->prein_pip, 0);
+			close(info->prein_pip);
+		}
+		close(fd[0]);
+		close(fd[1]);
 		if (root->right)
-			set_fd(fd);
-		printf("It's child\n");
+		{
+			write(1, "\n", 1);
+			
+		}
+		
+		
+		
+	char temp[1];
+	t_tree *t;
+
+	if (info->pipe_flag != 0)
+	{
+		dup2(info->prein_pip, 0);
+		close(info->prein_pip);
+		close(fd[1]);
+		read(0, temp, 1);
+		// printf("oh yeah == %s\n", temp);
+		write(1, temp, 1);
+		//write(1, "___", 3);
+	}
+	if (tree->right)
+	{
+		write(1, "\nok\n", 3);
+		dup2(*out, 1);
+		info->pipe_flag = 1;
+		close(*in);
+		close(*out);
+	}
+	t = tree_search_type(tree, 17);
+	write(1, t->left->data[0], 1);
+
+
+		// if (root->right)
+		// {
+		// 	set_fd(info, fd);
+		// 	read(0, temp, 11);
+		// 	printf("%s\n", temp);
+		// }
+		// printf("It's child\n");
 		root->right = NULL;
-		print_tree(root, 0);
+		// print_tree(root, 0);
+	
+		// tree_traverse(info,);
 		single_tree(info, root);
+		close_dup(&stdin_dup, &stdout_dup);
 		exit (0);
 	}
-	else
+	else if (root->right)
 	{
-		// close(fd[0]);
-		// dup2(stdin_dup, 0);
-		// dup2(stdout_dup, 1);
-		// close(stdin_dup);
-		// close(stdout_dup);
+		printf("pd %d\n", fd[0]);
+		info->prein_pip = dup(fd[0]);
+		printf("prein %d\n", info->prein_pip);
+	 	// dup2(fd[0], info->prein_pip);
+		close(fd[0]);
 	}
-	
 }
 void	action_tree(t_info *info, int *exit_signal)
 {
 	t_tree	*cur_tree;
 	int		result;
-	int 	fd[2];
 	pid_t	check;
 	int		status;
 
 	status = 0;
+	check = 0;
 	cur_tree = info->root;
 	if (!(cur_tree->right) && check_builtin(cur_tree))
 	{
@@ -124,11 +201,14 @@ void	action_tree(t_info *info, int *exit_signal)
 	{
 		while (cur_tree->right)
 		{
-			exec_pipe(info, cur_tree, fd);
+			exec_pipe(info, cur_tree);
 			cur_tree = cur_tree->right;
+			printf("pre = %d\n", info->prein_pip);
 		}
-		exec_pipe(info, cur_tree, fd);
-		check = wait(&status);
+		exec_pipe(info, cur_tree);
+		while ((check = wait(&status)) > 0);
+		// while (check <= 0)
+		// 	check = waitpid(-1, &status, 0);
 		printf("It's parent\n");
 		print_tree(info->root, 0);
 		return ;
