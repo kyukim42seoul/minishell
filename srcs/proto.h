@@ -93,7 +93,11 @@ typedef struct s_debug
 	char			*syntax_error;
 	void			*error_point_data;
 }					t_debug;
-
+typedef struct s_fd
+{
+	int fd[2];
+	struct s_fd *next;
+}				t_fd;
 typedef struct s_info
 {
 	char			*cmd;
@@ -107,11 +111,6 @@ typedef struct s_info
 	t_fd			*fd;
 }					t_info;
 
-typedef struct s_fd
-{
-	int fd[2];
-	struct s_fd *next;
-}				t_fd;
 
 typedef void (*VisitFuncPtr)(t_info *info, t_tree *tree);
 

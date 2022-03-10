@@ -20,33 +20,6 @@ void	set_fd(int fd[2])
 	close(fd[1]);
 }
 
-void	exec_pipe(t_info *info, t_tree *root, int fd[2])
-{
-	pid_t	pid;
-
-	if (root->right)
-	{
-		if (pipe(fd) < 0)
-		{
-			printf("exec_pipe : failed open pipe()\n");
-			return ;
-		}
-	}
-	pid = fork();
-	if (pid < 0)
-		return ;
-	else if (pid == 0)
-	{
-		if (root->right)
-			set_fd(fd);
-		printf("It's child\n");
-		root->right = NULL;
-		print_tree(root, 0);
-		single_tree(info, root);
-		exit (0);
-	}
-}
-
 void	preorder(t_info *info, t_tree *tree)
 {
 	int i = 0;
@@ -93,7 +66,43 @@ int	check_builtin(t_tree *tree)
 		return (1);
 	return(0);
 }
+void	exec_pipe(t_info *info, t_tree *root, int fd[2])
+{
+	pid_t	pid;
+	// int stdin_dup = dup(0);
+	// int stdout_dup = dup(1);
 
+	if (root->right)
+	{
+		if (pipe(fd) < 0)
+		{
+			printf("exec_pipe : failed open pipe()\n");
+			return ;
+		}
+	}
+	pid = fork();
+	if (pid < 0)
+		return ;
+	else if (pid == 0)
+	{
+		if (root->right)
+			set_fd(fd);
+		printf("It's child\n");
+		root->right = NULL;
+		print_tree(root, 0);
+		single_tree(info, root);
+		exit (0);
+	}
+	else
+	{
+		// close(fd[0]);
+		// dup2(stdin_dup, 0);
+		// dup2(stdout_dup, 1);
+		// close(stdin_dup);
+		// close(stdout_dup);
+	}
+	
+}
 void	action_tree(t_info *info, int *exit_signal)
 {
 	t_tree	*cur_tree;
