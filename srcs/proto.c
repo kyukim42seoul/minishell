@@ -40,6 +40,8 @@ int	main(int argc, char *argv[], char *env[])
 	t_info	*info;
 	t_token	*temp;
 	t_tree	*cur_tree;
+	int		status;
+	pid_t	check;
 
 	temp_argc = argc;
 	temp_argv = argv;
@@ -76,10 +78,11 @@ int	main(int argc, char *argv[], char *env[])
 			cur_tree = cur_tree->right;
 		}
 		exec_pipe(cur_tree);
-//		while (check <= 0)
-//			check = wait(&status);
-//		printf("It's parent\n");
-//		print_tree(info->root, 0);
+		status = 0;
+		while (check <= 0)
+			check = wait(&status);
+		printf("It's parent\n");
+		print_tree(info->root, 0);
 //		implement_cmd(info, &exit_signal);
 		free(full_cmd);
 		postorder_del_tree(info->root);

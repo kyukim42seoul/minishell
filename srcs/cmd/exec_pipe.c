@@ -36,12 +36,12 @@ void	exec_pipe(t_tree *root)
 	}
 	else
 	{
-		while (check <= 0)
-		{
-			check = wait(&status);
-		}
-		printf("It's parent\n");
-		print_tree(root, 0);
-		return ;
+		// while (check <= 0)
+		// {
+		// 	check = wait(&status);
+		// }
+		// printf("It's parent\n");
+		// print_tree(root, 0);
+		// return ;
 	}
 }
