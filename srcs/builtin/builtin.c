@@ -57,22 +57,21 @@ int	str_len(char **str)
 
 void	implement_cmd(t_info *info, char **cmd, int *exit_signal)
 {
-	int fd[2];
-
-	fd[0] = STDIN_FILENO;
-	fd[1] = STDOUT_FILENO; 
 	if (!ft_strncmp("env", cmd[0], 4))
-		builtin_env(info, cmd, fd[1], exit_signal);
+		builtin_env(info, cmd, exit_signal);
 	else if (!ft_strncmp("export", cmd[0], 7))
-		builtin_export(info, cmd, fd[1], exit_signal);
+		builtin_export(info, cmd, exit_signal);
 	else if (!ft_strncmp("unset", cmd[0], 6))
 		builtin_unset(info, cmd, exit_signal);
 	else if (!ft_strncmp("pwd", cmd[0], 4))
-		builtin_pwd(cmd, fd[1], exit_signal);
+		builtin_pwd(cmd, exit_signal);
 	else if (!ft_strncmp("cd", cmd[0], 3))
 		builtin_cd(info, cmd, exit_signal);
 	else if (!ft_strncmp("echo", cmd[0], 5))
-		builtin_echo(cmd, fd[1], exit_signal);
+		builtin_echo(cmd, exit_signal);
 	else if (!ft_strncmp("exit", cmd[0], 5))
 		builtin_exit(cmd, exit_signal);
+	else
+		execv_cmd(info, cmd);
+	
 }

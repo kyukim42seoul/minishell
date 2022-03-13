@@ -18,7 +18,7 @@ int	echo_option_check(char *str)
 	return (1);
 }
 
-void	builtin_echo(char **str, int fd, int *exit_signal)
+void	builtin_echo(char **str, int *exit_signal)
 {
 	int option;
 	int i;
@@ -26,7 +26,7 @@ void	builtin_echo(char **str, int fd, int *exit_signal)
 	option = 0;
 	i = 1;
 	if (str[i] ==  NULL)
-		ft_putchar_fd('\n', fd);
+		ft_putchar_fd('\n', 1);
 	else
 	{
 		while (echo_option_check(str[i++]))
@@ -34,13 +34,13 @@ void	builtin_echo(char **str, int fd, int *exit_signal)
 		i--;
 		while (str[i])
 		{
-			ft_putstr_fd(str[i], fd);
+			ft_putstr_fd(str[i], 1);
 			if (str[i + 1])
-				ft_putchar_fd(' ', fd);
+				ft_putchar_fd(' ', 1);
 			i++;
 		}
 		if (option == 0)
-			ft_putchar_fd('\n', fd);
+			ft_putchar_fd('\n', 1);
 	}
 	*exit_signal = 0;
 }

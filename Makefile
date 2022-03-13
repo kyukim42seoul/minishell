@@ -36,6 +36,7 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/builtin/builtin_echo.o \
 		./srcs/builtin/builtin_exit.o \
 		./srcs/action/action.o \
+		./srcs/action/execv_cmd.o \
 
 
 

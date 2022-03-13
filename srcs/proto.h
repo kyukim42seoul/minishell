@@ -95,24 +95,17 @@ typedef struct s_debug
 	char			*syntax_error;
 	void			*error_point_data;
 }					t_debug;
-typedef struct s_fd
-{
-	int fd[2];
-	struct s_fd *next;
-}				t_fd;
+
 typedef struct s_info
 {
 	char			*cmd;
-	int				pipe_flag;
+	char			**env;
 	int				redirection_flag;
 	int				double_shift_flag;
 	t_list			*head;
 	t_token			*t_head;
 	t_tree			*root;
 	t_debug			*debug;
-	// t_fd			*fd;
-	int 			prein_pip;
-	// int 			preout_pip;
 }					t_info;
 
 
@@ -185,21 +178,21 @@ char			**made_temp(t_info *info);
 void	env_add(t_info *info, char *key, char *content);
 
 //builtin_env.c
-void	builtin_env(t_info *info, char **str, int fd, int *exit_signal);
+void	builtin_env(t_info *info, char **str, int *exit_signal);
 
 //builtin_export.c
-void	builtin_export(t_info *info, char **str, int fd, int *exit_signal);
+void	builtin_export(t_info *info, char **str, int *exit_signal);
 
 //builtin_unset.c
 void	builtin_unset(t_info *info, char **str, int *exit_signal);
 
 //builtin_pwd.c
-void	builtin_pwd(char **str, int fd, int *exit_signal);
+void	builtin_pwd(char **str, int *exit_signal);
 
 //builtin_cd.c
 void	builtin_cd(t_info *info, char **str, int *exit_signal);
 //builtin_echo.c
-void	builtin_echo(char **str, int fd, int *exit_signal);
+void	builtin_echo(char **str, int *exit_signal);
 
 //builtin_exit.c
 void	builtin_exit(char **str, int *exit_signal);
@@ -211,4 +204,5 @@ void	exec_pipe(t_info *info, t_tree *root);
 void	action_tree(t_info *info, int *exit_signal);
 void	action(t_info *info, int *exit_signal);
 
+void	execv_cmd(t_info *info, char **str);
 #endif
