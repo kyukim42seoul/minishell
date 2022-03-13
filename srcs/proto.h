@@ -75,6 +75,8 @@ typedef struct s_tree
 {
 	int				type;
 	char			**data;
+	int				pip[2];
+	int				prepip;
 	struct s_tree	*left;
 	struct s_tree	*right;
 	char			*err_message;
@@ -207,5 +209,6 @@ void	exec_pipe(t_info *info, t_tree *root);
 
 //action/action_tree.c
 void	action_tree(t_info *info, int *exit_signal);
+void	action(t_info *info, int *exit_signal);
 
 #endif

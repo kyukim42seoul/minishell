@@ -67,7 +67,8 @@ int	main(int argc, char *argv[], char *env[])
 		if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
 			printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, info->debug->error_point_data);
 		parse_tree(info);
-		action_tree(info, &exit_signal);
+		action(info, &exit_signal);
+		// action_tree(info, &exit_signal);
 		add_history(full_cmd);
 		// cur_tree = info->root;
 		// while (cur_tree->right)

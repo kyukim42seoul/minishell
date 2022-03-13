@@ -46,6 +46,7 @@ t_tree	*dup_node(t_token *token)
 	new->data[1] = NULL;
 	new->left = NULL;
 	new->right = NULL;
+	new->prepip = -1;
 	return (new);
 }
 

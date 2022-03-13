@@ -35,7 +35,7 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/builtin/builtin_cd.o \
 		./srcs/builtin/builtin_echo.o \
 		./srcs/builtin/builtin_exit.o \
-		./srcs/action/action_tree.o \
+		./srcs/action/action.o \
 
 
 
