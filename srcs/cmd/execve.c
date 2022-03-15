@@ -62,17 +62,17 @@ t_list	*find_valid_path(t_list	*path_head)
 		find_valid_path() 에서 저장된 모든 경로(t_list *lst)를 확인하여 유효한 경로의 노드 반환(t_list *node)
 		반환된 노드의 content 로 execve() 실행
 */
-int	run_execve(t_tree *bin_node, char *env)
+int	run_execve(char **cmd_data, char *env)
 {
 	t_list	*head_relative_path_list;
 	t_list	*valid_path;
 
 	head_relative_path_list = 0;
-	if (check_path(bin_node->left->data[0]) == 0)
-		execve(bin_node->left->data[0], bin_node->left->data, NULL);
-	head_relative_path_list = make_relative_path(env, bin_node->left->data[0]);
+	if (check_path(cmd_data[0]) == 0)
+		execve(cmd_data[0], cmd_data, NULL);
+	head_relative_path_list = make_relative_path(env, cmd_data[0]);
 	valid_path = find_valid_path(head_relative_path_list);
 	if (valid_path)
-		execve((char *)valid_path->content, bin_node->left->data, NULL);
+		execve((char *)valid_path->content, cmd_data, NULL);
 	return (EXIT_FAILURE);
 }

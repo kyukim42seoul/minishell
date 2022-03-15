@@ -75,8 +75,11 @@ typedef struct s_tree
 {
 	int				type;
 	char			**data;
+	int				pip[2];
+	int				prepip;
 	struct s_tree	*left;
 	struct s_tree	*right;
+	char			*err_message;
 }				t_tree;
 
 typedef struct s_list
@@ -96,7 +99,7 @@ typedef struct s_debug
 typedef struct s_info
 {
 	char			*cmd;
-	int				pipe_flag;
+	char			**env;
 	int				redirection_flag;
 	int				double_shift_flag;
 	t_list			*e_head;
@@ -104,6 +107,9 @@ typedef struct s_info
 	t_tree			*root;
 	t_debug			*debug;
 }					t_info;
+
+
+typedef void (*VisitFuncPtr)(t_info *info, t_tree *tree);
 
 //init.c
 int		init_info(t_info **info);
@@ -162,46 +168,47 @@ t_tree	*tree_bin(t_tree *root, t_tree *new);
 t_tree	*tree_arg(t_tree *root, t_tree *new);
 void	postorder_del_tree(t_tree *root);
 void	del_node(t_tree *node);
+t_tree	*tree_search_type(t_tree *root, int type);
 
 //parse.c
 int		parse_tree(t_info *info);
 
 //builtin.c
-void			implement_cmd(t_info *info, int *exit_signal);
+void	implement_cmd(t_info *info, char **cmd, int *exit_signal);
 int				str_len(char **str);
 char			**made_temp(t_info *info);
 void	env_add(t_info *info, char *key, char *content);
 
 //builtin_env.c
-void	builtin_env(t_info *info, int fd, int *exit_signal);
+void	builtin_env(t_info *info, char **str, int *exit_signal);
 
 //builtin_export.c
-void	builtin_export(t_info *info, int fd, int *exit_signal);
+void	builtin_export(t_info *info, char **str, int *exit_signal);
 
 //builtin_unset.c
-void	builtin_unset(t_info *info, int *exit_signal);
+void	builtin_unset(t_info *info, char **str, int *exit_signal);
 
 //builtin_pwd.c
-void	builtin_pwd(t_info *info, int fd, int *exit_signal);
+void	builtin_pwd(char **str, int *exit_signal);
 
 //builtin_cd.c
-void	builtin_cd(t_info *info, int *exit_signal);
+void	builtin_cd(t_info *info, char **str, int *exit_signal);
+
 //builtin_echo.c
-void	builtin_echo(t_info *info, int fd, int *exit_signal);
+void	builtin_echo(char **str, int *exit_signal);
 
 //builtin_exit.c
-void	builtin_exit(t_info *info, int *exit_signal);
-
-//cmd.c
-void	exec_pipe(t_tree *root, t_list *env_head);
+void	builtin_exit(char **str, int *exit_signal);
 
 //redir.c
 void	redir_hub(t_tree *root);
 
-//exec_cycle.c
-void	exec_cycle(t_tree *root, char *env);
-
 //execve.c
-int		run_execve(t_tree *bin_node, char *env);
+int		run_execve(char **cmd_data, char *env);
 
+//action/action_tree.c
+void	action_tree(t_info *info, int *exit_signal);
+void	action(t_info *info, int *exit_signal);
+
+void	execv_cmd(t_info *info, char **str);
 #endif

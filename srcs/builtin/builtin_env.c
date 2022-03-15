@@ -1,11 +1,9 @@
 #include "../proto.h"
 
-void	builtin_env(t_info *info, int fd, int *exit_signal)
+void	builtin_env(t_info *info, char **str, int *exit_signal)
 {
 	t_list *check;
-	char **str;
 
-	str = made_temp(info);
 	if (*(++str))
 	{
 		if (((*str)[0] == '-' && (*str)[1] && (*str)[1] != '-')
@@ -28,10 +26,10 @@ void	builtin_env(t_info *info, int fd, int *exit_signal)
 	{
 		if (check->content != NULL)
 		{	
-			ft_putstr_fd((char *)check->key, fd);
-			ft_putchar_fd('=', fd);
-			ft_putstr_fd((char *)check->content, fd);
-			ft_putchar_fd('\n', fd);
+			ft_putstr_fd((char *)check->key, 1);
+			ft_putchar_fd('=', 1);
+			ft_putstr_fd((char *)check->content, 1);
+			ft_putchar_fd('\n', 1);
 		}
 		check = check->next;
 	}

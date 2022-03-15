@@ -109,16 +109,14 @@ int before_value(char *str)
 	export test1 test2	-> export 에서 출력 o test1, test2 총 두개가 올라감, env 에서 출력 x
 	export test1= test2	-> export 에서 출력 o test1, test2 총 두개가 올라감, env 에서 test1 만 출력. 대신 value = "" 인 상태
 */
-void	builtin_export(t_info *info, int fd, int *exit_signal)
+void	builtin_export(t_info *info, char **str, int *exit_signal)
 {
-	char	**str;
 	int		len;
 	int 	i;
 
-	str = made_temp(info);
 	len = str_len(str);
 	if (len == 1)
-		print_export(info, fd);
+		print_export(info, 1);
 	else
 	{
 		while (*(++str))

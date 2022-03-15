@@ -1,11 +1,9 @@
 #include "../proto.h"
 
-void	builtin_exit(t_info *info, int *exit_signal)
+void	builtin_exit(char **str, int *exit_signal)
 {
-	char **str;
 	int i;
 
-	str = made_temp(info);
 	if (*(++str) == NULL)
 	{
 		printf("exit\n");

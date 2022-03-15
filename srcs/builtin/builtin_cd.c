@@ -58,13 +58,11 @@ char	*get_env_value(t_list *head, char *key)
 	return (NULL);
 }
 
-void	builtin_cd(t_info *info, int *exit_signal)
+void	builtin_cd(t_info *info, char **str, int *exit_signal)
 {
-	char **str;
 	char *path;
 	int		i;
 
-	str = made_temp(info);
 	i = 0;
 	if (*(++str) == NULL || ((*str)[0] == '~' && !(*str)[1]))
 		path = get_env_value(info->e_head, "HOME");

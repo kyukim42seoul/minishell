@@ -1,11 +1,9 @@
 #include "../proto.h"
 
-void	builtin_pwd(t_info *info, int fd, int *exit_signal)
+void	builtin_pwd(char **str, int *exit_signal)
 {
 	char *s;
-	char **str;
 
-	str = made_temp(info);
 	if (*(++str))
 	{
 		if (((*str)[0] == '-' && (*str)[1] && (*str)[1] != '-')
@@ -17,7 +15,7 @@ void	builtin_pwd(t_info *info, int fd, int *exit_signal)
 		}
 	}
 	s = getcwd(NULL, 0);
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
+	ft_putstr_fd(s, 1);
+	ft_putchar_fd('\n', 1);
 	free(s);
 }

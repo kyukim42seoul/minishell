@@ -1,7 +1,7 @@
 
 NAME = minishell
-CC = gcc
-# CC = gcc -g3 -fsanitize=address
+#CC = gcc
+CC = gcc -g3 -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror
 #LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
 #CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
@@ -35,10 +35,10 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/builtin/builtin_cd.o \
 		./srcs/builtin/builtin_echo.o \
 		./srcs/builtin/builtin_exit.o \
-		./srcs/cmd/exec_pipe.o \
-		./srcs/cmd/exec_cycle.o \
 		./srcs/cmd/redir.o \
 		./srcs/cmd/execve.o \
+		./srcs/action/action.o \
+
 
 
 # ALLSRCS	= $(addprefix $(SRCS_DIR), $(OBJECTS))
