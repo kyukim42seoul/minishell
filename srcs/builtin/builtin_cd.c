@@ -10,7 +10,7 @@ void	change_env(t_info *info)
 	pwd = getcwd(NULL, 0);
 	old = NULL;
 	flag = 0;
-	check = info->head;
+	check = info->e_head;
 	while (check)
 	{
 		if (!ft_strncmp(check->key, "PWD", ft_strlen(check->key)))
@@ -26,7 +26,7 @@ void	change_env(t_info *info)
 		env_add(info, "PWD", pwd);
 	if (old != NULL)
 	{
-		check = info->head;
+		check = info->e_head;
 		flag = 0;
 		while (check)
 		{
@@ -67,9 +67,9 @@ void	builtin_cd(t_info *info, int *exit_signal)
 	str = made_temp(info);
 	i = 0;
 	if (*(++str) == NULL || ((*str)[0] == '~' && !(*str)[1]))
-		path = get_env_value(info->head, "HOME");
+		path = get_env_value(info->e_head, "HOME");
 	else if (*str && (*str)[0] == '-' && !(*str)[1])
-		path = get_env_value(info->head, "OLDPWD");
+		path = get_env_value(info->e_head, "OLDPWD");
 	else
 		path = ft_strdup(*str);
 	if (chdir(path) == -1)

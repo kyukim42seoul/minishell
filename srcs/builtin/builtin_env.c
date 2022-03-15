@@ -23,7 +23,7 @@ void	builtin_env(t_info *info, int fd, int *exit_signal)
 		}
 		return ;
 	}
-	check = info->head;
+	check = info->e_head;
 	while (check != NULL)
 	{
 		if (check->content != NULL)

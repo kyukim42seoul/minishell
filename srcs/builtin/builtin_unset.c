@@ -19,13 +19,13 @@ void	rm_env(t_info *info, char *str)
 	t_list *temp;
 
 	temp = NULL;
-	check = info->head;
+	check = info->e_head;
 	while (check)
 	{
 		if (!ft_strncmp(str, check->key, ft_strlen(check->key)))
 		{
-			if (check == info->head)
-				info->head = check->next;
+			if (check == info->e_head)
+				info->e_head = check->next;
 			else
 				temp->next = check->next;
 			free(check->key);

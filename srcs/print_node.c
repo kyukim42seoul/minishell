@@ -29,7 +29,7 @@ void	print_env(t_info *info)
 {
 	t_list *check;
 
-	check = info->head->next;
+	check = info->e_head->next;
 	while (check->next != NULL)
 	{
 		printf("%s=%s\n", (char *)check->key, (char *)check->content);

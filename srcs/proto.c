@@ -38,7 +38,6 @@ int	main(int argc, char *argv[], char *env[])
 	char	**temp_argv;
 	char	*full_cmd;
 	t_info	*info;
-	t_token	*temp;
 	t_tree	*cur_tree;
 	int		status;
 	pid_t	check;
@@ -59,13 +58,7 @@ int	main(int argc, char *argv[], char *env[])
 			exit (-1);
 		}
 		tokenize(full_cmd, info);
-		if (info->t_head != NULL)
-		{
-			temp = kb_lstnew();
-			temp->type = PIPE;
-			lstadd_front(&info->t_head, temp);
-			info->t_head = temp;
-		}
+		add_head(info, PIPE);
 		set_type(info->t_head);
 		if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
 			printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, info->debug->error_point_data);
@@ -74,15 +67,13 @@ int	main(int argc, char *argv[], char *env[])
 		cur_tree = info->root;
 		while (cur_tree->right)
 		{
-			exec_pipe(cur_tree);
+			exec_pipe(cur_tree, info->e_head);
 			cur_tree = cur_tree->right;
 		}
-		exec_pipe(cur_tree);
+		exec_pipe(cur_tree, info->e_head);
 		status = 0;
 		while (check <= 0)
 			check = wait(&status);
-		printf("It's parent\n");
-		print_tree(info->root, 0);
 //		implement_cmd(info, &exit_signal);
 		free(full_cmd);
 		postorder_del_tree(info->root);

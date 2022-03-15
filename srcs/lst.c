@@ -71,3 +71,35 @@ void	lstadd_front(t_token **lst, t_token *new)
 	new->next = front_node;
 	new->prev = NULL;
 }
+
+void	*find_content_from_key(t_list *env, char *key)
+{
+	t_list	*cur;
+
+	cur = env->next;
+	while (cur->next)
+	{
+		if (cur->key)
+		{
+			if (ft_strncmp((char *)cur->key, key, ft_strlen(key)) == 0)
+				return (cur->content);
+		}
+		cur = cur->next;
+	}
+	if (cur->key)
+		ft_strncmp((char *)cur->key, key, ft_strlen(key));
+			return (cur->content);
+}
+
+void	add_head(t_info *info, int type)
+{
+	t_token	*temp;
+
+	temp = 0;
+	if (info->t_head == NULL)
+		return ;
+	temp = kb_lstnew();
+	temp->type = type;
+	lstadd_front(&info->t_head, temp);
+	info->t_head = temp;
+}

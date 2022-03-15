@@ -99,7 +99,7 @@ typedef struct s_info
 	int				pipe_flag;
 	int				redirection_flag;
 	int				double_shift_flag;
-	t_list			*head;
+	t_list			*e_head;
 	t_token			*t_head;
 	t_tree			*root;
 	t_debug			*debug;
@@ -125,6 +125,8 @@ void	sh_lstadd_back(t_list **lst, t_list *new);
 t_token	*kb_lstlast(t_token *lst);
 t_token	*kb_lstnew(void);
 void	lstadd_front(t_token **lst, t_token *new);
+void	add_head(t_info *info, int type);
+void	*find_content_from_key(t_list *env, char *key);
 
 //tokenize.c
 void	tokenize(char *full_command, t_info *info);
@@ -191,7 +193,15 @@ void	builtin_echo(t_info *info, int fd, int *exit_signal);
 void	builtin_exit(t_info *info, int *exit_signal);
 
 //cmd.c
-void	exec_pipe(t_tree *root);
+void	exec_pipe(t_tree *root, t_list *env_head);
 
+//redir.c
+void	redir_hub(t_tree *root);
+
+//exec_cycle.c
+void	exec_cycle(t_tree *root, char *env);
+
+//execve.c
+int		run_execve(t_tree *bin_node, char *env);
 
 #endif

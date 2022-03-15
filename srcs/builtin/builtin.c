@@ -8,7 +8,7 @@ void	env_add(t_info *info, char *key, char *content)
 	check->type = O_ENV;
 	check->content = content;
 	check->key = key;
-	sh_lstadd_back(&info->head, check);
+	sh_lstadd_back(&info->e_head, check);
 }
 
 char **made_temp(t_info *info)

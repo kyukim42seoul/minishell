@@ -32,7 +32,7 @@ void	export_value(t_info *info, char *str, int len, int status)
 	t_list *cur;
 
 	flag = 0;
-	cur = info->head;
+	cur = info->e_head;
 	content = find_value_status(str, len, status);
 	while (cur)
 	{
@@ -54,7 +54,7 @@ void	export_value(t_info *info, char *str, int len, int status)
 		cur->type = O_ENV;
 		cur->content = content;
 		cur->key = sh_substr(str, 0, len);
-		sh_lstadd_back(&info->head, cur);
+		sh_lstadd_back(&info->e_head, cur);
 	}
 }
 
@@ -62,7 +62,7 @@ void	print_export(t_info *info, int fd)
 {
 	t_list *check;
 
-	check = info->head;
+	check = info->e_head;
 	while (check != NULL)
 	{
 		ft_putstr_fd("declare -x ", fd);

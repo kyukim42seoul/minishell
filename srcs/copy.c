@@ -8,7 +8,7 @@ int	copy_env(t_info *info, char *env[])
 
 	index = 0;
 	lenth = 0;
-	info->head = sh_lstnew(NULL);
+	info->e_head = sh_lstnew(NULL);
 	while (env[index] != NULL)
 	{
 		lenth = sh_strchr(env[index], '=') - env[index];
@@ -16,7 +16,7 @@ int	copy_env(t_info *info, char *env[])
 		current->type = O_ENV;
 		current->content = ft_strdup(sh_strchr(env[index], '=') + 1);
 		current->key = sh_substr(env[index], 0, lenth);
-		sh_lstadd_back(&info->head, current);
+		sh_lstadd_back(&info->e_head, current);
 		index++;
 	}
 	//print_env(info);
