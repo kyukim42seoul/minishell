@@ -53,8 +53,13 @@ char *change_cmd_to_env(char *cmd, t_flag flag, t_info *info)
 	i = 0;
 	while (i < flag.num)
 	{
-		env_key = ft_substr(&str[flag.i_cur[i] + 1], 0, flag.len[i]);
-		env_value = take_env_value(info->e_head, env_key, flag.len[i]);
+		if (flag.len[i] == 1 && str[flag.i_cur[i] + 1 ] == '?')
+			env_value = ft_itoa(exit_signal);
+		else
+		{
+			env_key = ft_substr(&str[flag.i_cur[i] + 1], 0, flag.len[i]);
+			env_value = take_env_value(info->e_head, env_key, flag.len[i]);
+		}
 		str = cmd_key_to_value(str, &flag, i, env_value);
 		i++;
 	}

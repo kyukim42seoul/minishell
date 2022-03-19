@@ -1,6 +1,6 @@
 #include "../proto.h"
 
-void	builtin_env(t_info *info, char **str, int *exit_signal)
+void	builtin_env(t_info *info, char **str)
 {
 	t_list *check;
 
@@ -12,12 +12,12 @@ void	builtin_env(t_info *info, char **str, int *exit_signal)
 			printf("env: illegal option -- %c\n", (*str)[1]);
 			printf("usage: env [-iv] [-P utilpath] [-S string] [-u name]\n");
 			printf("            [name=value ...] [utility [argument ...]]\n");
-			*exit_signal= 1;
+			exit_signal = 1;
 		}
 		else
 		{
 			printf("env: %s: No such file or directory\n", *str);
-			*exit_signal= 127;
+			exit_signal = 127;
 		}
 		return ;
 	}

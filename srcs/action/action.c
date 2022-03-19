@@ -13,7 +13,7 @@ void	PreorderTraverse(t_info *info, t_tree *tree)
 			redir_hub(tree);
 	}
 	else if (tree->type == CMD)
-		implement_cmd(info, tree->data, &exit_signal);
+		implement_cmd(info, tree->data);
 	PreorderTraverse(info, tree->left);
 	PreorderTraverse(info, tree->right);
 }
@@ -72,7 +72,7 @@ void	excute_tree(t_info *info, t_tree *root)
 	}
 }
 
-void	action(t_info *info, int *exit_signal)
+void	action(t_info *info)
 {
 	t_tree	*cur_tree;
 	int		result;
@@ -109,10 +109,8 @@ void	action(t_info *info, int *exit_signal)
 			cur_tree = cur_tree->right;
 		}
 		while ((check = wait(&status)) > 0);
-		// while (check <= 0)
-		// 	check = waitpid(-1, &status, 0);
-		//print_tree(info->root, 0);
+		exit_signal = WEXITSTATUS(status);
 		return ;
 	}
-	*exit_signal = 1;
 }
+

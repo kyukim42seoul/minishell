@@ -39,9 +39,10 @@ void	rm_env(t_info *info, char *str)
 			check =  check->next;
 		}
 	}
+	exit_signal = 0;
 }
 
-void	builtin_unset(t_info *info, char **str, int *exit_signal)
+void	builtin_unset(t_info *info, char **str)
 {
 	int		len;
 
@@ -55,7 +56,7 @@ void	builtin_unset(t_info *info, char **str, int *exit_signal)
 			else
 			{
 				printf("bash: unset: `%s': not a valid identifier\n", *str);
-				*exit_signal = 1;
+				exit_signal = 1;
 			}
 		}
 	}

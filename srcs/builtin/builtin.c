@@ -55,25 +55,25 @@ int	str_len(char **str)
 	return (len);
 }
 
-void	implement_cmd(t_info *info, char **cmd, int *exit_signal)
+void	implement_cmd(t_info *info, char **cmd)
 {
 	char	*env_path;
 
 	env_path = 0;
 	if (!ft_strncmp("env", cmd[0], 4))
-		builtin_env(info, cmd, exit_signal);
+		builtin_env(info, cmd);
 	else if (!ft_strncmp("export", cmd[0], 7))
-		builtin_export(info, cmd, exit_signal);
+		builtin_export(info, cmd);
 	else if (!ft_strncmp("unset", cmd[0], 6))
-		builtin_unset(info, cmd, exit_signal);
+		builtin_unset(info, cmd);
 	else if (!ft_strncmp("pwd", cmd[0], 4))
-		builtin_pwd(cmd, exit_signal);
+		builtin_pwd(cmd);
 	else if (!ft_strncmp("cd", cmd[0], 3))
-		builtin_cd(info, cmd, exit_signal);
+		builtin_cd(info, cmd);
 	else if (!ft_strncmp("echo", cmd[0], 5))
-		builtin_echo(cmd, exit_signal);
+		builtin_echo(cmd);
 	else if (!ft_strncmp("exit", cmd[0], 5))
-		builtin_exit(cmd, exit_signal);
+		builtin_exit(cmd);
 	else
 	{
 		env_path = (char *)find_content_from_key(info->e_head, "PATH");

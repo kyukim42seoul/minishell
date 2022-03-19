@@ -13,11 +13,11 @@ void	signal_handler(int signum)
 	return ;
 }
 
-void	set_signal(int *exit_signal)
+void	set_signal()
 {
 	struct termios term;
 
-	*exit_signal = 0;
+	exit_signal = 0;
 	//tcsetattr의 옵션으로 들어가는 optional_actions에 TCSNOW는 환경 변수 0으로 등록되어 있는데, 속성을 바로 변경한다는 것을 의미한다.
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~(ECHOCTL);
@@ -30,8 +30,6 @@ void	set_signal(int *exit_signal)
 /*
 	main 함수 설명
 */
-int exit_signal;
-
 int	main(int argc, char *argv[], char *env[])
 {
 	int		temp_argc;
@@ -41,7 +39,7 @@ int	main(int argc, char *argv[], char *env[])
 
 	temp_argc = argc;
 	temp_argv = argv;
-	set_signal(&exit_signal);
+	set_signal();
 	init_info(&info);
 	copy_env(info, env);
 	while (1)
@@ -58,9 +56,9 @@ int	main(int argc, char *argv[], char *env[])
 		add_head(info, PIPE);
 		set_type(info->t_head);
 		if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
-			printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, info->debug->error_point_data);
+			printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, (char *)info->debug->error_point_data);
 		parse_tree(info);
-		action(info, &exit_signal);
+		action(info);
 		add_history(full_cmd);
 		free(full_cmd);
 		postorder_del_tree(info->root);

@@ -18,7 +18,7 @@ int	echo_option_check(char *str)
 	return (1);
 }
 
-void	builtin_echo(char **str, int *exit_signal)
+void	builtin_echo(char **str)
 {
 	int option;
 	int i;
@@ -42,5 +42,5 @@ void	builtin_echo(char **str, int *exit_signal)
 		if (option == 0)
 			ft_putchar_fd('\n', 1);
 	}
-	*exit_signal = 0;
+	exit_signal = 0;
 }

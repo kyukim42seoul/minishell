@@ -109,7 +109,7 @@ int before_value(char *str)
 	export test1 test2	-> export 에서 출력 o test1, test2 총 두개가 올라감, env 에서 출력 x
 	export test1= test2	-> export 에서 출력 o test1, test2 총 두개가 올라감, env 에서 test1 만 출력. 대신 value = "" 인 상태
 */
-void	builtin_export(t_info *info, char **str, int *exit_signal)
+void	builtin_export(t_info *info, char **str)
 {
 	int		len;
 	int 	i;
@@ -119,13 +119,14 @@ void	builtin_export(t_info *info, char **str, int *exit_signal)
 		print_export(info, 1);
 	else
 	{
+		exit_signal = 0;
 		while (*(++str))
 		{
 			i = before_value(*str);
 			if (i == 0)
 			{
 				printf("bash: export: `%s': not a valid identifier\n", *str);
-				*exit_signal= 1;
+				exit_signal = 1;
 			}
 			else if (i + 1 == (int)ft_strlen(*str) && (*str)[i] == '=')
 				export_value(info, *str, i, 1); 									

@@ -39,7 +39,7 @@ int	parse_tree(t_info *info)
 		root = tree_bin(root, new_node);
 	else if (new_node->type == CHARACTERS)
 		root = tree_arg(root, new_node);
-	print_tree(root, 0);																	//완성된 트리
+	//print_tree(root, 0);																	//완성된 트리
 	info->root = root;
 	return (EXIT_SUCCESS);
 }

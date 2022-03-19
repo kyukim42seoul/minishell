@@ -1,13 +1,13 @@
 #include "../proto.h"
 
-void	builtin_exit(char **str, int *exit_signal)
+void	builtin_exit(char **str)
 {
 	int i;
 
 	if (*(++str) == NULL)
 	{
 		printf("exit\n");
-		exit(*exit_signal);
+		exit(exit_signal);
 	}
 	i = 0;
 	while ((*str)[i])
@@ -19,7 +19,7 @@ void	builtin_exit(char **str, int *exit_signal)
 			exit(255);
 		}
 	}
-	if ((*(++str)) != NULL && (*exit_signal = 1))
+	if ((*(++str)) != NULL && (exit_signal = 1))
 		printf("bash: exit: too many arguments\n");
 	else
 	{

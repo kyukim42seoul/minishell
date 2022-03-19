@@ -42,6 +42,7 @@ void	change_env(t_info *info)
 		if (flag == 0)
 			env_add(info, "OLDPWD", old);
 	}
+	exit_signal = 0;
 }
 
 char	*get_env_value(t_list *head, char *key)
@@ -58,7 +59,7 @@ char	*get_env_value(t_list *head, char *key)
 	return (NULL);
 }
 
-void	builtin_cd(t_info *info, char **str, int *exit_signal)
+void	builtin_cd(t_info *info, char **str)
 {
 	char *path;
 	int		i;
@@ -73,7 +74,7 @@ void	builtin_cd(t_info *info, char **str, int *exit_signal)
 	if (chdir(path) == -1)
 	{
 		printf("bash: cd: %s: No such file or directory\n", *str);
-		*exit_signal = 1;
+		exit_signal = 1;
 	}
 	else
 		change_env(info);
