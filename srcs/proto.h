@@ -205,7 +205,7 @@ void	builtin_exit(char **str);
 void	redir_hub(t_tree *root);
 
 //execve.c
-int		run_execve(char **cmd_data, char *env);
+void		run_execve(char **cmd_data, char *env);
 
 //action/action_tree.c
 void	action(t_info *info);

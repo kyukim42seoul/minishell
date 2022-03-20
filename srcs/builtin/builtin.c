@@ -77,6 +77,6 @@ void	implement_cmd(t_info *info, char **cmd)
 	else
 	{
 		env_path = (char *)find_content_from_key(info->e_head, "PATH");
-		run_execve(cmd, env_path);	
+		run_execve(cmd, env_path);
 	}
 }

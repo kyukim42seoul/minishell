@@ -2,9 +2,6 @@
 
 void	PreorderTraverse(t_info *info, t_tree *tree)
 {
-	int	exit_signal;
-
-	exit_signal = 0;
 	if (tree == NULL)
 		return ;
 	if (tree->type == PSIO)
@@ -68,7 +65,7 @@ void	excute_tree(t_info *info, t_tree *root)
 		pipe_setting(root);
 		root->right = NULL;
 		single_tree(info, root);
-		exit(1);
+		exit(exit_signal);
 	}
 }
 

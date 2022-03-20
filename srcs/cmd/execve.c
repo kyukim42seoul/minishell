@@ -6,7 +6,14 @@ int	check_path(const char *path)
 	struct stat *path_info;
 
 	path_info = (struct stat *)malloc(sizeof(struct stat *));
-	result = stat(path, path_info);
+	if (stat(path, path_info) == 0)
+	{
+		if (S_ISDIR(path_info->st_mode))
+			result = 2;
+		result = 1;
+	}
+	else
+		result = 0;
 	return (result);
 }
 
@@ -62,17 +69,37 @@ t_list	*find_valid_path(t_list	*path_head)
 		find_valid_path() 에서 저장된 모든 경로(t_list *lst)를 확인하여 유효한 경로의 노드 반환(t_list *node)
 		반환된 노드의 content 로 execve() 실행
 */
-int	run_execve(char **cmd_data, char *env)
+void	run_execve(char **cmd_data, char *env)
 {
 	t_list	*head_relative_path_list;
 	t_list	*valid_path;
+	int		result;
 
 	head_relative_path_list = 0;
-	if (check_path(cmd_data[0]) == 0)
-		execve(cmd_data[0], cmd_data, NULL);
+	if (cmd_data[0][0] == '/')
+	{
+		result = check_path(cmd_data[0]);
+		if (result)
+			execve(cmd_data[0], cmd_data, NULL);
+		else
+		{
+			if (result == 2)
+			{
+				printf("bash: %s: is a directory\n", cmd_data[0]);
+				exit_signal = 126;
+			}
+			else if (result == 0)
+			{
+				printf("bash: %s: No such file or directory\n",  cmd_data[0]);
+				exit_signal = 127;
+			}
+			return ;
+		}
+	}
 	head_relative_path_list = make_relative_path(env, cmd_data[0]);
 	valid_path = find_valid_path(head_relative_path_list);
 	if (valid_path)
 		execve((char *)valid_path->content, cmd_data, NULL);
-	return (EXIT_FAILURE);
+	printf("bash: %s: command not found\n", cmd_data[0]);
+	exit_signal = 127;
 }
