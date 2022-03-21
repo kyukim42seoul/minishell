@@ -15,13 +15,14 @@ LIB_NAME	= libft.a
 LIB_DIR		= ./lib/
 
 OBJECTS = ./srcs/proto.o \
+		./srcs/signal.o \
 		./srcs/init.o \
 		./srcs/copy.o \
 		./srcs/util.o \
 		./srcs/lst.o \
-		./srcs/tokenize.o \
-		./srcs/tokenize_cmd_env.o \
-		./srcs/tokenize_util.o \
+		./srcs/tokenize/tokenize.o \
+		./srcs/tokenize/tokenize_cmd_env.o \
+		./srcs/tokenize/tokenize_util.o \
 		./srcs/print_node.o \
 		./srcs/syntax.o \
 		./srcs/set_type.o \

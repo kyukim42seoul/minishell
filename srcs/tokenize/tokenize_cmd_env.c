@@ -1,4 +1,4 @@
-# include "proto.h"
+# include "../proto.h"
 
 char	*take_env_value(t_list *head, char *key, int len)
 {

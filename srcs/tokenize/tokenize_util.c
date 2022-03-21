@@ -1,4 +1,4 @@
-# include "proto.h"
+# include "../proto.h"
 
 int quotation_len(char *s, int i, int type)
 {

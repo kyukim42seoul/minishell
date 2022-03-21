@@ -1,4 +1,4 @@
-# include "proto.h"
+# include "../proto.h"
 
 int	check_status_type(char c)
 {
@@ -75,45 +75,13 @@ char	*path_change_check(char *cmd, t_info *info)
 	return (change_cmd_to_env(cmd, flag, info));
 }
 
-int quotation_check(char *s, int i)
-{
-	int status;
-
-	status = 0;
-	while (s[i])
-	{
-		if (s[i] == '\'')
-		{
-			if (status == 0)
-				status = 1;
-			else if (status == 1)
-				status = 0;
-		}
-		else if (s[i] == '\"')
-		{
-			if (status == 0)
-				status = 2;
-			else if (status == 2)
-				status = 0;
-		}
-		i++;
-		while (s[i] && (s[i] !=  '\"' &&  s[i] != '\''))
-		 	i++;
-	}
-	return (status);
-}
-
 void	tokenize(char *full_command, t_info *info)
 {
 	int		i;
 	int 	type;
 	t_flag	flag;
 
-	if (!full_command)
-		return ;
 	info->t_head = NULL;
-	if (quotation_check(full_command, 0))
-		return (exit(-1));
 	full_command = path_change_check(full_command, info);
 	flag.num = 0;
 	i = 0;

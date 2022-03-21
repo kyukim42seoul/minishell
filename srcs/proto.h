@@ -117,6 +117,11 @@ typedef void (*VisitFuncPtr)(t_info *info, t_tree *tree);
 //init.c
 int		init_info(t_info **info);
 
+//signal.c
+void	set_signal();
+void	signal_handler(int signum);
+
+
 //copy.c
 int		copy_env(t_info *info, char *env[]);
 
