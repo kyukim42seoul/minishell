@@ -113,7 +113,12 @@ void	action(t_info *info)
 			cur_tree = cur_tree->right;
 		}
 		while ((check = wait(&status)) > 0);
-		exit_signal = WEXITSTATUS(status);
+		if (exit_signal == SIGINT_WITH_FORK)
+			exit_signal = 130;
+		else if (exit_signal == SIGQUIT_WITH_FORK)
+			exit_signal = 131;
+		else
+			exit_signal = WEXITSTATUS(status);
 		return ;
 	}
 }

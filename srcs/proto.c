@@ -18,7 +18,7 @@ void	signal_handler(int signum)
 		}
 		else
 		{
-			exit_signal = 130;
+			exit_signal = SIGINT_WITH_FORK;
 			write(STDOUT_FILENO, "\n", 1);
 		}
 	}
@@ -26,7 +26,8 @@ void	signal_handler(int signum)
 	{
 		if (pid == 0)
 		{
-			exit_signal = 131;
+			exit_signal = SIGQUIT_WITH_FORK;
+			printf("exit = %d\n", exit_signal);
 			write(1, "Quit: 3\n", 9);
 		}
 		else

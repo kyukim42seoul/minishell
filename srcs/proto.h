@@ -42,6 +42,8 @@
 # define	PSIO 15
 # define	PSREDIR 16
 # define	PSBIN 17
+# define	SIGINT_WITH_FORK 1300
+# define	SIGQUIT_WITH_FORK 1310
 
 
 # define	STANDARD 100
