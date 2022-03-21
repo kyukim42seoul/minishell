@@ -53,6 +53,22 @@ void	set_signal()
 	signal(SIGQUIT, signal_handler); //ctrl + /
 }
 
+int check_cmd(char *cmd)
+{
+	int i;
+
+	if (*cmd == '\0')
+		return (1);
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == 32 || (cmd[i] >= 9 && cmd[i] <= 13))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 /*
 	main 함수 설명
 */
@@ -78,16 +94,19 @@ int	main(int argc, char *argv[], char *env[])
             printf("exit\n");
 			exit (-1);
 		}
-		tokenize(full_cmd, info);
-		add_head(info, PIPE);
-		set_type(info->t_head);
-		if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
-			printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, (char *)info->debug->error_point_data);
-		parse_tree(info);
-		action(info);
-		add_history(full_cmd);
+		else if (!check_cmd(full_cmd))
+		{
+			tokenize(full_cmd, info);
+			add_head(info, PIPE);
+			set_type(info->t_head);
+			if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
+				printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, (char *)info->debug->error_point_data);
+			parse_tree(info);
+			action(info);
+			add_history(full_cmd);
+			postorder_del_tree(info->root);
+		}
 		free(full_cmd);
-		postorder_del_tree(info->root);
 		info->root = 0;
 	}
 	return (EXIT_SUCCESS);
