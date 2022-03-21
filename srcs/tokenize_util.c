@@ -83,6 +83,6 @@ void	make_token_node(char *cmd, t_flag flag, t_info *info)
 				ft_substr(cmd, flag.i_cur[i], flag.len[i]));
 		i++;
 	}
-	print_t_token(info);
+	//print_t_token(info);
 }
 
