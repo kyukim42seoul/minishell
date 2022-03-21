@@ -2,16 +2,43 @@
 
 void	signal_handler(int signum)
 {
+	pid_t pid;
+	int		status;
+
+	pid = waitpid(-1, &status, WNOHANG);
 	if (signum == SIGINT)
 	{
-		write(STDOUT_FILENO, "\n", 1);
-		if (rl_on_new_line() == -1)
-			exit(1);
-		rl_replace_line("", 1);
-		rl_redisplay();
+		if (pid == -1)
+		{
+			write(STDOUT_FILENO, "\n", 1);
+			rl_on_new_line();
+			exit_signal = 1;
+			rl_replace_line("", 1);
+			rl_redisplay();
+		}
+		else
+		{
+			exit_signal = 130;
+			write(STDOUT_FILENO, "\n", 1);
+		}
+	}
+	else if (signum == SIGQUIT)
+	{
+		if (pid == 0)
+		{
+			exit_signal = 131;
+			write(1, "Quit: 3\n", 9);
+		}
+		else
+		{
+			rl_on_new_line();
+			rl_redisplay();
+			write(1, "  \b\b", 4);
+		}
 	}
 	return ;
 }
+
 
 void	set_signal()
 {
@@ -23,9 +50,8 @@ void	set_signal()
     term.c_lflag &= ~(ECHOCTL);
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	signal(SIGINT, signal_handler); //ctrl + c
-	signal(SIGQUIT, SIG_IGN); //ctrl + /
+	signal(SIGQUIT, signal_handler); //ctrl + /
 }
-
 
 /*
 	main 함수 설명
