@@ -48,9 +48,11 @@ void	pipe_setting(t_tree *root)
 		close(root->prepip);
 	}
 	if (root->right)
+	{
 		dup2(root->pip[1], 1);
-	close(root->pip[0]);
-	close(root->pip[1]);
+		close(root->pip[0]);
+		close(root->pip[1]);
+	}
 }
 
 void	excute_tree(t_info *info, t_tree *root)
@@ -99,6 +101,11 @@ void	action(t_info *info)
 				close(cur_tree->pip[0]);
 			}
 			excute_tree(info, cur_tree);
+			if (cur_tree->right)
+			{
+				close(cur_tree->pip[0]);
+				close(cur_tree->pip[1]);
+			}
 			dup2(fd[0], STDIN_FILENO);
 			dup2(fd[1], STDOUT_FILENO);
 			close(fd[0]);

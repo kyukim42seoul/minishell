@@ -63,10 +63,11 @@ int check_cmd(char *cmd)
 	while (cmd[i])
 	{
 		if (cmd[i] == 32 || (cmd[i] >= 9 && cmd[i] <= 13))
-			return (1);
-		i++;
+			i++;
+		else
+			return (0);
 	}
-	return (0);
+	return (1);
 }
 
 /*
