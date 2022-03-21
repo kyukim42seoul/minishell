@@ -50,12 +50,12 @@ t_list	*find_valid_path(t_list	*path_head)
 	while (cur->next)
 	{
 		result = check_path((char *)cur->content);
-		if (result == 0)
+		if (result)
 			return (cur);
 		cur = cur->next;
 	}
 	result = check_path((char *)cur->content);
-	if (result == 0)
+	if (result)
 		return (cur);
 	else
 		return (NULL);
@@ -98,6 +98,7 @@ void	run_execve(char **cmd_data, char *env)
 	}
 	head_relative_path_list = make_relative_path(env, cmd_data[0]);
 	valid_path = find_valid_path(head_relative_path_list);
+	printf("vaild_pa = %s\n", (char *)valid_path->content);
 	if (valid_path)
 		execve((char *)valid_path->content, cmd_data, NULL);
 	printf("bash: %s: command not found\n", cmd_data[0]);
