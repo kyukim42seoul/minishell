@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   proto.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 15:46:33 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 16:39:04 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "proto.h"
 
-int quotation_check(char *s, int i)
+int	quotation_check(char *s, int i)
 {
-	int status;
+	int	status;
 
 	status = 0;
 	while (s[i])
@@ -22,15 +34,15 @@ int quotation_check(char *s, int i)
 				status = 0;
 		}
 		i++;
-		while (s[i] && (s[i] !=  '\"' &&  s[i] != '\''))
-		 	i++;
+		while (s[i] && (s[i] != '\"' && s[i] != '\''))
+			i++;
 	}
 	return (status);
 }
 
-int check_cmd(char *cmd)
+int	check_cmd(char *cmd)
 {
-	int i;
+	int	i;
 
 	if (*cmd == '\0')
 		return (1);
@@ -50,13 +62,11 @@ int check_cmd(char *cmd)
 */
 int	main(int argc, char *argv[], char *env[])
 {
-	int		temp_argc;
-	char	**temp_argv;
 	char	*full_cmd;
 	t_info	*info;
 
-	temp_argc = argc;
-	temp_argv = argv;
+	(void)argc;
+	(void)argv;
 	set_signal();
 	init_info(&info);
 	copy_env(info, env);
@@ -65,9 +75,9 @@ int	main(int argc, char *argv[], char *env[])
 		full_cmd = readline("in> ");
 		if (full_cmd == NULL)
 		{
-			printf("\033[1A"); // 커서를 위로 한 줄 올린다.
-           	printf("\033[4C"); // 커서를 4만큼 오른쪽으로 민다.
-            printf("exit\n");
+			printf("\033[1A");// 커서를 위로 한 줄 올린다.
+			printf("\033[4C");// 커서를 4만큼 오른쪽으로 민다.
+			printf("exit\n");
 			exit (-1);
 		}
 		else if (!check_cmd(full_cmd) && !quotation_check(full_cmd, 0))
@@ -78,7 +88,7 @@ int	main(int argc, char *argv[], char *env[])
 			if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
 				printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, (char *)info->debug->error_point_data);
 			parse_tree(info);
-			action(info);
+			action(info, 0, 0);
 			add_history(full_cmd);
 			postorder_del_tree(info->root);
 		}

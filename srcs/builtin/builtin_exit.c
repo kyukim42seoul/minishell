@@ -1,12 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 15:20:20 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 15:20:21 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../proto.h"
 
-void	builtin_exit(char **str)
+void	check_exit_arguments(t_info *info, char **str)
 {
-	int i;
+	if ((*(++str)) != NULL)
+	{
+		exit_signal = 1;
+		printf("bash: exit: too many arguments\n");
+	}
+	else
+	{
+		if (info->root->right == NULL)
+			printf("exit\n");
+		exit(ft_atoi(*(--str)));
+	}
+}
+
+void	builtin_exit(t_info *info, char **str)
+{
+	int	i;
 
 	if (*(++str) == NULL)
 	{
-		printf("exit\n");
+		if (info->root->right == NULL)
+			printf("exit\n");
 		exit(exit_signal);
 	}
 	i = 0;
@@ -14,16 +42,11 @@ void	builtin_exit(char **str)
 	{
 		if (!ft_isdigit((*str)[i++]))
 		{
-			printf("exit\n");
+			if (info->root->right == NULL)
+				printf("exit\n");
 			printf("bash: exit: %s: numeric argument required\n", *str);
 			exit(255);
 		}
 	}
-	if ((*(++str)) != NULL && (exit_signal = 1))
-		printf("bash: exit: too many arguments\n");
-	else
-	{
-		printf("exit\n");
-		exit(ft_atoi(*(--str)));
-	}
+	check_exit_arguments(info, str);
 }

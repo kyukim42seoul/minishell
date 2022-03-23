@@ -39,6 +39,7 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/cmd/redir.o \
 		./srcs/cmd/execve.o \
 		./srcs/action/action.o \
+		./srcs/action/preorder.o \
 
 
 

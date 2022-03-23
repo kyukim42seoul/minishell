@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 15:20:08 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 15:20:10 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../proto.h"
 
 int	echo_option_check(char *str)
 {
-	int i;
+	int	i;
 
 	i = 2;
 	if (str == NULL)
@@ -20,12 +32,12 @@ int	echo_option_check(char *str)
 
 void	builtin_echo(char **str)
 {
-	int option;
-	int i;
+	int	option;
+	int	i;
 
 	option = 0;
 	i = 1;
-	if (str[i] ==  NULL)
+	if (str[i] == NULL)
 		ft_putchar_fd('\n', 1);
 	else
 	{

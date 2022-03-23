@@ -1,6 +1,18 @@
-# include "../proto.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenize_util.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 15:20:58 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 15:20:59 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int quotation_len(char *s, int i, int type)
+#include "../proto.h"
+
+int	quotation_len(char *s, int i, int type)
 {
 	char	c;
 	int		len;
@@ -19,7 +31,7 @@ int quotation_len(char *s, int i, int type)
 		i++;
 	}
 	len = len + 2;
-	return(len);
+	return (len);
 }
 
 int	token_len_check(char *s, int i, t_flag *flag)
@@ -69,7 +81,7 @@ void	token_insert(t_info *info, int type, char *data)
 
 void	make_token_node(char *cmd, t_flag flag, t_info *info)
 {
-	int i;
+	int	i;
 
 	info->t_head = NULL;
 	i = 0;
@@ -83,6 +95,4 @@ void	make_token_node(char *cmd, t_flag flag, t_info *info)
 				ft_substr(cmd, flag.i_cur[i], flag.len[i]));
 		i++;
 	}
-	//print_t_token(info);
 }
-

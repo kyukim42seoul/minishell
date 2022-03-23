@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 15:20:39 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 15:20:40 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../proto.h"
 
 int	valid_key(char *str)
@@ -15,11 +27,11 @@ int	valid_key(char *str)
 
 void	rm_env(t_info *info, char *str)
 {
-	t_list *check;
-	t_list *temp;
+	t_list	*check;
+	t_list	*temp;
 
 	temp = NULL;
-	check = info->e_head;
+	check = info->e_head->next;
 	while (check)
 	{
 		if (!ft_strncmp(str, check->key, ft_strlen(check->key)))
@@ -36,7 +48,7 @@ void	rm_env(t_info *info, char *str)
 		else
 		{
 			temp = check;
-			check =  check->next;
+			check = check->next;
 		}
 	}
 	exit_signal = 0;
@@ -61,4 +73,3 @@ void	builtin_unset(t_info *info, char **str)
 		}
 	}
 }
-
