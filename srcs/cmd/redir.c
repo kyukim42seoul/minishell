@@ -64,7 +64,7 @@ int	double_right_redir(char *path)
 	fd = open(path, O_WRONLY|O_CREAT|O_APPEND, 0755);
 	if (fd == -1)
 	{
-		printf("RIGHT_REDIR\n", path);
+		printf("RIGHT_REDIR\n");
 		printf("%s\n", strerror(errno));
 		return (EXIT_FAILURE);
 	}
