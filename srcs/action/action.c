@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:03:25 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 19:49:21 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/23 20:32:43 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	fork_tree(t_info *info, t_tree *root, int *in, int *out)
 	{
 		pipe_setting(root);
 		root->right = NULL;
-		single_tree(info, root);
+		preorder_traverse(info, root);
 		exit(exit_signal);
 	}
 	else
@@ -77,14 +77,14 @@ void	action(t_info *info, int in, int out)
 
 	status = 0;
 	cur_tree = info->root;
+	in = dup(STDIN_FILENO);
+	out = dup(STDOUT_FILENO);
 	if (!(cur_tree->right) && check_builtin(cur_tree))
-		single_tree(info, cur_tree->left);
+		single_tree(info, cur_tree->left, in, out);
 	else
 	{
 		while (cur_tree)
 		{
-			in = dup(STDIN_FILENO);
-			out = dup(STDOUT_FILENO);
 			if (cur_tree->right)
 			{
 				pipe(cur_tree->pip);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preorder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:46 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 18:37:43 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/23 20:32:40 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ void	preorder_traverse(t_info *info, t_tree *tree)
 	preorder_traverse(info, tree->right);
 }
 
-void	single_tree(t_info *info, t_tree *tree)
+void	single_tree(t_info *info, t_tree *tree, int in, int out)
 {
 	preorder_traverse(info, tree);
-	info->double_shift_flag = 0;
+	dup2(in, STDIN_FILENO);
+	dup2(out, STDOUT_FILENO);
+	close(in);
+	close(out);
 }
