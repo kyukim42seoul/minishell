@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:44 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 16:20:15 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/23 17:27:31 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 int	check_builtin(t_tree *tree)
 {
 	t_tree	*find;
-	int 	len;
+	int		len;
 
 	find = tree_search_type(tree, PSBIN);
 	len = (int)ft_strlen(find->left->data[0]);
-	if (!ft_strncmp(find->left->data[0], "echo", len) ||
-		!ft_strncmp(find->left->data[0], "cd", len) ||
-		!ft_strncmp(find->left->data[0], "pwd", len) ||
-		!ft_strncmp(find->left->data[0], "env", len) ||
-		!ft_strncmp(find->left->data[0], "export", len) ||
-		!ft_strncmp(find->left->data[0], "unset", len) ||
-		!ft_strncmp(find->left->data[0], "exit", len))
+	if (!ft_strncmp(find->left->data[0], "echo", len)
+		|| !ft_strncmp(find->left->data[0], "cd", len)
+		|| !ft_strncmp(find->left->data[0], "pwd", len)
+		|| !ft_strncmp(find->left->data[0], "env", len)
+		|| !ft_strncmp(find->left->data[0], "export", len)
+		|| !ft_strncmp(find->left->data[0], "unset", len)
+		|| !ft_strncmp(find->left->data[0], "exit", len))
 		return (1);
-	return(0);
+	return (0);
 }
 
 void	env_add(t_info *info, char *key, char *content)
