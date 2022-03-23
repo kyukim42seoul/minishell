@@ -6,22 +6,20 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:51 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 15:20:52 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/23 20:04:03 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../proto.h"
 
-char	*take_env_value(t_list *head, char *key, int len)
+char	*take_env_value(t_list *head, char *key)
 {
 	t_list	*env;
 
 	env = head->next;
 	while (env)
 	{
-		if (len == 0)
-			break ;
-		if (!ft_strncmp((char *)env->key, key, len))
+		if (!ft_strncmp((char *)env->key, key, ft_strlen(env->key)))
 			return (ft_strdup((char *)env->content));
 		env = env->next;
 	}
@@ -68,7 +66,7 @@ char	*change_cmd_to_env(char *cmd, t_flag flag, t_info *info)
 		else
 		{
 			env_key = ft_substr(&str[flag.i_cur[i] + 1], 0, flag.len[i]);
-			env_value = take_env_value(info->e_head, env_key, flag.len[i]);
+			env_value = take_env_value(info->e_head, env_key);
 		}
 		str = cmd_key_to_value(str, &flag, i, env_value);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:03:25 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 17:15:07 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/23 19:49:21 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	fork_tree(t_info *info, t_tree *root, int *in, int *out)
 }
 
 void	child_exit_signal(int status)
-{
+{		
 	while (1)
 	{
 		if (wait(&status) < 0)
