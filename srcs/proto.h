@@ -219,7 +219,8 @@ void		run_execve(char **cmd_data, char *env, char **origin_env);
 void	action(t_info *info, int in, int out);
 
 //action/preorder.c
-void	single_tree(t_info *info, t_tree *tree);
+void	single_tree(t_info *info, t_tree *tree, int in, int out);
+void	preorder_traverse(t_info *info, t_tree *tree);
 
 void	execv_cmd(t_info *info, char **str);
 #endif

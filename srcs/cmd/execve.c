@@ -97,7 +97,6 @@ void	run_execve(char **cmd_data, char *env, char **origin_env)
 	}
 	head_relative_path_list = make_relative_path(env, cmd_data[0]);
 	valid_path = find_valid_path(head_relative_path_list);
-	printf("path = %s\n", (char *)valid_path->content);
 	if (valid_path)
 		execve((char *)valid_path->content, cmd_data, origin_env);
 	printf("bash: %s: command not found\n", cmd_data[0]);
