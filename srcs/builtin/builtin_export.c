@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 15:20:27 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 15:20:28 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../proto.h"
 
 /*
@@ -5,12 +17,11 @@
 	export kk=aa  		밸류가 있을 때.
 	인자 i 를 통해서 두 경우 중 어떤 상황인지 체크.
 */
-char *find_value_status(char *str, int len, int status)
+char	*find_value_status(char *str, int len, int status)
 {
-	char *result;
+	char	*result;
 
 	result = NULL;
-	printf("len = %d\n", len);
 	if (status == 1)
 		result = ft_strdup("");
 	else if (status == 2)
@@ -27,12 +38,12 @@ char *find_value_status(char *str, int len, int status)
 */
 void	export_value(t_info *info, char *str, int len, int status)
 {
-	int flag;
-	char *content;
-	t_list *cur;
+	int		flag;
+	char	*content;
+	t_list	*cur;
 
 	flag = 0;
-	cur = info->e_head;
+	cur = info->e_head->next;
 	content = find_value_status(str, len, status);
 	while (cur)
 	{
@@ -49,20 +60,14 @@ void	export_value(t_info *info, char *str, int len, int status)
 		cur = cur->next;
 	}
 	if (flag == 0)
-	{
-		cur = sh_lstnew(NULL);
-		cur->type = O_ENV;
-		cur->content = content;
-		cur->key = sh_substr(str, 0, len);
-		sh_lstadd_back(&info->e_head, cur);
-	}
+		env_add(info, sh_substr(str, 0, len), content);
 }
 
 void	print_export(t_info *info, int fd)
 {
-	t_list *check;
+	t_list	*check;
 
-	check = info->e_head;
+	check = info->e_head->next;
 	while (check != NULL)
 	{
 		ft_putstr_fd("declare -x ", fd);
@@ -79,9 +84,9 @@ void	print_export(t_info *info, int fd)
 	}
 }
 
-int before_value(char *str)
+int	before_value(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!ft_isalpha(*str) && *str != '_')
@@ -107,12 +112,13 @@ int before_value(char *str)
 	export test 		-> export 에서 출력 o, env 에서 출력 x
 	export test= 		-> export 에서 출력 o, env 에서 출력 o 대신 value = "" 인 상태
 	export test1 test2	-> export 에서 출력 o test1, test2 총 두개가 올라감, env 에서 출력 x
-	export test1= test2	-> export 에서 출력 o test1, test2 총 두개가 올라감, env 에서 test1 만 출력. 대신 value = "" 인 상태
+	export test1= test2	-> export 에서 출력 o test1, test2 총 두개가 올라감,
+							env 에서 test1 만 출력. 대신 value = "" 인 상태
 */
 void	builtin_export(t_info *info, char **str)
 {
-	int		len;
-	int 	i;
+	int	len;
+	int	i;
 
 	len = str_len(str);
 	if (len == 1)
@@ -129,10 +135,10 @@ void	builtin_export(t_info *info, char **str)
 				exit_signal = 1;
 			}
 			else if (i + 1 == (int)ft_strlen(*str) && (*str)[i] == '=')
-				export_value(info, *str, i, 1); 									
+				export_value(info, *str, i, 1);
 			else if ((*str)[i] == '=')
 				export_value(info, *str, i, 2);
-			else 
+			else
 				export_value(info, *str, i, 3);
 		}
 	}

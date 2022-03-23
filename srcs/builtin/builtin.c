@@ -1,8 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 15:20:44 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 16:20:15 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../proto.h"
+
+int	check_builtin(t_tree *tree)
+{
+	t_tree	*find;
+	int 	len;
+
+	find = tree_search_type(tree, PSBIN);
+	len = (int)ft_strlen(find->left->data[0]);
+	if (!ft_strncmp(find->left->data[0], "echo", len) ||
+		!ft_strncmp(find->left->data[0], "cd", len) ||
+		!ft_strncmp(find->left->data[0], "pwd", len) ||
+		!ft_strncmp(find->left->data[0], "env", len) ||
+		!ft_strncmp(find->left->data[0], "export", len) ||
+		!ft_strncmp(find->left->data[0], "unset", len) ||
+		!ft_strncmp(find->left->data[0], "exit", len))
+		return (1);
+	return(0);
+}
 
 void	env_add(t_info *info, char *key, char *content)
 {
-	t_list *check;
+	t_list	*check;
 
 	check = sh_lstnew(NULL);
 	check->type = O_ENV;
@@ -11,39 +41,10 @@ void	env_add(t_info *info, char *key, char *content)
 	sh_lstadd_back(&info->e_head, check);
 }
 
-char **made_temp(t_info *info)
-{
-	char **s = NULL;
-	int len;
-	t_token *check;
-
-	len = 1;
-	check = info->t_head->next;
-	while (check->next != NULL)
-	{
-		check = check->next;
-		len++;
-	}
-	char **str  = malloc(sizeof(char *) * (len + 1));
-	s = str;
-	check = info->t_head->next;
-	while (check->next != NULL)
-	{
-		*str = ft_strdup(check->data);
-		check = check->next;
-		str++;
-	}
-	*str = ft_strdup(check->data);
-	str++;
-	*str = NULL;
-	
-	return (s);
-}
-
 int	str_len(char **str)
 {
-	int len;
-	char **temp;
+	int		len;
+	char	**temp;
 
 	len = 0;
 	temp = str;
@@ -73,7 +74,7 @@ void	implement_cmd(t_info *info, char **cmd)
 	else if (!ft_strncmp("echo", cmd[0], 5))
 		builtin_echo(cmd);
 	else if (!ft_strncmp("exit", cmd[0], 5))
-		builtin_exit(cmd);
+		builtin_exit(info, cmd);
 	else
 	{
 		env_path = (char *)find_content_from_key(info->e_head, "PATH");

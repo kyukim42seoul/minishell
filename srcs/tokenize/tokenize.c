@@ -1,4 +1,16 @@
-# include "../proto.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenize.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 15:21:04 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 15:21:05 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../proto.h"
 
 int	check_status_type(char c)
 {
@@ -21,10 +33,10 @@ int	check_status_type(char c)
 	return (CHARACTERS);
 }
 
-int characters_len(char *cmd, int i)
+int	characters_len(char *cmd, int i)
 {
-	int len;
-	int type;
+	int	len;
+	int	type;
 
 	len = 0;
 	while (cmd[i])
@@ -38,11 +50,30 @@ int characters_len(char *cmd, int i)
 	return (len);
 }
 
+int	check_quotat(int type, int quotat)
+{
+	if (type == DOUBLE)
+	{
+		if (quotat == 0)
+			quotat = DOUBLE;
+		else if (quotat == DOUBLE)
+			quotat = 0;
+	}
+	else if (type == SINGLE)
+	{
+		if (quotat == 0)
+			quotat = SINGLE;
+		else if (quotat == SINGLE)
+			quotat = 0;
+	}
+	return (quotat);
+}
+
 char	*path_change_check(char *cmd, t_info *info)
 {
-	int i;
-	int quotat;
-	t_flag flag;
+	int		i;
+	int		quotat;
+	t_flag	flag;
 
 	i = 0;
 	quotat = 0;
@@ -50,27 +81,14 @@ char	*path_change_check(char *cmd, t_info *info)
 	while (cmd[i])
 	{
 		flag.type[0] = check_status_type(cmd[i]);
-		if (flag.type[0]  == DOUBLE)
-		{
-			if (quotat == 0)
-				quotat = DOUBLE;
-			else if (quotat == DOUBLE)
-				quotat = 0;
-		}
-		else if (flag.type[0]  == SINGLE)
-		{
-			if (quotat == 0)
-				quotat = SINGLE;
-			else if (quotat == SINGLE)
-				quotat = 0;
-		}
-		else if ((flag.type[0]  == PATH) && (quotat != SINGLE))
+		quotat = check_quotat(flag.type[0], quotat);
+		if ((flag.type[0] == PATH) && (quotat != SINGLE))
 		{
 			flag.len[flag.num] = characters_len(cmd, i + 1);
 			flag.i_cur[flag.num] = i;
 			flag.num++;
 		}
-		i++;	
+		i++;
 	}
 	return (change_cmd_to_env(cmd, flag, info));
 }
@@ -78,7 +96,7 @@ char	*path_change_check(char *cmd, t_info *info)
 void	tokenize(char *full_command, t_info *info)
 {
 	int		i;
-	int 	type;
+	int		type;
 	t_flag	flag;
 
 	info->t_head = NULL;

@@ -184,8 +184,8 @@ int		parse_tree(t_info *info);
 //builtin.c
 void	implement_cmd(t_info *info, char **cmd);
 int				str_len(char **str);
-char			**made_temp(t_info *info);
 void	env_add(t_info *info, char *key, char *content);
+int	check_builtin(t_tree *tree);
 
 //builtin_env.c
 void	builtin_env(t_info *info, char **str);
@@ -206,7 +206,7 @@ void	builtin_cd(t_info *info, char **str);
 void	builtin_echo(char **str);
 
 //builtin_exit.c
-void	builtin_exit(char **str);
+void	builtin_exit(t_info *info, char **str);
 
 //redir.c
 void	redir_hub(t_tree *root);
@@ -215,7 +215,10 @@ void	redir_hub(t_tree *root);
 void		run_execve(char **cmd_data, char *env);
 
 //action/action_tree.c
-void	action(t_info *info);
+void	action(t_info *info, int in, int out);
+
+//action/preorder.c
+void	single_tree(t_info *info, t_tree *tree);
 
 void	execv_cmd(t_info *info, char **str);
 #endif

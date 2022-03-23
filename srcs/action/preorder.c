@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   preorder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 15:20:32 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 15:20:34 by kbaek            ###   ########.fr       */
+/*   Created: 2022/03/23 16:16:46 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 17:18:17 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../proto.h"
 
-void	builtin_pwd(char **str)
+void	preorder_traverse(t_info *info, t_tree *tree)
 {
-	char	*s;
-
-	if (*(++str))
+	if (tree == NULL)
+		return ;
+	if (tree->type == PSIO)
 	{
-		if (((*str)[0] == '-' && (*str)[1] && (*str)[1] != '-')
-			|| ((*str)[0] == '-' && (*str)[1] && (*str)[1] == '-' && (*str)[2]))
-		{
-			printf("bash: pwd: -%c: invalid option\npwd: usage: pwd [-LP]\n",
-				(*str)[1]);
-			exit_signal = 1;
-			return ;
-		}
+		if (tree->left)
+			redir_hub(tree);
 	}
-	s = getcwd(NULL, 0);
-	ft_putstr_fd(s, 1);
-	ft_putchar_fd('\n', 1);
-	exit_signal = 0;
-	free(s);
+	else if (tree->type == CMD)
+		implement_cmd(info, tree->data);
+	preorder_traverse(info, tree->left);
+	preorder_traverse(info, tree->right);
+}
+
+void	single_tree(t_info *info, t_tree *tree)
+{
+	preorder_traverse(info, tree);
+	info->double_shift_flag = 0;
 }

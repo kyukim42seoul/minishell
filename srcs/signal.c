@@ -1,8 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 15:25:32 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 15:46:01 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "proto.h"
+
+void	signal_handler_quit(int pid)
+{
+	if (pid == 0)
+	{
+		exit_signal = SIGQUIT_WITH_FORK;
+		write(1, "^\\", 2);
+		write(1, "Quit: 3\n", 9);
+	}
+	else
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		write(1, "  \b\b", 4);
+	}	
+}
 
 void	signal_handler(int signum)
 {
-	pid_t pid;
+	pid_t	pid;
 	int		status;
 
 	pid = waitpid(-1, &status, WNOHANG);
@@ -24,32 +52,24 @@ void	signal_handler(int signum)
 		}
 	}
 	else if (signum == SIGQUIT)
-	{
-		if (pid == 0)
-		{
-			exit_signal = SIGQUIT_WITH_FORK;
-			write(1, "^\\", 2);
-			write(1, "Quit: 3\n", 9);
-		}
-		else
-		{
-			rl_on_new_line();
-			rl_redisplay();
-			write(1, "  \b\b", 4);
-		}
-	}
+		signal_handler_quit(pid);
 	return ;
 }
 
-void	set_signal()
+/*
+	tcsetattr의 옵션으로 들어가는 optional_actions에 
+	TCSNOW는 환경 변수 0으로 등록되어 있는데, 속성을 바로 변경한다는 것을 의미한다.
+	SIGINT	= ctrl + c
+	SIGQUIT = ctrl + \
+*/
+void	set_signal(void)
 {
-	struct termios term;
+	struct termios	term;
 
 	exit_signal = 0;
-	//tcsetattr의 옵션으로 들어가는 optional_actions에 TCSNOW는 환경 변수 0으로 등록되어 있는데, 속성을 바로 변경한다는 것을 의미한다.
-    tcgetattr(STDIN_FILENO, &term);
-    term.c_lflag &= ~(ECHOCTL);
-    tcsetattr(STDIN_FILENO, TCSANOW, &term);
-	signal(SIGINT, signal_handler); //ctrl + c
-	signal(SIGQUIT, signal_handler); //ctrl + /
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, signal_handler);
 }

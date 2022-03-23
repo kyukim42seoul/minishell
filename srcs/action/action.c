@@ -1,44 +1,16 @@
-# include "../proto.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   action.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 16:03:25 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 17:15:07 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	PreorderTraverse(t_info *info, t_tree *tree)
-{
-	if (tree == NULL)
-		return ;
-	if (tree->type == PSIO)
-	{
-		if (tree->left)
-			redir_hub(tree);
-	}
-	else if (tree->type == CMD)
-		implement_cmd(info, tree->data);
-	PreorderTraverse(info, tree->left);
-	PreorderTraverse(info, tree->right);
-}
-
-int	single_tree(t_info *info, t_tree *tree)
-{
-	PreorderTraverse(info, tree);
-	info->double_shift_flag = 0;
-	return (1);
-}
-
-int	check_builtin(t_tree *tree)
-{
-	t_tree	*find;
-	int 	len;
-
-	find = tree_search_type(tree, PSBIN);
-	len = (int)ft_strlen(find->left->data[0]);
-	if (!ft_strncmp(find->left->data[0], "echo", len) ||
-		!ft_strncmp(find->left->data[0], "cd", len) ||
-		!ft_strncmp(find->left->data[0], "pwd", len) ||
-		!ft_strncmp(find->left->data[0], "env", len) ||
-		!ft_strncmp(find->left->data[0], "export", len) ||
-		!ft_strncmp(find->left->data[0], "unset", len) ||
-		!ft_strncmp(find->left->data[0], "exit", len))
-		return (1);
-	return(0);
-}
+#include "../proto.h"
 
 void	pipe_setting(t_tree *root)
 {
@@ -55,7 +27,7 @@ void	pipe_setting(t_tree *root)
 	}
 }
 
-void	excute_tree(t_info *info, t_tree *root)
+void	fork_tree(t_info *info, t_tree *root, int *in, int *out)
 {
 	pid_t	pid;
 
@@ -69,57 +41,59 @@ void	excute_tree(t_info *info, t_tree *root)
 		single_tree(info, root);
 		exit(exit_signal);
 	}
+	else
+	{
+		if (root->right)
+		{
+			close(root->pip[0]);
+			close(root->pip[1]);
+		}
+		dup2(*in, STDIN_FILENO);
+		dup2(*out, STDOUT_FILENO);
+		close(*in);
+		close(*out);
+	}	
 }
 
-void	action(t_info *info)
+void	child_exit_signal(int status)
+{
+	while (1)
+	{
+		if (wait(&status) < 0)
+			break ;
+	}
+	if (exit_signal == SIGINT_WITH_FORK)
+		exit_signal = 130;
+	else if (exit_signal == SIGQUIT_WITH_FORK)
+		exit_signal = 131;
+	else
+		exit_signal = WEXITSTATUS(status);
+}
+
+void	action(t_info *info, int in, int out)
 {
 	t_tree	*cur_tree;
-	int		result;
-	pid_t	check;
 	int		status;
-	int 	fd[2];
 
 	status = 0;
-	check = 0;
 	cur_tree = info->root;
 	if (!(cur_tree->right) && check_builtin(cur_tree))
-	{
-		result = single_tree(info, cur_tree->left);
-		if (result < 0)
-			printf("error\n");
-	}
+		single_tree(info, cur_tree->left);
 	else
 	{
 		while (cur_tree)
 		{
-			fd[0] = dup(STDIN_FILENO);
-			fd[1] = dup(STDOUT_FILENO);
+			in = dup(STDIN_FILENO);
+			out = dup(STDOUT_FILENO);
 			if (cur_tree->right)
 			{
 				pipe(cur_tree->pip);
 				cur_tree->right->prepip = dup(cur_tree->pip[0]);
 				close(cur_tree->pip[0]);
 			}
-			excute_tree(info, cur_tree);
-			if (cur_tree->right)
-			{
-				close(cur_tree->pip[0]);
-				close(cur_tree->pip[1]);
-			}
-			dup2(fd[0], STDIN_FILENO);
-			dup2(fd[1], STDOUT_FILENO);
-			close(fd[0]);
-			close(fd[1]);
+			fork_tree(info, cur_tree, &in, &out);
 			cur_tree = cur_tree->right;
 		}
-		while ((check = wait(&status)) > 0);
-		if (exit_signal == SIGINT_WITH_FORK)
-			exit_signal = 130;
-		else if (exit_signal == SIGQUIT_WITH_FORK)
-			exit_signal = 131;
-		else
-			exit_signal = WEXITSTATUS(status);
-		return ;
+		child_exit_signal(status);
 	}
 }
-

@@ -1,9 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/23 15:20:14 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/23 15:20:15 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../proto.h"
+
+void	print_env_out(t_list *env)
+{
+	t_list	*check;
+
+	check = env;
+	while (check != NULL)
+	{
+		if (check->content != NULL)
+		{
+			ft_putstr_fd((char *)check->key, 1);
+			ft_putchar_fd('=', 1);
+			ft_putstr_fd((char *)check->content, 1);
+			ft_putchar_fd('\n', 1);
+		}
+		check = check->next;
+	}
+	exit_signal = 0;
+}
 
 void	builtin_env(t_info *info, char **str)
 {
-	t_list *check;
-
 	if (*(++str))
 	{
 		if (((*str)[0] == '-' && (*str)[1] && (*str)[1] != '-')
@@ -21,16 +50,5 @@ void	builtin_env(t_info *info, char **str)
 		}
 		return ;
 	}
-	check = info->e_head;
-	while (check != NULL)
-	{
-		if (check->content != NULL)
-		{	
-			ft_putstr_fd((char *)check->key, 1);
-			ft_putchar_fd('=', 1);
-			ft_putstr_fd((char *)check->content, 1);
-			ft_putchar_fd('\n', 1);
-		}
-		check = check->next;
-	}
+	print_env_out(info->e_head);
 }
