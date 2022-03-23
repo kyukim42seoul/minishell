@@ -20,8 +20,7 @@ int	check_path(const char *path)
 t_list	*make_relative_path(char *env_path, char *cmd)
 {
 	int		index;
-	char	**divided_env;
-	char	*buf;
+	char	**divided_env;	char	*buf;
 	char	*merged_str;
 	t_list	*head;
 	t_list	*cur;
@@ -69,7 +68,7 @@ t_list	*find_valid_path(t_list	*path_head)
 		find_valid_path() 에서 저장된 모든 경로(t_list *lst)를 확인하여 유효한 경로의 노드 반환(t_list *node)
 		반환된 노드의 content 로 execve() 실행
 */
-void	run_execve(char **cmd_data, char *env)
+void	run_execve(char **cmd_data, char *env, char **origin_env)
 {
 	t_list	*head_relative_path_list;
 	t_list	*valid_path;
@@ -80,7 +79,7 @@ void	run_execve(char **cmd_data, char *env)
 	{
 		result = check_path(cmd_data[0]);
 		if (result)
-			execve(cmd_data[0], cmd_data, NULL);
+			execve(cmd_data[0], cmd_data, origin_env);
 		else
 		{
 			if (result == 2)
@@ -99,7 +98,7 @@ void	run_execve(char **cmd_data, char *env)
 	head_relative_path_list = make_relative_path(env, cmd_data[0]);
 	valid_path = find_valid_path(head_relative_path_list);
 	if (valid_path)
-		execve((char *)valid_path->content, cmd_data, NULL);
+		execve((char *)valid_path->content, cmd_data, origin_env);
 	printf("bash: %s: command not found\n", cmd_data[0]);
 	exit_signal = 127;
 }

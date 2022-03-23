@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:44 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 17:27:31 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/23 20:01:23 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ void	implement_cmd(t_info *info, char **cmd)
 	else
 	{
 		env_path = (char *)find_content_from_key(info->e_head, "PATH");
-		run_execve(cmd, env_path);
+		run_execve(cmd, env_path, info->origin_env);
 	}
 }

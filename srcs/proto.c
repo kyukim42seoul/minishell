@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proto.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:46:33 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 16:39:04 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/23 20:00:43 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	main(int argc, char *argv[], char *env[])
 	set_signal();
 	init_info(&info);
 	copy_env(info, env);
+	info->origin_env = env;
 	while (1)
 	{
 		full_cmd = readline("in> ");

@@ -2,13 +2,17 @@
 
 void	del_node(t_tree *node)
 {
-	static int	call_number;
 	int			index;
 
 	index = 0;
-	call_number++;
 	if (node == NULL)
 		return ;
+	if (node->prepip)
+		close(node->prepip);
+	if (node->pip[0])
+		close (node->pip[0]);
+	if (node->pip[1])
+		close (node->pip[1]);
 	if (node->data)
 	{
 		while (node->data[index])

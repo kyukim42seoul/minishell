@@ -102,6 +102,7 @@ typedef struct s_info
 {
 	char			*cmd;
 	char			**env;
+	char			**origin_env;
 	int				redirection_flag;
 	int				double_shift_flag;
 	t_list			*e_head;
@@ -212,7 +213,7 @@ void	builtin_exit(t_info *info, char **str);
 void	redir_hub(t_tree *root);
 
 //execve.c
-void		run_execve(char **cmd_data, char *env);
+void		run_execve(char **cmd_data, char *env, char **origin_env);
 
 //action/action_tree.c
 void	action(t_info *info, int in, int out);
