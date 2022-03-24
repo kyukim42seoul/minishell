@@ -99,7 +99,22 @@ int	left_redir(char *path)
 	return (EXIT_SUCCESS);
 }
 
-void	redir_hub(t_tree *root)
+int	left_doulbe_redir(t_info *info, t_tree *root)
+{
+	int	index;
+
+	index = 0;
+	while (root->my_number != info->heredoc[index].use_number)
+		index++;
+	if (root->my_number == info->heredoc[index].use_number)
+	{
+		change_stdin(info->heredoc[index].pip[0]);
+		close(info->heredoc[index].pip[0]);
+	}
+	return (EXIT_SUCCESS);
+}
+
+void	redir_hub(t_info *info, t_tree *root)
 {
 	if (root->left->left->type == LEFT_REDI)
 		left_redir(root->left->right->data[0]);
@@ -107,5 +122,7 @@ void	redir_hub(t_tree *root)
 		right_redir(root->left->right->data[0]);
 	else if (root->left->left->type == RIGHT_DOUBLE_REDI)
 		double_right_redir(root->left->right->data[0]);
+	else if (root->left->left->type == LEFT_DOUBLE_REDI)
+		left_doulbe_redir(info, root);
 	return ;
 }

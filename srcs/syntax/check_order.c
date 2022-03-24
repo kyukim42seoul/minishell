@@ -23,6 +23,8 @@ int	syntax_pipe(t_token *tokens, t_debug *debug)
 		return (EXIT_SUCCESS);
 	if (cur->type == BUILTIN || cur->type == CMD)
 		return (syntax_cmd(cur, debug));
+	if (cur->type >= LEFT_REDI && cur->type <= RIGHT_DOUBLE_REDI)
+		return (syntax_redir(cur, debug));
 	else
 	{
 		debug->syntax_error = ft_strdup("syntax_pipe\n");
@@ -50,8 +52,6 @@ int	syntax_redir(t_token *tokens, t_debug *debug)
 	}
 	if (cur->prev->type == BUILTIN || cur->type == CMD)
 		return (syntax_cmd(cur->prev, debug));
-	if (cur->prev->type == PIPE)
-		return (syntax_pipe(cur->prev, debug));
 	else if (cur->prev->type == CHARACTERS)
 		return (syntax_word(cur->prev, debug));
 	return (EXIT_SUCCESS);

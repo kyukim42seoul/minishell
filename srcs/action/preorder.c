@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preorder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:46 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 20:32:40 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/24 19:59:39 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	preorder_traverse(t_info *info, t_tree *tree)
 	if (tree->type == PSIO)
 	{
 		if (tree->left && tree->left->left)
-			redir_hub(tree);
+			redir_hub(info, tree);
 	}
 	else if (tree->type == CMD)
 		implement_cmd(info, tree->data);

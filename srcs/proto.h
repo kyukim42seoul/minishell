@@ -79,6 +79,7 @@ typedef struct s_tree
 	char			**data;
 	int				pip[2];
 	int				prepip;
+	int				my_number;
 	struct s_tree	*left;
 	struct s_tree	*right;
 	char			*err_message;
@@ -98,10 +99,11 @@ typedef struct s_debug
 	void			*error_point_data;
 }					t_debug;
 
-typedef struct s_heredock
+typedef struct s_heredoc
 {
+	int				use_number;
 	int				pip[2];
-}				t_heredock;
+}				t_heredoc;
 
 typedef struct s_info
 {
@@ -110,7 +112,8 @@ typedef struct s_info
 	char			**origin_env;
 	int				redirection_flag;
 	int				double_shift_flag;
-	t_heredock		*heredoc_pip;
+	int				my_num;
+	t_heredoc		*heredoc;
 	t_list			*e_head;
 	t_token			*t_head;
 	t_tree			*root;
@@ -176,6 +179,7 @@ void	print_tree(t_tree *root, int level);
 int		syntax_hub(t_token *head, t_debug *debug);
 
 //check_order.c
+int		syntax_redir(t_token *tokens, t_debug *debug);
 int		check_order(t_token *tokens, t_debug *debug);
 
 //set_type.c
@@ -183,7 +187,7 @@ int		set_type(t_token *head);
 int		syntax_word(t_token *tokens,t_debug *debug);
 
 //tree_util.c
-t_tree	*dup_node(t_token *token);
+t_tree	*dup_node(t_token *token, int child_number);
 t_tree	*type_only_node(int type);
 t_tree	*tree_pipe(t_tree *root, t_tree *new);
 void	left_subtree(t_tree *root, t_tree *sub);
@@ -226,7 +230,7 @@ void	builtin_echo(char **str);
 void	builtin_exit(t_info *info, char **str);
 
 //redir.c
-void	redir_hub(t_tree *root);
+void	redir_hub(t_info *info, t_tree *root);
 
 //heredoc.c
 int		heredoc(t_info *info);
