@@ -1,7 +1,7 @@
 
 NAME = minishell
 #CC = gcc
-CC = gcc -g3 -fsanitize=address
+CC = gcc# -g3 -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
 CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
@@ -19,12 +19,15 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/init.o \
 		./srcs/copy.o \
 		./srcs/util.o \
+		./srcs/add_str.o \
 		./srcs/lst.o \
+		./srcs/sh_lst.o \
 		./srcs/tokenize/tokenize.o \
 		./srcs/tokenize/tokenize_cmd_env.o \
 		./srcs/tokenize/tokenize_util.o \
 		./srcs/print_node.o \
-		./srcs/syntax.o \
+		./srcs/syntax/syntax_hub.o \
+		./srcs/syntax/check_order.o \
 		./srcs/set_type.o \
 		./srcs/astree/parse.o \
 		./srcs/astree/tree_util.o \

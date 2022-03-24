@@ -14,9 +14,11 @@ cat << EOF > a.txt | cat << EDF > b.txt | cat << EFF > c.txt
 1. 부모쪽에서 히어독용 파이프 준비 후 자식들이 공유
 	* 첫째 자식이 EOF 를 만나서 파이프를 닫는다고 해도 다음 자식이 fd 를 들고 있을텐데 닫히나?
 2. 자식들이 각자 히어독용 파이프 생성 및 사용
+	* 이쪽으로 해보자
+	* stdin 을 먼저 히어독 실행한 쪽이 점유하고 있고 다른 히어독은
 3. 방법은 모르겠지만 부모쪽에서 히어독 처리 후 자식 실행
 */
-/*
+
 int	heredoc(char *EOF)
 {
 	int		fd;
@@ -40,4 +42,4 @@ int	heredoc(char *EOF)
 	dup2(fd, STDIN_FILENO);
 	return (EXIT(SUCCESS));
 }
-*/
+

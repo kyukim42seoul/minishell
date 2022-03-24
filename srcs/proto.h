@@ -130,18 +130,23 @@ int		copy_env(t_info *info, char *env[]);
 size_t	sh_strlen(const char *s);
 char	*sh_substr(char const *s, unsigned int start, size_t len);
 char	*sh_strchr(const char *s, int c);
-char	**add_str(char **str, char **new);
 void	check_data(char *message, char **data);
 
+//add_str.c
+char	**add_str(char **str, char **new);
+
 //lst.c
+t_token	*kb_lstnew(void);
+t_token	*kb_lstlast(t_token *lst);
+void	lstadd_front(t_token **lst, t_token *new);
+
+//sh_lst.c
 t_list	*sh_lstnew(void *content);
 t_list	*sh_lstlast(t_list *lst);
 void	sh_lstadd_back(t_list **lst, t_list *new);
-t_token	*kb_lstlast(t_token *lst);
-t_token	*kb_lstnew(void);
-void	lstadd_front(t_token **lst, t_token *new);
-void	add_head(t_info *info, int type);
 void	*find_content_from_key(t_list *env, char *key);
+void	add_head(t_info *info, int type);
+
 
 //tokenize.c
 void	tokenize(char *full_command, t_info *info);
@@ -159,8 +164,11 @@ void	print_t_token(t_info *info);
 void	print_env(t_info *info);
 void	print_tree(t_tree *root, int level);
 
-//syntax.c
+//syntax_hub.c
 int		syntax_hub(t_token *head, t_debug *debug);
+
+//check_order.c
+int		check_order(t_token *tokens, t_debug *debug);
 
 //set_type.c
 int		set_type(t_token *head);
