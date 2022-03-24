@@ -81,7 +81,26 @@ int	type_count(t_token *head, int type)
 	}
 	return (count);
 }
+char	*line_path_check(t_info *info, char *line)
+{
+	int i;
+	t_flag flag;
 
+	i = 0;
+	flag.num = 0;
+	while (line[i])
+	{
+		flag.type[0] = check_status_type(line[i]);
+		if (flag.type[0] == PATH)
+		{
+			flag.len[flag.num] = characters_len(line, i + 1);
+			flag.i_cur[flag.num] = i;
+			flag.num++;
+		}
+		i++;
+	}
+	return (change_cmd_to_env(line, flag, info));
+}
 int	heredoc(t_info *info)
 {
 	int		index;
@@ -107,6 +126,7 @@ int	heredoc(t_info *info)
 		while (ft_strncmp(eof, line, 1000) != 0)
 		{
 			line = readline("test> ");
+			line = line_path_check(info, line);
 			write(info->heredoc[index].pip[1], line, ft_strlen(line));
 			write(info->heredoc[index].pip[1], "\n", 1);
 		}

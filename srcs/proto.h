@@ -158,6 +158,7 @@ void	add_head(t_info *info, int type);
 //tokenize.c
 void	tokenize(char *full_command, t_info *info);
 int 	characters_len(char *cmd, int i);
+int		check_status_type(char c);
 
 //free_token.c
 void	free_token(t_token *head);
