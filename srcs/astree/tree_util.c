@@ -175,7 +175,7 @@ t_tree	*tree_io(t_tree *root, t_tree *new)
 			}
 			else
 			{
-				while (io_node->left->left->type == LEFT_DOUBLE_REDI)
+				while (io_node && (io_node->left->left->type == LEFT_DOUBLE_REDI))
 				{
 					buf = io_node;
 					io_node = io_node->right;

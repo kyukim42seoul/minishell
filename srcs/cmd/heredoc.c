@@ -1,4 +1,4 @@
-//# include "../proto.h"
+# include "../proto.h"
 /*
 기능
 
@@ -19,6 +19,7 @@ cat << EOF > a.txt | cat << EDF > b.txt | cat << EFF > c.txt
 3. 방법은 모르겠지만 부모쪽에서 히어독 처리 후 자식 실행
 */
 
+/*
 int	heredoc(char *EOF)
 {
 	int		fd;
@@ -42,4 +43,56 @@ int	heredoc(char *EOF)
 	dup2(fd, STDIN_FILENO);
 	return (EXIT(SUCCESS));
 }
+*/
 
+int	heredoc_count(t_token *head)
+{
+	int		count;
+	t_token	*cur;
+
+	count = 0;
+	cur = head->next;
+	while (cur->next)
+	{
+		if (cur->type == LEFT_DOUBLE_REDI)
+			count++;
+		cur = cur->next;
+	}
+	if (cur->type == LEFT_DOUBLE_REDI)
+		count++;
+	return (count);
+}
+
+int	heredoc(t_info *info)
+{
+	int		index;
+	int		count;
+	char	*eof;
+	char	*line;
+	t_token	*cur;
+
+	index = 0;
+	line = (char *)malloc(sizeof(char));
+	count = heredoc_count(info->t_head);
+	info->heredoc_pip = (t_heredock *)malloc(sizeof(t_heredock) * (count + 1));
+	cur = info->t_head->next;
+	while (count > 0)
+	{
+		cur = find_heredoc(cur);
+		eof = cur->next->data;
+		printf("eof : %s\n", eof);
+		pipe(info->heredoc_pip[index].pip);
+		while (ft_strncmp(line, eof, ft_strlen(eof)) != 0)
+		{
+			line = readline("test> ");
+			write(info->heredoc_pip[index].pip[1], line, ft_strlen(line));
+			write(info->heredoc_pip[index].pip[1], "\n", 1);
+		}
+		close(info->heredoc_pip[index].pip[1]);
+		free(line);
+		cur = cur->next;
+		index++;
+		count--;
+	}
+	return (EXIT_SUCCESS);
+}

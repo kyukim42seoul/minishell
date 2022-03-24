@@ -21,3 +21,17 @@ void	free_token(t_token *head)
 		free(head->data);
 	free(head);
 }
+
+t_token	*find_heredoc(t_token *token)
+{
+	t_token	*cur;
+
+	cur = token;
+	while (cur->next)
+	{
+		if (cur->type == LEFT_DOUBLE_REDI)
+			return (cur);
+		cur = cur->next;
+	}
+	return (token);
+}

@@ -98,6 +98,11 @@ typedef struct s_debug
 	void			*error_point_data;
 }					t_debug;
 
+typedef struct s_heredock
+{
+	int				pip[2];
+}				t_heredock;
+
 typedef struct s_info
 {
 	char			*cmd;
@@ -105,6 +110,7 @@ typedef struct s_info
 	char			**origin_env;
 	int				redirection_flag;
 	int				double_shift_flag;
+	t_heredock		*heredoc_pip;
 	t_list			*e_head;
 	t_token			*t_head;
 	t_tree			*root;
@@ -121,7 +127,6 @@ int		init_info(t_info **info);
 //signal.c
 void	set_signal();
 void	signal_handler(int signum);
-
 
 //copy.c
 int		copy_env(t_info *info, char *env[]);
@@ -153,6 +158,7 @@ int 	characters_len(char *cmd, int i);
 
 //free_token.c
 void	free_token(t_token *head);
+t_token	*find_heredoc(t_token *token);
 
 //cmd_env.c
 char 	*change_cmd_to_env(char *cmd, t_flag flag, t_info *info);
@@ -194,9 +200,9 @@ int		parse_tree(t_info *info);
 
 //builtin.c
 void	implement_cmd(t_info *info, char **cmd);
-int				str_len(char **str);
+int		str_len(char **str);
 void	env_add(t_info *info, char *key, char *content);
-int	check_builtin(t_tree *tree);
+int		check_builtin(t_tree *tree);
 
 //builtin_env.c
 void	builtin_env(t_info *info, char **str);
@@ -221,6 +227,9 @@ void	builtin_exit(t_info *info, char **str);
 
 //redir.c
 void	redir_hub(t_tree *root);
+
+//heredoc.c
+int		heredoc(t_info *info);
 
 //execve.c
 void		run_execve(char **cmd_data, char *env, char **origin_env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:03:25 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 20:32:43 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/24 17:18:58 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void	fork_tree(t_info *info, t_tree *root, int *in, int *out)
 		dup2(*out, STDOUT_FILENO);
 		close(*in);
 		close(*out);
-	}	
+	}
 }
 
 void	child_exit_signal(int status)
-{		
+{
 	while (1)
 	{
 		if (wait(&status) < 0)
@@ -77,6 +77,9 @@ void	action(t_info *info, int in, int out)
 
 	status = 0;
 	cur_tree = info->root;
+
+	heredoc(info);
+
 	in = dup(STDIN_FILENO);
 	out = dup(STDOUT_FILENO);
 	if (!(cur_tree->right) && check_builtin(cur_tree))

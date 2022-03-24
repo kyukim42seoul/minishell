@@ -41,6 +41,7 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/builtin/builtin_echo.o \
 		./srcs/builtin/builtin_exit.o \
 		./srcs/cmd/redir.o \
+		./srcs/cmd/heredoc.o \
 		./srcs/cmd/execve.o \
 		./srcs/action/action.o \
 		./srcs/action/preorder.o \

@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:44 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 20:01:23 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/24 17:06:23 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	check_builtin(t_tree *tree)
 	int		len;
 
 	find = tree_search_type(tree, PSBIN);
+	if (find->left == NULL)
+		return (1);
 	len = (int)ft_strlen(find->left->data[0]);
 	if (!ft_strncmp(find->left->data[0], "echo", len)
 		|| !ft_strncmp(find->left->data[0], "cd", len)
