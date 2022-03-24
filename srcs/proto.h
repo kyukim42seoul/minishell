@@ -147,10 +147,12 @@ void	sh_lstadd_back(t_list **lst, t_list *new);
 void	*find_content_from_key(t_list *env, char *key);
 void	add_head(t_info *info, int type);
 
-
 //tokenize.c
 void	tokenize(char *full_command, t_info *info);
 int 	characters_len(char *cmd, int i);
+
+//free_token.c
+void	free_token(t_token *head);
 
 //cmd_env.c
 char 	*change_cmd_to_env(char *cmd, t_flag flag, t_info *info);

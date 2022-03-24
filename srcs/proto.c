@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:46:33 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/24 15:46:05 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/24 16:27:43 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,18 @@ int	main(int argc, char *argv[], char *env[])
 			add_head(info, PIPE);
 			set_type(info->t_head);
 			if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
+			{
 				printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, (char *)info->debug->error_point_data);//여기에 토큰 free()
-			parse_tree(info);
-			action(info, 0, 0);
+				free_token(info->t_head);
+			}
+			else
+			{
+				parse_tree(info);
+				action(info, 0, 0);
+				postorder_del_tree(info->root);
+				free_token(info->t_head);
+			}
 			add_history(full_cmd);
-			postorder_del_tree(info->root);
 		}
 		free(full_cmd);
 		info->root = 0;
