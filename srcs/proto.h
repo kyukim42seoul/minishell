@@ -80,6 +80,7 @@ typedef struct s_tree
 	int				pip[2];
 	int				prepip;
 	int				my_number;
+	int				my_my;
 	struct s_tree	*left;
 	struct s_tree	*right;
 	char			*err_message;
@@ -188,7 +189,7 @@ int		set_type(t_token *head);
 int		syntax_word(t_token *tokens,t_debug *debug);
 
 //tree_util.c
-t_tree	*dup_node(t_token *token, int child_number);
+t_tree	*dup_node(t_token *token, int child_number, int child_child);
 t_tree	*type_only_node(int type);
 t_tree	*tree_pipe(t_tree *root, t_tree *new);
 void	left_subtree(t_tree *root, t_tree *sub);
