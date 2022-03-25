@@ -30,6 +30,8 @@ t_tree	*type_only_node(int type)
 	new->data = (char **)malloc(sizeof(char *) * 2);
 	new->data[0] = NULL;
 	new->data[1] = NULL;
+	new->my_number = 0;
+	new->my_my = 0;
 	new->left = NULL;
 	new->right = NULL;
 	return (new);
