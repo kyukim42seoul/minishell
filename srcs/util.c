@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   util.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 19:10:30 by kyukim            #+#    #+#             */
+/*   Updated: 2022/03/25 20:14:21 by kyukim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 size_t	sh_strlen(const char *s)
@@ -64,4 +76,25 @@ void	check_data(char *message, char **data)
 		printf("%s\n", data[index]);
 		index++;
 	}
+}
+
+t_token	*find_heredoc(t_token *token, int *child_number)
+{
+	t_token		*cur;
+	static int	order;
+
+	cur = token;
+	while (cur->next)
+	{
+		if (cur->type == PIPE)
+		{
+			order++;
+			(*child_number) = order;
+		}
+		if (cur->type == LEFT_DOUBLE_REDI)
+			return (cur);
+		cur = cur->next;
+	}
+	order = 0;
+	return (token);
 }

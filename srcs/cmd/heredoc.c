@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 19:08:44 by kyukim            #+#    #+#             */
+/*   Updated: 2022/03/25 20:55:54 by kyukim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	type_count(t_token *head, int type)
@@ -61,40 +73,30 @@ void	get_input(t_info *info, int index, char *eof)
 		free(line);
 }
 
-void	calc_child_number(int child_count, t_token *cur, int *child_number)
-{
-	if (child_count - (type_count(cur, PIPE) + 1) > 0)
-	{
-		child_count = type_count(cur, PIPE) + 1;
-		(*child_number)++;
-	}
-}
-
 int	heredoc(t_info *info)
 {
 	int		index;
 	int		child_number;
-	int		child_count;
 	int		count;
 	t_token	*cur;
 
 	index = 0;
 	child_number = 0;
-	child_count = type_count(info->t_head, PIPE) + 1;
 	count = type_count(info->t_head, LEFT_DOUBLE_REDI);
 	info->heredoc = (t_heredoc *)malloc(sizeof(t_heredoc) * (count + 1));
+	info->heredoc[count].use_number = -1;
 	cur = info->t_head->next;
 	while (count > 0)
 	{
-		cur = find_heredoc(cur);
+		cur = find_heredoc(cur, &child_number);
+		info->heredoc[index].use_number = child_number;
 		pipe(info->heredoc[index].pip);
 		get_input(info, index, cur->next->data);
 		close(info->heredoc[index].pip[1]);
 		cur = cur->next;
-		calc_child_number(child_count, cur, &child_number);
-		info->heredoc[index].use_number = child_number;
 		index++;
 		count--;
 	}
+	find_heredoc(cur, &child_number);
 	return (EXIT_SUCCESS);
 }

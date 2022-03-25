@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 19:08:07 by kyukim            #+#    #+#             */
+/*   Updated: 2022/03/25 19:41:11 by kyukim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	tree_hub(t_tree *root, t_tree *new_node, int *child_number, \
@@ -46,6 +58,7 @@ int	parse_tree(t_info *info)
 		tree_hub(root, new_node, &child_number, &child_child);
 		token = token->next;
 	}
+	print_tree(root, 0);
 	info->root = root;
 	return (EXIT_SUCCESS);
 }

@@ -68,7 +68,7 @@ void	del_token(t_token *head);
 void	free_before_newline(t_info *info);
 
 // void	free_token(t_token *head);
-t_token	*find_heredoc(t_token *token);
+t_token	*find_heredoc(t_token *token, int *child_number);
 
 //print_node.c
 void	print_t_token(t_info *info);

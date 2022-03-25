@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:46:33 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 18:46:46 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/25 20:52:37 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,6 @@ int	check_cmd(char *cmd)
 	return (1);
 }
 
-/*
-	main 함수 설명
-	\033[1A -> 커서를 위로 한 줄 올린다.
-	\033[6C -> 커서를 4만큼 오른쪽으로 민다.
-*/
-
 void	run_action_by_syntax(t_info *info)
 {
 	if (syntax_hub(info->t_head, info->debug) \
@@ -80,6 +74,12 @@ void	run_action_by_syntax(t_info *info)
 		free_before_newline(info);
 	}
 }
+
+/*
+	main 함수 설명
+	\033[1A -> 커서를 위로 한 줄 올린다.
+	\033[6C -> 커서를 4만큼 오른쪽으로 민다.
+*/
 
 void	print_exit(void)
 {

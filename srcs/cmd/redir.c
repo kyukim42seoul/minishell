@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redir.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 19:08:52 by kyukim            #+#    #+#             */
+/*   Updated: 2022/03/25 20:53:33 by kyukim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	right_redir(char *path)
@@ -75,21 +87,23 @@ int	left_redir(char *path)
 	return (EXIT_SUCCESS);
 }
 
-int	left_doulbe_redir(t_info *info, t_tree *root)
+/*
+	각 자식 프로세스가 자기 번호(info->my_num) 보다 같거나 작은 use_number 를 가진 heredoce 을 건너뜀.
+	자기 번호보다 큰 use_number 의 첫 heredoc 혹은 heredoc 배열 끝(use_number = -1)에 도착.
+	자기 번호의 마지막 heredoc 으로 가야 하기때문에 index--;
+	해당 heredoc[index] 에서 stdin 연결
+*/
+
+int	left_doulbe_redir(t_info *info)
 {
 	int	index;
-	int	i;
 
 	index = 0;
-	i = 0;
-	while (root->my_number != info->heredoc[index].use_number)
+	while (info->heredoc[index].use_number != -1 \
+		&& info->my_num >= info->heredoc[index].use_number)
 		index++;
-	if (root->my_number == info->heredoc[index].use_number)
-	{
-		while (root->my_my > i++)
-			index++;
-		change_stdin(info->heredoc[index].pip[0]);
-	}
+	index--;
+	change_stdin(info->heredoc[index].pip[0]);
 	return (EXIT_SUCCESS);
 }
 
@@ -102,6 +116,6 @@ void	redir_hub(t_info *info, t_tree *root)
 	else if (root->left->left->type == RIGHT_DOUBLE_REDI)
 		double_right_redir(root->left->right->data[0]);
 	else if (root->left->left->type == LEFT_DOUBLE_REDI)
-		left_doulbe_redir(info, root->left->left);
+		left_doulbe_redir(info);
 	return ;
 }
