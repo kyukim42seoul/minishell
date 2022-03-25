@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proto.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:46:33 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/24 17:16:28 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/25 16:28:51 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,13 @@ int	main(int argc, char *argv[], char *env[])
 			if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
 			{
 				printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, (char *)info->debug->error_point_data);//여기에 토큰 free()
-				free_token(info->t_head);
+				//free_token(info->t_head);
 			}
 			else
 			{
 				parse_tree(info);
 				action(info, 0, 0);
-				postorder_del_tree(info->root);
-				free_token(info->t_head);
+				free_before_newline(info);
 			}
 			add_history(full_cmd);
 		}

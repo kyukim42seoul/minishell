@@ -80,9 +80,9 @@ typedef struct s_tree
 	int				pip[2];
 	int				prepip;
 	int				my_number;
+	int				my_my;
 	struct s_tree	*left;
 	struct s_tree	*right;
-	char			*err_message;
 }				t_tree;
 
 typedef struct s_list
@@ -107,11 +107,8 @@ typedef struct s_heredoc
 
 typedef struct s_info
 {
-	char			*cmd;
 	char			**env;
 	char			**origin_env;
-	int				redirection_flag;
-	int				double_shift_flag;
 	int				my_num;
 	t_heredoc		*heredoc;
 	t_list			*e_head;
@@ -158,9 +155,12 @@ void	add_head(t_info *info, int type);
 //tokenize.c
 void	tokenize(char *full_command, t_info *info);
 int 	characters_len(char *cmd, int i);
+int		check_status_type(char c);
 
+//free.c
+void	free_before_newline(t_info *info);
 //free_token.c
-void	free_token(t_token *head);
+// void	free_token(t_token *head);
 t_token	*find_heredoc(t_token *token);
 
 //cmd_env.c
@@ -187,7 +187,7 @@ int		set_type(t_token *head);
 int		syntax_word(t_token *tokens,t_debug *debug);
 
 //tree_util.c
-t_tree	*dup_node(t_token *token, int child_number);
+t_tree	*dup_node(t_token *token, int child_number, int child_child);
 t_tree	*type_only_node(int type);
 void	left_subtree(t_tree *root, t_tree *sub);
 void	right_subtree(t_tree *root, t_tree *sub);

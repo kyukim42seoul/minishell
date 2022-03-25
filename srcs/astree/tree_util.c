@@ -1,6 +1,6 @@
 #include "../proto.h"
 
-t_tree	*dup_node(t_token *token, int child_number)
+t_tree	*dup_node(t_token *token, int child_number, int child_child)
 {
 	t_tree	*new;
 
@@ -15,6 +15,7 @@ t_tree	*dup_node(t_token *token, int child_number)
 	new->right = NULL;
 	new->prepip = -1;
 	new->my_number = child_number;
+	new->my_my = child_child;
 	return (new);
 }
 
