@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 19:11:03 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/25 19:11:05 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -22,13 +34,11 @@
 # include "../lib/libft.h"
 # include "struct.h"
 
-typedef	void (*visitFuncPtr)(t_info *info, t_tree *tree);
-
 //init.c
 int		init_info(t_info **info);
 
 //signal.c
-void	set_signal();
+void	set_signal(void);
 void	signal_handler(int signum);
 
 //copy.c
@@ -84,7 +94,7 @@ int		check_order(t_token *tokens, t_debug *debug);
 
 //set_type.c
 int		set_type(t_token *head);
-int		syntax_word(t_token *tokens,t_debug *debug);
+int		syntax_word(t_token *tokens, t_debug *debug);
 
 //tree_util.c
 t_tree	*dup_node(t_token *token, int child_number, int child_child);
@@ -148,10 +158,10 @@ int		change_stdin(int fd);
 
 //heredoc.c
 int		heredoc(t_info *info);
-int	type_count(t_token *head, int type);
+int		type_count(t_token *head, int type);
 
 //execve.c
-void		run_execve(char **cmd_data, char *env_path, char **env_array);
+void	run_execve(char **cmd_data, char *env_path, char **env_array);
 
 //action/action_tree.c
 void	action(t_info *info, int in, int out);
