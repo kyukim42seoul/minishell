@@ -74,7 +74,7 @@ void	exit_signal_by_result(int result, char **cmd_data)
 	}
 }
 
-void	run_execve(char **cmd_data, char *env, char **env)
+void	run_execve(char **cmd_data, char *env_path, char **env_array)
 {
 	t_list	*head_relative_path_list;
 	t_list	*valid_path;
@@ -85,17 +85,17 @@ void	run_execve(char **cmd_data, char *env, char **env)
 	{
 		result = check_path(cmd_data[0]);
 		if (result)
-			execve(cmd_data[0], cmd_data, env);
+			execve(cmd_data[0], cmd_data, env_array);
 		else
 		{
 			exit_signal_by_result(result, cmd_data);
 			return ;
 		}
 	}
-	head_relative_path_list = make_relative_path(env, cmd_data[0]);
+	head_relative_path_list = make_relative_path(env_path, cmd_data[0]);
 	valid_path = find_valid_path(head_relative_path_list);
 	if (valid_path)
-		execve((char *)valid_path->content, cmd_data, env);
+		execve((char *)valid_path->content, cmd_data, env_array);
 	printf("bash: %s: command not found\n", cmd_data[0]);
 	g_exit_signal = 127;
 }

@@ -151,7 +151,7 @@ int		heredoc(t_info *info);
 int	type_count(t_token *head, int type);
 
 //execve.c
-void		run_execve(char **cmd_data, char *env, char **env);
+void		run_execve(char **cmd_data, char *env_path, char **env_array);
 
 //action/action_tree.c
 void	action(t_info *info, int in, int out);
