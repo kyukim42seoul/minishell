@@ -49,8 +49,7 @@ int	parse_tree(t_info *info)
 	else if (new_node->type == CMD || new_node->type == BUILTIN)
 		root = tree_bin(root, new_node);
 	else if (new_node->type == CHARACTERS)
-		root = tree_arg(root, new_node);
-	print_tree(root, 0);																	//완성된 트리
+		root = tree_arg(root, new_node);																	//완성된 트리
 	info->root = root;
 	return (EXIT_SUCCESS);
 }

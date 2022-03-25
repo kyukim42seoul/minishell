@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:46:33 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 16:28:51 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 17:02:05 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(int argc, char *argv[], char *env[])
 		else if (!check_cmd(full_cmd) && !quotation_check(full_cmd, 0))
 		{
 			tokenize(full_cmd, info);
+			print_t_token(info);
 			add_head(info, PIPE);
 			set_type(info->t_head);
 			if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)

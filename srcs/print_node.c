@@ -8,20 +8,18 @@ void	print_t_token(t_info *info)
 	if (check != NULL)
 	{
 		printf("\n\nnext 순서 -> \n");
-		while (check->next != NULL)
+		while (check != NULL)
 		{
 			printf("type = %d  data = |%s|\n", check->type, (char *)check->data);
 			check = check->next;
 		}
-		printf("type = %d  data = |%s|\n", check->type, (char *)check->data);
 		printf("\n\nprev 반대 순서 -> \n");
 		check = kb_lstlast(info->t_head);
-		while (check->prev != NULL)
+		while (check != NULL)
 		{
 			printf("type = %d  data = |%s|\n", check->type, (char *)check->data);
 			check = check->prev;
 		}
-		printf("type = %d  data = |%s|\n", check->type, (char *)check->data);
 	}
 }
 
