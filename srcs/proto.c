@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:46:33 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 17:02:05 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 17:49:11 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,17 @@ int	main(int argc, char *argv[], char *env[])
 	info->origin_env = env;
 	while (1)
 	{
-		full_cmd = readline("in> ");
+		full_cmd = readline("bash> ");
 		if (full_cmd == NULL)
 		{
 			printf("\033[1A");// 커서를 위로 한 줄 올린다.
-			printf("\033[4C");// 커서를 4만큼 오른쪽으로 민다.
+			printf("\033[6C");// 커서를 4만큼 오른쪽으로 민다.
 			printf("exit\n");
 			exit (-1);
 		}
 		else if (!check_cmd(full_cmd) && !quotation_check(full_cmd, 0))
 		{
 			tokenize(full_cmd, info);
-			print_t_token(info);
 			add_head(info, PIPE);
 			set_type(info->t_head);
 			if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
