@@ -245,6 +245,7 @@ void	redir_hub(t_info *info, t_tree *root);
 
 //heredoc.c
 int		heredoc(t_info *info);
+int	type_count(t_token *head, int type);
 
 //execve.c
 void		run_execve(char **cmd_data, char *env, char **origin_env);

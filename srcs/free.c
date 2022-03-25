@@ -1,6 +1,6 @@
 #include "proto.h"
 
-void del_token(t_token *head)
+void	del_token(t_token *head)
 {
 	t_token *temp;
 
@@ -22,8 +22,7 @@ void del_token(t_token *head)
 void	free_before_newline(t_info *info)
 {
 	del_token(info->t_head);
-	//del_heredoc(info->heredoc);
 	postorder_del_tree(info->root);
-	//free_token(info->t_head);
+	free(info->heredoc);
 	info->my_num = 0;
 }
