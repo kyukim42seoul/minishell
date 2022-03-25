@@ -189,18 +189,28 @@ int		syntax_word(t_token *tokens,t_debug *debug);
 //tree_util.c
 t_tree	*dup_node(t_token *token, int child_number);
 t_tree	*type_only_node(int type);
-t_tree	*tree_pipe(t_tree *root, t_tree *new);
 void	left_subtree(t_tree *root, t_tree *sub);
 void	right_subtree(t_tree *root, t_tree *sub);
-t_tree	*tree_io(t_tree *root, t_tree *new);
-t_tree	*tree_bin(t_tree *root, t_tree *new);
-t_tree	*tree_arg(t_tree *root, t_tree *new);
-void	postorder_del_tree(t_tree *root);
-void	del_node(t_tree *node);
 t_tree	*tree_search_type(t_tree *root, int type);
 
 //parse.c
 int		parse_tree(t_info *info);
+
+//tree_io.c
+t_tree	*tree_io(t_tree *root, t_tree *new);
+
+//tree_pipe.c
+t_tree	*tree_pipe(t_tree *root, t_tree *new);
+
+//tree_bin.c
+t_tree	*tree_bin(t_tree *root, t_tree *new);
+
+//tree_arg.c
+t_tree	*tree_arg(t_tree *root, t_tree *new);
+
+//del_tree.c
+void	postorder_del_tree(t_tree *root);
+void	del_node(t_tree *node);
 
 //builtin.c
 void	implement_cmd(t_info *info, char **cmd);

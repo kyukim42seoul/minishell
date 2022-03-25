@@ -32,6 +32,11 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/set_type.o \
 		./srcs/astree/parse.o \
 		./srcs/astree/tree_util.o \
+		./srcs/astree/tree_io.o \
+		./srcs/astree/tree_bin.o \
+		./srcs/astree/tree_arg.o \
+		./srcs/astree/tree_pipe.o \
+		./srcs/astree/del_tree.o \
 		./srcs/builtin/builtin.o \
 		./srcs/builtin/builtin_env.o \
 		./srcs/builtin/builtin_unset.o \
