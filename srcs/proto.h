@@ -83,7 +83,6 @@ typedef struct s_tree
 	int				my_my;
 	struct s_tree	*left;
 	struct s_tree	*right;
-	char			*err_message;
 }				t_tree;
 
 typedef struct s_list
@@ -108,11 +107,8 @@ typedef struct s_heredoc
 
 typedef struct s_info
 {
-	char			*cmd;
 	char			**env;
 	char			**origin_env;
-	int				redirection_flag;
-	int				double_shift_flag;
 	int				my_num;
 	t_heredoc		*heredoc;
 	t_list			*e_head;
@@ -161,8 +157,10 @@ void	tokenize(char *full_command, t_info *info);
 int 	characters_len(char *cmd, int i);
 int		check_status_type(char c);
 
+//free.c
+void	free_before_newline(t_info *info);
 //free_token.c
-void	free_token(t_token *head);
+// void	free_token(t_token *head);
 t_token	*find_heredoc(t_token *token);
 
 //cmd_env.c

@@ -101,6 +101,7 @@ char	*line_path_check(t_info *info, char *line)
 	}
 	return (change_cmd_to_env(line, flag, info));
 }
+
 int	heredoc(t_info *info)
 {
 	int		index;
@@ -113,8 +114,7 @@ int	heredoc(t_info *info)
 
 	index = 0;
 	child_number = 0;
-	line = (char *)malloc(sizeof(char));
-		child_count = type_count(info->t_head, PIPE) + 1;
+	child_count = type_count(info->t_head, PIPE) + 1;
 	count = type_count(info->t_head, LEFT_DOUBLE_REDI);
 	info->heredoc = (t_heredoc *)malloc(sizeof(t_heredoc) * (count + 1));
 	cur = info->t_head->next;
@@ -123,15 +123,22 @@ int	heredoc(t_info *info)
 		cur = find_heredoc(cur);
 		eof = cur->next->data;
 		pipe(info->heredoc[index].pip);
-		while (ft_strncmp(eof, line, 1000) != 0)
+		while (1)
 		{
-			line = readline("test> ");
-			line = line_path_check(info, line);
-			write(info->heredoc[index].pip[1], line, ft_strlen(line));
-			write(info->heredoc[index].pip[1], "\n", 1);
+			line = readline("> ");
+			if (line != NULL && ft_strncmp(line, eof, 1000))
+			{
+				line = line_path_check(info, line);
+				write(info->heredoc[index].pip[1], line, ft_strlen(line));
+				write(info->heredoc[index].pip[1], "\n", 1);
+				free(line);
+			}
+			else
+				break ;
 		}
+		if (line)
+			free(line);
 		close(info->heredoc[index].pip[1]);
-		free(line);
 		cur = cur->next;
 		if (child_count -  (type_count(cur, PIPE) + 1) > 0)
 		{

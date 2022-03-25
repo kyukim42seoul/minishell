@@ -69,7 +69,7 @@ void	print_tree(t_tree *root, int level)
 		padding(level);
 		if (root->data)
 		{
-			printf("<%d | num = %d : ", root->type, root->my_number);
+			printf("<%d | 1 = %d 2 = %d : ", root->type, root->my_number, root->my_my);
 			while (root->data[index])
 			{
 				printf("\"%s\"", root->data[index]);

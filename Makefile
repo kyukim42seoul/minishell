@@ -22,6 +22,7 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/add_str.o \
 		./srcs/lst.o \
 		./srcs/sh_lst.o \
+		./srcs/free.o \
 		./srcs/tokenize/tokenize.o \
 		./srcs/tokenize/tokenize_cmd_env.o \
 		./srcs/tokenize/tokenize_util.o \
