@@ -1,51 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 18:38:10 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/25 18:38:12 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCT_H
 # define STRUCT_H
 
-# define	O_ENV 1
-# define	T_EXPORT 2
+# define O_ENV 1
+# define T_EXPORT 2
 
-# define	CHARACTERS 0
-# define	FTSPACE 1
-# define	PIPE 2
-# define	LEFT_REDI 3
-# define	RIGHT_REDI 4
-# define	LEFT_DOUBLE_REDI 5
-# define	RIGHT_DOUBLE_REDI 6
-# define	PATH 7
-# define 	SINGLE 8
-# define 	DOUBLE 9
-# define	BUILTIN 10
-# define	OPTION 11
-# define	CMD 12
-# define	PSPIPE 13
-# define	PSCMD 14
-# define	PSIO 15
-# define	PSREDIR 16
-# define	PSBIN 17
-# define	SIGINT_WITH_FORK 1300
-# define	SIGQUIT_WITH_FORK 1310
-# define	STANDARD 100
+# define CHARACTERS 0
+# define FTSPACE 1
+# define PIPE 2
+# define LEFT_REDI 3
+# define RIGHT_REDI 4
+# define LEFT_DOUBLE_REDI 5
+# define RIGHT_DOUBLE_REDI 6
+# define PATH 7
+# define SINGLE 8
+# define DOUBLE 9
+# define BUILTIN 10
+# define OPTION 11
+# define CMD 12
+# define PSPIPE 13
+# define PSCMD 14
+# define PSIO 15
+# define PSREDIR 16
+# define PSBIN 17
+# define SIGINT_WITH_FORK 1300
+# define SIGQUIT_WITH_FORK 1310
+# define STANDARD 100
 
-int exit_signal;
+int	g_exit_signal;
 
 typedef struct s_flag
 {
-	int num;
-	int len[STANDARD];
-	int i_cur[STANDARD];
-	int type[STANDARD];
+	int	num;
+	int	len[STANDARD];
+	int	i_cur[STANDARD];
+	int	type[STANDARD];
 }				t_flag;
 
-typedef	struct s_new_line
+typedef struct s_new_line
 {
-	int start;
-	int left_space;
-	int right_space;
-	int new_len;
-	int num;
+	int	start;
+	int	left_space;
+	int	right_space;
+	int	new_len;
+	int	num;
 }				t_new_line;
 
-typedef	struct s_token
+typedef struct s_token
 {
 	int				type;
 	char			*data;
@@ -96,6 +108,5 @@ typedef struct s_info
 	t_tree			*root;
 	t_debug			*debug;
 }					t_info;
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:39 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 18:15:08 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:36:04 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	rm_env(t_info *info, char *str)
 			check = check->next;
 		}
 	}
-	exit_signal = 0;
+	g_exit_signal = 0;
 }
 
 void	builtin_unset(t_info *info, char **str)
@@ -68,7 +68,7 @@ void	builtin_unset(t_info *info, char **str)
 			else
 			{
 				printf("bash: unset: `%s': not a valid identifier\n", *str);
-				exit_signal = 1;
+				g_exit_signal = 1;
 			}
 		}
 	}

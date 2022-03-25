@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:27 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 18:15:04 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:35:53 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,14 +125,14 @@ void	builtin_export(t_info *info, char **str)
 		print_export(info, 1);
 	else
 	{
-		exit_signal = 0;
+		g_exit_signal = 0;
 		while (*(++str))
 		{
 			i = before_value(*str);
 			if (i == 0)
 			{
 				printf("bash: export: `%s': not a valid identifier\n", *str);
-				exit_signal = 1;
+				g_exit_signal = 1;
 			}
 			else if (i + 1 == (int)ft_strlen(*str) && (*str)[i] == '=')
 				export_value(info, *str, i, 1);

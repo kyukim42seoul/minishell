@@ -22,7 +22,7 @@
 # include "../lib/libft.h"
 # include "struct.h"
 
-typedef void (*visitFuncPtr)(t_info *info, t_tree *tree);
+typedef	void (*visitFuncPtr)(t_info *info, t_tree *tree);
 
 //init.c
 int		init_info(t_info **info);
@@ -55,24 +55,19 @@ void	sh_lstadd_back(t_list **lst, t_list *new);
 void	*find_content_from_key(t_list *env, char *key);
 void	add_head(t_info *info, int type);
 
-//tokenize.c
+//tokenize
 void	tokenize(char *full_command, t_info *info);
-int 	characters_len(char *cmd, int i);
 int		check_status_type(char c);
+void	make_token_node(char *cmd, t_flag flag, t_info *info);
+char	*change_cmd_to_env(char *cmd, t_flag flag, t_info *info);
+int		token_len_check(char *s, int i, t_flag *flag);
+int		characters_len(char *cmd, int i);
 
 //free.c
 void	free_before_newline(t_info *info);
 
-//free_token.c
 // void	free_token(t_token *head);
 t_token	*find_heredoc(t_token *token);
-
-//cmd_env.c
-char 	*change_cmd_to_env(char *cmd, t_flag flag, t_info *info);
-
-//tokenize_utill.c
-void	make_token_node(char *cmd, t_flag flag, t_info *info);
-int		token_len_check(char *s, int i, t_flag *flag);
 
 //print_node.c
 void	print_t_token(t_info *info);

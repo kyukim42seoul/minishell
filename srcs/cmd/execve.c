@@ -65,12 +65,12 @@ void	exit_signal_by_result(int result, char **cmd_data)
 	if (result == 2)
 	{
 		printf("bash: %s: is a directory\n", cmd_data[0]);
-		exit_signal = 126;
+		g_exit_signal = 126;
 	}
 	else if (result == 0)
 	{
 		printf("bash: %s: No such file or directory\n", cmd_data[0]);
-		exit_signal = 127;
+		g_exit_signal = 127;
 	}
 }
 
@@ -97,5 +97,5 @@ void	run_execve(char **cmd_data, char *env, char **origin_env)
 	if (valid_path)
 		execve((char *)valid_path->content, cmd_data, origin_env);
 	printf("bash: %s: command not found\n", cmd_data[0]);
-	exit_signal = 127;
+	g_exit_signal = 127;
 }

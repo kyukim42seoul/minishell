@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:20 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 18:15:00 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:35:49 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_exit_arguments(t_info *info, char **str)
 {
 	if ((*(++str)) != NULL)
 	{
-		exit_signal = 1;
+		g_exit_signal = 1;
 		printf("bash: exit: too many arguments\n");
 	}
 	else
@@ -35,7 +35,7 @@ void	builtin_exit(t_info *info, char **str)
 	{
 		if (info->root->right == NULL)
 			printf("exit\n");
-		exit(exit_signal);
+		exit(g_exit_signal);
 	}
 	i = 0;
 	while ((*str)[i])

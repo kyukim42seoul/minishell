@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:08 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 18:14:54 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:35:35 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ void	builtin_echo(char **str)
 		if (option == 0)
 			ft_putchar_fd('\n', 1);
 	}
-	exit_signal = 0;
+	g_exit_signal = 0;
 }

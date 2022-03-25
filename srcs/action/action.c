@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:03:25 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 18:14:19 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:35:14 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	fork_tree(t_info *info, t_tree *root, int in, int out)
 		pipe_setting(root);
 		root->right = NULL;
 		preorder_traverse(info, root);
-		exit(exit_signal);
+		exit(g_exit_signal);
 	}
 	else
 	{
@@ -63,12 +63,12 @@ void	child_exit_signal(int status)
 		if (wait(&status) < 0)
 			break ;
 	}
-	if (exit_signal == SIGINT_WITH_FORK)
-		exit_signal = 130;
-	else if (exit_signal == SIGQUIT_WITH_FORK)
-		exit_signal = 131;
+	if (g_exit_signal == SIGINT_WITH_FORK)
+		g_exit_signal = 130;
+	else if (g_exit_signal == SIGQUIT_WITH_FORK)
+		g_exit_signal = 131;
 	else
-		exit_signal = WEXITSTATUS(status);
+		g_exit_signal = WEXITSTATUS(status);
 }
 
 void	pipe_tree(t_tree *cur_tree)
