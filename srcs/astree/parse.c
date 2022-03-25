@@ -46,7 +46,7 @@ int	parse_tree(t_info *info)
 		tree_hub(root, new_node, &child_number, &child_child);
 		token = token->next;
 	}
-	print_tree(root, 0);
+	//print_tree(root, 0);
 	info->root = root;
 	return (EXIT_SUCCESS);
 }
