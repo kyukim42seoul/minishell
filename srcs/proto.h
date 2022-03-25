@@ -159,6 +159,7 @@ int		check_status_type(char c);
 
 //free.c
 void	free_before_newline(t_info *info);
+
 //free_token.c
 // void	free_token(t_token *head);
 t_token	*find_heredoc(t_token *token);

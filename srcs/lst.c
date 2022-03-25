@@ -9,6 +9,7 @@ t_token	*kb_lstnew(void)
 		return (NULL);
 	new->next = NULL;
 	new->prev = NULL;
+	new->data = NULL;
 	return (new);
 }
 
