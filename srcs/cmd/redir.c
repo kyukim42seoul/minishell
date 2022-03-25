@@ -1,29 +1,5 @@
 #include "../../include/minishell.h"
 
-int	change_stdout(int fd)
-{
-	if (dup2(fd, STDOUT_FILENO) == -1)
-	{
-		printf("CHANGE_STDOUT\n");
-		printf("%s\n", strerror(errno));
-		return (-1);
-	}
-	close(fd);
-	return (EXIT_SUCCESS);
-}
-
-int	change_stdin(int fd)
-{
-	if (dup2(fd, STDIN_FILENO) == -1)
-	{
-		printf("CHANGE_STDIN\n");
-		printf("%s\n", strerror(errno));
-		return (-1);
-	}
-	close(fd);
-	return (EXIT_SUCCESS);
-}
-
 int	right_redir(char *path)
 {
 	int		fd;
@@ -34,14 +10,14 @@ int	right_redir(char *path)
 		printf("RIGHT_REDIR : empty path\n");
 		printf("%s\n", strerror(errno));
 		return (-1);
-	};
-	fd = open(path, O_WRONLY|O_CREAT|O_TRUNC, 0755);
+	}
+	fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	if (fd == -1)
 	{
 		printf("RIGHT_REDIR : fail open(%s)\n", path);
 		printf("%s\n", strerror(errno));
 		return (-1);
-	};
+	}
 	if (change_stdout(fd) == EXIT_FAILURE)
 	{
 		printf("%s\n", strerror(errno));
@@ -61,7 +37,7 @@ int	double_right_redir(char *path)
 		printf("%s\n", strerror(errno));
 		return (EXIT_FAILURE);
 	}
-	fd = open(path, O_WRONLY|O_CREAT|O_APPEND, 0755);
+	fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0755);
 	if (fd == -1)
 	{
 		printf("RIGHT_REDIR\n");
@@ -86,7 +62,7 @@ int	left_redir(char *path)
 		printf("RIGHT_REDIR\n");
 		printf("%s\n", strerror(errno));
 		return (EXIT_FAILURE);
-	};
+	}
 	fd = open(path, O_RDONLY, NULL);
 	if (fd == -1)
 	{
@@ -102,7 +78,7 @@ int	left_redir(char *path)
 int	left_doulbe_redir(t_info *info, t_tree *root)
 {
 	int	index;
-	int i;
+	int	i;
 
 	index = 0;
 	i = 0;

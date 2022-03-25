@@ -25,7 +25,7 @@ void	print_t_token(t_info *info)
 
 void	print_env(t_info *info)
 {
-	t_list *check;
+	t_list	*check;
 
 	check = info->e_head->next;
 	while (check->next != NULL)
@@ -54,7 +54,7 @@ void	print_tree(t_tree *root, int level)
 {
 	int	index;
 
-	index =0;
+	index = 0;
 	if (root == NULL)
 	{
 		padding(level);
@@ -67,7 +67,8 @@ void	print_tree(t_tree *root, int level)
 		padding(level);
 		if (root->data)
 		{
-			printf("<%d | 1 = %d 2 = %d : ", root->type, root->my_number, root->my_my);
+			printf("<%d | 1 = %d 2 = %d : ", root->type, root->my_number, \
+					root->my_my);
 			while (root->data[index])
 			{
 				printf("\"%s\"", root->data[index]);

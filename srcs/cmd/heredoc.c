@@ -18,10 +18,11 @@ int	type_count(t_token *head, int type)
 	}
 	return (count);
 }
+
 char	*line_path_check(t_info *info, char *line)
 {
-	int i;
-	t_flag flag;
+	int		i;
+	t_flag	flag;
 
 	i = 0;
 	flag.num = 0;
@@ -39,14 +40,42 @@ char	*line_path_check(t_info *info, char *line)
 	return (change_cmd_to_env(line, flag, info));
 }
 
+void	get_input(t_info *info, int index, char *eof)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("> ");
+		if (line != NULL && ft_strncmp(line, eof, 1000))
+		{
+			line = line_path_check(info, line);
+			write(info->heredoc[index].pip[1], line, ft_strlen(line));
+			write(info->heredoc[index].pip[1], "\n", 1);
+			free(line);
+		}
+		else
+			break ;
+	}
+	if (line)
+		free(line);
+}
+
+void	calc_child_number(int child_count, t_token *cur, int *child_number)
+{
+	if (child_count - (type_count(cur, PIPE) + 1) > 0)
+	{
+		child_count = type_count(cur, PIPE) + 1;
+		(*child_number)++;
+	}
+}
+
 int	heredoc(t_info *info)
 {
 	int		index;
-	int		child_count;
 	int		child_number;
+	int		child_count;
 	int		count;
-	char	*eof;
-	char	*line;
 	t_token	*cur;
 
 	index = 0;
@@ -58,30 +87,11 @@ int	heredoc(t_info *info)
 	while (count > 0)
 	{
 		cur = find_heredoc(cur);
-		eof = cur->next->data;
 		pipe(info->heredoc[index].pip);
-		while (1)
-		{
-			line = readline("> ");
-			if (line != NULL && ft_strncmp(line, eof, 1000))
-			{
-				line = line_path_check(info, line);
-				write(info->heredoc[index].pip[1], line, ft_strlen(line));
-				write(info->heredoc[index].pip[1], "\n", 1);
-				free(line);
-			}
-			else
-				break ;
-		}
-		if (line)
-			free(line);
+		get_input(info, index, cur->next->data);
 		close(info->heredoc[index].pip[1]);
 		cur = cur->next;
-		if (child_count -  (type_count(cur, PIPE) + 1) > 0)
-		{
-			child_count = type_count(cur, PIPE) + 1;
-			child_number++;
-		}
+		calc_child_number(child_count, cur, &child_number);
 		info->heredoc[index].use_number = child_number;
 		index++;
 		count--;

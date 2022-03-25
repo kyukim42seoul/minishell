@@ -2,7 +2,7 @@
 
 void	del_token(t_token *head)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	if (head != NULL)
 	{

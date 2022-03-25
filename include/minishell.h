@@ -146,6 +146,10 @@ void	builtin_exit(t_info *info, char **str);
 //redir.c
 void	redir_hub(t_info *info, t_tree *root);
 
+//redir_util.c
+int		change_stdout(int fd);
+int		change_stdin(int fd);
+
 //heredoc.c
 int		heredoc(t_info *info);
 int	type_count(t_token *head, int type);
