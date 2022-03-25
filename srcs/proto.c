@@ -6,11 +6,11 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:46:33 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 17:49:11 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:12:45 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "proto.h"
+#include "../include/minishell.h"
 
 int	quotation_check(char *s, int i)
 {
@@ -59,6 +59,8 @@ int	check_cmd(char *cmd)
 
 /*
 	main 함수 설명
+	\033[1A -> 커서를 위로 한 줄 올린다.
+	\033[6C -> 커서를 4만큼 오른쪽으로 민다.
 */
 int	main(int argc, char *argv[], char *env[])
 {

@@ -6,11 +6,11 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:20 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 15:20:21 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:15:00 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	check_exit_arguments(t_info *info, char **str)
 {

@@ -1,4 +1,4 @@
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	replace_order(t_tree *cmd_node, t_tree *new)
 {

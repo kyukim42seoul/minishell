@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:44 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/24 17:06:23 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/25 18:15:13 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 int	check_builtin(t_tree *tree)
 {

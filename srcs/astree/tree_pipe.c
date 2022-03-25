@@ -1,4 +1,4 @@
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	basic_tree(t_tree *root)
 {

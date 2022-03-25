@@ -1,4 +1,4 @@
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	tree_hub(t_tree *root, t_tree *new_node, int *child_number, \
 		int *child_child)

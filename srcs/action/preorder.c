@@ -6,11 +6,11 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:46 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 15:17:24 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:13:30 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	preorder_traverse(t_info *info, t_tree *tree)
 {

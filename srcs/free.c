@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "../include/minishell.h"
 
 void	del_token(t_token *head)
 {

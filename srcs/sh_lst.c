@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "../include/minishell.h"
 
 t_list	*sh_lstnew(void *content)
 {

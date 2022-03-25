@@ -6,11 +6,11 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:32 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 15:20:34 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:15:06 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	builtin_pwd(char **str)
 {

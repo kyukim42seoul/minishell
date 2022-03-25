@@ -1,17 +1,16 @@
 
 NAME = minishell
 #CC = gcc
-CC = gcc# -g3 -fsanitize=address
+CC = gcc -g3 -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
 CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
 LIBRARYS = -lreadline
 # LDFLAGS = -L/usr/local/opt/readline/lib
 # CPPFLAGS = -I/usr/local/opt/readline/include
-#  LIBRARYS = -lreadline
 
 LIB_NAME	= libft.a
-# SRCS_DIR	= ./srcs/
+# INC_DIR	= ../include/
 LIB_DIR		= ./lib/
 
 OBJECTS = ./srcs/proto.o \

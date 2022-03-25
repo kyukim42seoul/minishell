@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "../include/minishell.h"
 
 int	str_array_size(char **str)
 {

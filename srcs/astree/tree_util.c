@@ -1,4 +1,4 @@
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 t_tree	*dup_node(t_token *token, int child_number, int child_child)
 {

@@ -6,11 +6,11 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:25:32 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 15:46:01 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:12:15 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "proto.h"
+#include "../include/minishell.h"
 
 void	signal_handler_quit(int pid)
 {

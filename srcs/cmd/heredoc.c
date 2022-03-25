@@ -1,4 +1,4 @@
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 int	type_count(t_token *head, int type)
 {

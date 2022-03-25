@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "../include/minishell.h"
 
 void	print_t_token(t_info *info)
 {

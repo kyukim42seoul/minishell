@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "../include/minishell.h"
 
 void	set_type_cmd(t_token *cur, int *cmd_flag, int *redir_flag)
 {

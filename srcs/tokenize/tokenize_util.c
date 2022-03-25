@@ -6,11 +6,11 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:58 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 15:20:59 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:15:44 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 int	quotation_len(char *s, int i, int type)
 {

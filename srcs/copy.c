@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "../include/minishell.h"
 
 int	copy_env(t_info *info, char *env[])
 {

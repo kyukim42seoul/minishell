@@ -1,4 +1,4 @@
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 int	syntax_cmd(t_token *tokens, t_debug *debug)
 {

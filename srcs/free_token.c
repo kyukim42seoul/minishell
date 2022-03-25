@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "../include/minishell.h"
 
 t_token	*find_heredoc(t_token *token)
 {

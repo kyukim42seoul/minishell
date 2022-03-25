@@ -6,11 +6,11 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:14 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 15:20:15 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:14:57 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	print_env_out(t_list *env)
 {

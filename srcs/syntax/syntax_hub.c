@@ -1,4 +1,4 @@
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 int	syntax_hub(t_token *head, t_debug *debug)
 {

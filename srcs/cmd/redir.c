@@ -1,4 +1,4 @@
-# include "../proto.h"
+#include "../../include/minishell.h"
 
 int	change_stdout(int fd)
 {

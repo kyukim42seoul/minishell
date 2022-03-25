@@ -6,11 +6,11 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:21:04 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 15:21:05 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:15:48 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 int	check_status_type(char c)
 {

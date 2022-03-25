@@ -1,4 +1,4 @@
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 t_tree	*tree_arg(t_tree *root, t_tree *new)
 {

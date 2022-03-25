@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "../include/minishell.h"
 
 size_t	sh_strlen(const char *s)
 {

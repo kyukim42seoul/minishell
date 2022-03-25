@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:03:25 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/24 20:18:20 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/25 18:14:19 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	pipe_setting(t_tree *root)
 {
@@ -27,7 +27,7 @@ void	pipe_setting(t_tree *root)
 	}
 }
 
-void	fork_tree(t_info *info, t_tree *root, int *in, int *out)
+void	fork_tree(t_info *info, t_tree *root, int in, int out)
 {
 	pid_t	pid;
 
@@ -49,10 +49,10 @@ void	fork_tree(t_info *info, t_tree *root, int *in, int *out)
 			close(root->pip[0]);
 			close(root->pip[1]);
 		}
-		dup2(*in, STDIN_FILENO);
-		dup2(*out, STDOUT_FILENO);
-		close(*in);
-		close(*out);
+		dup2(in, STDIN_FILENO);
+		dup2(out, STDOUT_FILENO);
+		close(in);
+		close(out);
 	}
 }
 
@@ -69,6 +69,13 @@ void	child_exit_signal(int status)
 		exit_signal = 131;
 	else
 		exit_signal = WEXITSTATUS(status);
+}
+
+void	pipe_tree(t_tree *cur_tree)
+{
+	pipe(cur_tree->pip);
+	cur_tree->right->prepip = dup(cur_tree->pip[0]);
+	close(cur_tree->pip[0]);
 }
 
 void	action(t_info *info, int in, int out)
@@ -90,13 +97,9 @@ void	action(t_info *info, int in, int out)
 		while (cur_tree)
 		{
 			if (cur_tree->right)
-			{
-				pipe(cur_tree->pip);
-				cur_tree->right->prepip = dup(cur_tree->pip[0]);
-				close(cur_tree->pip[0]);
-			}
+				pipe_tree(cur_tree);
 			cur_tree->my_number = child_number;
-			fork_tree(info, cur_tree, &in, &out);
+			fork_tree(info, cur_tree, in, out);
 			cur_tree = cur_tree->right;
 			child_number++;
 		}

@@ -6,11 +6,11 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:51 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 20:04:03 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:15:36 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 char	*take_env_value(t_list *head, char *key)
 {

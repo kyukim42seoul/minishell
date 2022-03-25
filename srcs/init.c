@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "../include/minishell.h"
 
 int	init_info(t_info **info)
 {

@@ -1,4 +1,4 @@
-#include "proto.h"
+#include "../include/minishell.h"
 
 void	list_insert(t_csh *csh, char *k, char *v)
 {
