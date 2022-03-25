@@ -88,7 +88,6 @@ typedef struct s_heredoc
 typedef struct s_info
 {
 	char			**env;
-	char			**origin_env;
 	int				my_num;
 	t_heredoc		*heredoc;
 	t_list			*e_head;
