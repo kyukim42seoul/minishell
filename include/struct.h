@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 18:38:10 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 18:38:12 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:55:32 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ typedef struct s_heredoc
 typedef struct s_info
 {
 	char			**env;
-	char			**origin_env;
 	int				my_num;
 	t_heredoc		*heredoc;
 	t_list			*e_head;

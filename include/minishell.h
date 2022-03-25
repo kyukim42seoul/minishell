@@ -64,6 +64,7 @@ int		token_len_check(char *s, int i, t_flag *flag);
 int		characters_len(char *cmd, int i);
 
 //free.c
+void	del_token(t_token *head);
 void	free_before_newline(t_info *info);
 
 // void	free_token(t_token *head);
@@ -150,7 +151,7 @@ int		heredoc(t_info *info);
 int	type_count(t_token *head, int type);
 
 //execve.c
-void		run_execve(char **cmd_data, char *env, char **origin_env);
+void		run_execve(char **cmd_data, char *env, char **env);
 
 //action/action_tree.c
 void	action(t_info *info, int in, int out);
