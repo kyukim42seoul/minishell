@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:46:33 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 20:52:37 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 16:27:07 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	run_action_by_syntax(t_info *info)
 		printf("syntax error\npoint : %s\ndata : %s\n", \
 			info->debug->syntax_error, \
 			(char *)info->debug->error_point_data);
+		if (info->debug->syntax_error)
+			free(info->debug->syntax_error);
 		del_token(info->t_head);
 	}
 	else

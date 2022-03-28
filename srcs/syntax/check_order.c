@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 19:08:58 by kyukim            #+#    #+#             */
-/*   Updated: 2022/03/25 19:08:59 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 16:30:14 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ int	syntax_pipe(t_token *tokens, t_debug *debug)
 	t_token	*cur;
 
 	cur = tokens->next;
-	if (cur == NULL)
+	if (cur == NULL || cur->type == PIPE)
+	{
+		debug->syntax_error = \
+			ft_strdup("syntax error near unexpected token '|'");
+		debug->error_point_data = tokens->data;
 		return (EXIT_FAILURE);
-	if (cur->type == PIPE)
-		return (EXIT_FAILURE);
+	}
 	if (tokens->type == PIPE && tokens->prev == NULL)
 		return (EXIT_SUCCESS);
 	if (cur->type == BUILTIN || cur->type == CMD)
