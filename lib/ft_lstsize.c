@@ -6,13 +6,13 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:05:50 by kbaek             #+#    #+#             */
-/*   Updated: 2022/02/14 17:57:08 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 16:48:55 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_lst_kbaek *lst)
+int	ft_lstsize(t_lst_k *lst)
 {
 	int		i;
 

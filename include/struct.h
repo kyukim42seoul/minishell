@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 18:38:10 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/28 18:41:21 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 21:19:38 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_heredoc
 typedef struct s_info
 {
 	char			**env_array;
+	char			*minishell;
 	t_heredoc		*heredoc;
 	t_list			*e_head;
 	t_token			*t_head;

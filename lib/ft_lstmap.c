@@ -6,17 +6,17 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 16:59:56 by kbaek             #+#    #+#             */
-/*   Updated: 2022/02/14 17:55:56 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 16:46:28 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_lst_kbaek	*ft_lstmap(t_lst_kbaek *lst, void *(*f)(void *), void (*del)(void *))
+t_lst_k	*ft_lstmap(t_lst_k *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_lst_kbaek	*copy_lst;
-	t_lst_kbaek	*tem;
-	t_lst_kbaek	*tem_f;
+	t_lst_k	*copy_lst;
+	t_lst_k	*tem;
+	t_lst_k	*tem_f;
 
 	if (!lst)
 		return (NULL);

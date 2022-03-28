@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:27 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 18:35:53 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 17:32:15 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,6 @@ int	before_value(char *str)
 		if (!ft_isalnum(*str) && *str != '_')
 			return (0);
 		i++;
-		str++;
-	}
-	while (*str)
-	{
-		if (!ft_isalnum(*str) && *str != '_' && *str != '=')
-			return (0);
 		str++;
 	}
 	return (i);
