@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:46:33 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/28 18:40:57 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 21:10:55 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	run_action_by_syntax(t_info *info)
 			(char *)info->debug->error_point_data);
 		if (info->debug->syntax_error)
 			free(info->debug->syntax_error);
+		g_exit_signal = 258;
 		del_token(info->t_head);
 	}
 	else

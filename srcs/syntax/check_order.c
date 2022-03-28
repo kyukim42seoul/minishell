@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 19:08:58 by kyukim            #+#    #+#             */
-/*   Updated: 2022/03/28 16:30:14 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 18:46:56 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	syntax_pipe(t_token *tokens, t_debug *debug)
 		return (syntax_redir(cur, debug));
 	else
 	{
-		debug->syntax_error = ft_strdup("syntax_pipe\n");
+		debug->syntax_error = ft_strdup("syntax_pipe");
 		debug->error_point_data = tokens->data;
 		return (EXIT_FAILURE);
 	}
@@ -55,13 +55,13 @@ int	syntax_redir(t_token *tokens, t_debug *debug)
 	cur = tokens;
 	if (cur->next == NULL)
 	{
-		debug->syntax_error = ft_strdup("syntax_redir : no argument\n");
+		debug->syntax_error = ft_strdup("syntax_redir : no argument");
 		debug->error_point_data = cur->data;
 		return (EXIT_FAILURE);
 	}
 	if (cur->next->type != CHARACTERS)
 	{
-		debug->syntax_error = ft_strdup("syntax_redir : invalid argument\n");
+		debug->syntax_error = ft_strdup("syntax_redir : invalid argument");
 		debug->error_point_data = cur->data;
 		return (EXIT_FAILURE);
 	}
@@ -86,7 +86,7 @@ int	syntax_word(t_token *tokens, t_debug *debug)
 		else
 			cur = cur->prev;
 	}
-	debug->syntax_error = ft_strdup("syntax_word\n");
+	debug->syntax_error = ft_strdup("syntax_word");
 	debug->error_point_data = tokens->data;
 	return (EXIT_FAILURE);
 }
@@ -103,7 +103,7 @@ int	check_order(t_token *tokens, t_debug *debug)
 		return (syntax_word(tokens, debug));
 	else
 	{
-		debug->syntax_error = ft_strdup("undefined type\n");
+		debug->syntax_error = ft_strdup("undefined type");
 		debug->error_point_data = tokens->data;
 		return (EXIT_FAILURE);
 	}
