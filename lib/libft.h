@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 15:03:53 by kbaek             #+#    #+#             */
-/*   Updated: 2022/02/14 17:56:25 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 16:48:04 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_lst_kbaek
+typedef struct s_lst_k
 {
 	void			*content;
-	struct s_lst_kbaek	*next;
-}				t_lst_kbaek;
+	struct s_lst_k	*next;
+}				t_lst_k;
 
 int					ft_atoi(const char *str);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
@@ -64,15 +64,15 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 
-t_lst_kbaek				*ft_lstnew(void *content);
-void				ft_lstadd_front(t_lst_kbaek **lst, t_lst_kbaek *new);
-int					ft_lstsize(t_lst_kbaek *lst);
-t_lst_kbaek				*ft_lstlast(t_lst_kbaek *lst);
-void				ft_lstadd_back(t_lst_kbaek **lst, t_lst_kbaek *new);
-void				ft_lstdelone(t_lst_kbaek *lst, void (*del)(void*));
-void				ft_lstclear(t_lst_kbaek **lst, void (*del)(void*));
-void				ft_lstiter(t_lst_kbaek *lst, void (*f)(void *));
-t_lst_kbaek				*ft_lstmap(t_lst_kbaek *lst, void *(*f)(void *),
+t_lst_k				*ft_lstnew(void *content);
+void				ft_lstadd_front(t_lst_k **lst, t_lst_k *new);
+int					ft_lstsize(t_lst_k *lst);
+t_lst_k				*ft_lstlast(t_lst_k *lst);
+void				ft_lstadd_back(t_lst_k **lst, t_lst_k *new);
+void				ft_lstdelone(t_lst_k *lst, void (*del)(void*));
+void				ft_lstclear(t_lst_k **lst, void (*del)(void*));
+void				ft_lstiter(t_lst_k *lst, void (*f)(void *));
+t_lst_k				*ft_lstmap(t_lst_k *lst, void *(*f)(void *),
 						void (*del)(void *));
 
 #endif

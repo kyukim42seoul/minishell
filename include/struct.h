@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 18:38:10 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 19:36:44 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 19:11:02 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_heredoc
 typedef struct s_info
 {
 	char			**env_array;
+	char			*minishell;
 	int				my_num;
 	t_heredoc		*heredoc;
 	t_list			*e_head;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:44 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 19:00:01 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 19:58:36 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	implement_cmd(t_info *info, char **cmd)
 	else
 	{
 		env_path = (char *)find_content_from_key(info->e_head, "PATH");
-		run_execve(cmd, env_path, info->env_array);
+		run_execve(cmd, env_path, info->env_array, info->minishell);
+		printf("bash: %s: command not found\n", cmd[0]);
+		g_exit_signal = 127;
 	}
 }

@@ -6,15 +6,15 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 16:24:00 by kbaek             #+#    #+#             */
-/*   Updated: 2022/02/14 17:55:10 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 16:48:39 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_lst_kbaek **lst, void (*del)(void*))
+void	ft_lstclear(t_lst_k **lst, void (*del)(void*))
 {
-	t_lst_kbaek	*p_lst;
+	t_lst_k	*p_lst;
 
 	if (!lst)
 		return ;

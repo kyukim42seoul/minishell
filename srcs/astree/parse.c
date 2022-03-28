@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 19:08:07 by kyukim            #+#    #+#             */
-/*   Updated: 2022/03/25 19:41:11 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 16:51:17 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	parse_tree(t_info *info)
 		tree_hub(root, new_node, &child_number, &child_child);
 		token = token->next;
 	}
-	print_tree(root, 0);
 	info->root = root;
 	return (EXIT_SUCCESS);
 }

@@ -6,15 +6,15 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 15:43:21 by kbaek             #+#    #+#             */
-/*   Updated: 2022/02/14 17:55:05 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 16:48:32 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_lst_kbaek **lst, t_lst_kbaek *new)
+void	ft_lstadd_back(t_lst_k **lst, t_lst_k *new)
 {
-	t_lst_kbaek	*p_lst;
+	t_lst_k	*p_lst;
 
 	if (!lst)
 		return ;

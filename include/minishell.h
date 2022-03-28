@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 19:11:03 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 19:11:05 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 20:10:25 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,13 @@ int		heredoc(t_info *info);
 int		type_count(t_token *head, int type);
 
 //execve.c
-void	run_execve(char **cmd_data, char *env_path, char **env_array);
+void	run_execve(char **cmd, char *env_path, char **env, char *mini);
+
+//exec_path.c
+t_list	*find_valid_path(t_list	*path_head);
+t_list	*make_relative_path(char *env_path, char *cmd);
+int		check_path(const char *path);
+void	find_pwd_path(char **cmd, char *mini, char **env);
 
 //action/action_tree.c
 void	action(t_info *info, int in, int out);
