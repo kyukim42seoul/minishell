@@ -1,4 +1,16 @@
-#include "proto.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   copy.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 19:09:13 by kyukim            #+#    #+#             */
+/*   Updated: 2022/03/25 19:09:13 by kyukim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/minishell.h"
 
 int	copy_env(t_info *info, char *env[])
 {
@@ -19,6 +31,6 @@ int	copy_env(t_info *info, char *env[])
 		sh_lstadd_back(&info->e_head, current);
 		index++;
 	}
-	info->env = env;
+	info->env_array = env;
 	return (EXIT_SUCCESS);
 }

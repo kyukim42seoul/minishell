@@ -6,11 +6,11 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:16:46 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/28 18:33:12 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 18:41:00 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	preorder_traverse(t_info *info, t_tree *tree)
 {

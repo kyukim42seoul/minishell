@@ -6,11 +6,11 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:19:57 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 15:19:58 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:35:31 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	change_pwd(t_info *info, char *old)
 {
@@ -60,7 +60,7 @@ void	change_env(t_info *info)
 		env_add(info, "PWD", pwd);
 	if (old != NULL)
 		change_pwd(info, old);
-	exit_signal = 0;
+	g_exit_signal = 0;
 }
 
 char	*get_env_value(t_list *head, char *key)
@@ -92,7 +92,7 @@ void	builtin_cd(t_info *info, char **str)
 	if (chdir(path) == -1)
 	{
 		printf("bash: cd: %s: No such file or directory\n", *str);
-		exit_signal = 1;
+		g_exit_signal = 1;
 	}
 	else
 		change_env(info);

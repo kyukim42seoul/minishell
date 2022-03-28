@@ -6,11 +6,11 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:46:33 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/28 18:33:16 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 18:40:57 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "proto.h"
+#include "../include/minishell.h"
 
 int	quotation_check(char *s, int i)
 {
@@ -57,9 +57,40 @@ int	check_cmd(char *cmd)
 	return (1);
 }
 
+void	run_action_by_syntax(t_info *info)
+{
+	if (syntax_hub(info->t_head, info->debug) \
+			== EXIT_FAILURE && info->t_head != NULL)
+	{
+		printf("syntax error\npoint : %s\ndata : %s\n", \
+			info->debug->syntax_error, \
+			(char *)info->debug->error_point_data);
+		if (info->debug->syntax_error)
+			free(info->debug->syntax_error);
+		del_token(info->t_head);
+	}
+	else
+	{
+		parse_tree(info);
+		action(info, 0, 0);
+		free_before_newline(info);
+	}
+}
+
 /*
 	main 함수 설명
+	\033[1A -> 커서를 위로 한 줄 올린다.
+	\033[6C -> 커서를 4만큼 오른쪽으로 민다.
 */
+
+void	print_exit(void)
+{
+	printf("\033[1A");
+	printf("\033[6C");
+	printf("exit\n");
+	exit (-1);
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	char	*full_cmd;
@@ -70,34 +101,17 @@ int	main(int argc, char *argv[], char *env[])
 	set_signal();
 	init_info(&info);
 	copy_env(info, env);
-	info->origin_env = env;
 	while (1)
 	{
-		full_cmd = readline("in> ");
+		full_cmd = readline("bash> ");
 		if (full_cmd == NULL)
-		{
-			printf("\033[1A");// 커서를 위로 한 줄 올린다.
-			printf("\033[4C");// 커서를 4만큼 오른쪽으로 민다.
-			printf("exit\n");
-			exit (-1);
-		}
+			print_exit();
 		else if (!check_cmd(full_cmd) && !quotation_check(full_cmd, 0))
 		{
 			tokenize(full_cmd, info);
-			print_t_token(info);
 			add_head(info, PIPE);
 			set_type(info->t_head);
-			if (syntax_hub(info->t_head, info->debug) == EXIT_FAILURE && info->t_head != NULL)
-			{
-				printf("syntax error\npoint : %s\ndata : %s\n", info->debug->syntax_error, (char *)info->debug->error_point_data);//여기에 토큰 free()
-				//free_token(info->t_head);
-			}
-			else
-			{
-				parse_tree(info);
-				action(info, 0, 0);
-				free_before_newline(info);
-			}
+			run_action_by_syntax(info);
 			add_history(full_cmd);
 		}
 		free(full_cmd);

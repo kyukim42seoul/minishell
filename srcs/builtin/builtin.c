@@ -6,11 +6,11 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:44 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/24 17:06:23 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/25 19:00:01 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 int	check_builtin(t_tree *tree)
 {
@@ -80,6 +80,6 @@ void	implement_cmd(t_info *info, char **cmd)
 	else
 	{
 		env_path = (char *)find_content_from_key(info->e_head, "PATH");
-		run_execve(cmd, env_path, info->origin_env);
+		run_execve(cmd, env_path, info->env_array);
 	}
 }

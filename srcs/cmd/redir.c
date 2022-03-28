@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-#include "../proto.h"
-=======
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -9,12 +6,11 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 19:08:52 by kyukim            #+#    #+#             */
-/*   Updated: 2022/03/28 18:24:14 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 18:42:04 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
->>>>>>> Stashed changes
 
 int	right_redir(char *path)
 {
@@ -101,7 +97,6 @@ int	left_redir(char *path)
 int	left_doulbe_redir(t_info *info, t_tree *root)
 {
 	int	index;
-	int	i;
 
 	index = 0;
 	while (info->heredoc[index].use_number != root->my_number)

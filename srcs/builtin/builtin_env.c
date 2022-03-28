@@ -6,11 +6,11 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:14 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 15:20:15 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:35:40 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	print_env_out(t_list *env)
 {
@@ -28,7 +28,7 @@ void	print_env_out(t_list *env)
 		}
 		check = check->next;
 	}
-	exit_signal = 0;
+	g_exit_signal = 0;
 }
 
 void	builtin_env(t_info *info, char **str)
@@ -41,12 +41,12 @@ void	builtin_env(t_info *info, char **str)
 			printf("env: illegal option -- %c\n", (*str)[1]);
 			printf("usage: env [-iv] [-P utilpath] [-S string] [-u name]\n");
 			printf("            [name=value ...] [utility [argument ...]]\n");
-			exit_signal = 1;
+			g_exit_signal = 1;
 		}
 		else
 		{
 			printf("env: %s: No such file or directory\n", *str);
-			exit_signal = 127;
+			g_exit_signal = 127;
 		}
 		return ;
 	}

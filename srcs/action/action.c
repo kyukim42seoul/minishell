@@ -6,11 +6,11 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:03:25 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/28 18:33:17 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 18:43:55 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../proto.h"
+#include "../../include/minishell.h"
 
 void	pipe_setting(t_tree *root)
 {
@@ -27,7 +27,7 @@ void	pipe_setting(t_tree *root)
 	}
 }
 
-void	fork_tree(t_info *info, t_tree *root, int *in, int *out)
+void	fork_tree(t_info *info, t_tree *root, int in, int out)
 {
 	pid_t	pid;
 
@@ -39,7 +39,7 @@ void	fork_tree(t_info *info, t_tree *root, int *in, int *out)
 		pipe_setting(root);
 		root->right = NULL;
 		preorder_traverse(info, root);
-		exit(exit_signal);
+		exit(g_exit_signal);
 	}
 	else
 	{
@@ -48,10 +48,10 @@ void	fork_tree(t_info *info, t_tree *root, int *in, int *out)
 			close(root->pip[0]);
 			close(root->pip[1]);
 		}
-		dup2(*in, STDIN_FILENO);
-		dup2(*out, STDOUT_FILENO);
-		close(*in);
-		close(*out);
+		dup2(in, STDIN_FILENO);
+		dup2(out, STDOUT_FILENO);
+		close(in);
+		close(out);
 	}
 }
 
@@ -62,12 +62,19 @@ void	child_exit_signal(int status)
 		if (wait(&status) < 0)
 			break ;
 	}
-	if (exit_signal == SIGINT_WITH_FORK)
-		exit_signal = 130;
-	else if (exit_signal == SIGQUIT_WITH_FORK)
-		exit_signal = 131;
+	if (g_exit_signal == SIGINT_WITH_FORK)
+		g_exit_signal = 130;
+	else if (g_exit_signal == SIGQUIT_WITH_FORK)
+		g_exit_signal = 131;
 	else
-		exit_signal = WEXITSTATUS(status);
+		g_exit_signal = WEXITSTATUS(status);
+}
+
+void	pipe_tree(t_tree *cur_tree)
+{
+	pipe(cur_tree->pip);
+	cur_tree->right->prepip = dup(cur_tree->pip[0]);
+	close(cur_tree->pip[0]);
 }
 
 void	action(t_info *info, int in, int out)
@@ -87,18 +94,12 @@ void	action(t_info *info, int in, int out)
 		while (cur_tree)
 		{
 			if (cur_tree->right)
-<<<<<<< Updated upstream
 			{
 				pipe(cur_tree->pip);
 				cur_tree->right->prepip = dup(cur_tree->pip[0]);
 				close(cur_tree->pip[0]);
 			}
-			cur_tree->my_number = child_number;
-			fork_tree(info, cur_tree, &in, &out);
-=======
-				pipe_tree(cur_tree);
 			fork_tree(info, cur_tree, in, out);
->>>>>>> Stashed changes
 			cur_tree = cur_tree->right;
 		}
 		child_exit_signal(status);

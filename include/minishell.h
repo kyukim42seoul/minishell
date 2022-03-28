@@ -1,5 +1,17 @@
-#ifndef PROTO_H
-# define PROTO_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 19:11:03 by kbaek             #+#    #+#             */
+/*   Updated: 2022/03/25 19:11:05 by kbaek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -20,112 +32,13 @@
 # include <stdbool.h>
 
 # include "../lib/libft.h"
-
-# define	O_ENV 1
-# define	T_EXPORT 2
-
-# define	CHARACTERS 0
-# define	FTSPACE 1
-# define	PIPE 2
-# define	LEFT_REDI 3
-# define	RIGHT_REDI 4
-# define	LEFT_DOUBLE_REDI 5
-# define	RIGHT_DOUBLE_REDI 6
-# define	PATH 7
-# define 	SINGLE 8
-# define 	DOUBLE 9
-# define	BUILTIN 10
-# define	OPTION 11
-# define	CMD 12
-# define	PSPIPE 13
-# define	PSCMD 14
-# define	PSIO 15
-# define	PSREDIR 16
-# define	PSBIN 17
-# define	SIGINT_WITH_FORK 1300
-# define	SIGQUIT_WITH_FORK 1310
-
-
-# define	STANDARD 100
-
-typedef struct s_flag
-{
-	int num;
-	int len[STANDARD];
-	int i_cur[STANDARD];
-	int type[STANDARD];
-}				t_flag;
-
-typedef	struct s_new_line
-{
-	int start;
-	int left_space;
-	int right_space;
-	int new_len;
-	int num;
-}				t_new_line;
-
-typedef	struct s_token
-{
-	int				type;
-	char			*data;
-	struct s_token	*next;
-	struct s_token	*prev;
-}				t_token;
-
-typedef struct s_tree
-{
-	int				type;
-	char			**data;
-	int				pip[2];
-	int				prepip;
-	int				my_number;
-	int				my_my;
-	struct s_tree	*left;
-	struct s_tree	*right;
-}				t_tree;
-
-typedef struct s_list
-{
-	int				type;
-	void			*key;
-	void			*content;
-	struct s_list	*next;
-}					t_list;
-
-typedef struct s_debug
-{
-	char			*syntax_error;
-	void			*error_point_data;
-}					t_debug;
-
-typedef struct s_heredoc
-{
-	int				use_number;
-	int				pip[2];
-}				t_heredoc;
-
-typedef struct s_info
-{
-	char			**env;
-	char			**origin_env;
-	int				my_num;
-	t_heredoc		*heredoc;
-	t_list			*e_head;
-	t_token			*t_head;
-	t_tree			*root;
-	t_debug			*debug;
-}					t_info;
-
-int exit_signal;
-
-typedef void (*VisitFuncPtr)(t_info *info, t_tree *tree);
+# include "struct.h"
 
 //init.c
 int		init_info(t_info **info);
 
 //signal.c
-void	set_signal();
+void	set_signal(void);
 void	signal_handler(int signum);
 
 //copy.c
@@ -152,24 +65,20 @@ void	sh_lstadd_back(t_list **lst, t_list *new);
 void	*find_content_from_key(t_list *env, char *key);
 void	add_head(t_info *info, int type);
 
-//tokenize.c
+//tokenize
 void	tokenize(char *full_command, t_info *info);
-int 	characters_len(char *cmd, int i);
 int		check_status_type(char c);
+void	make_token_node(char *cmd, t_flag flag, t_info *info);
+char	*change_cmd_to_env(char *cmd, t_flag flag, t_info *info);
+int		token_len_check(char *s, int i, t_flag *flag);
+int		characters_len(char *cmd, int i);
 
 //free.c
+void	del_token(t_token *head);
 void	free_before_newline(t_info *info);
 
-//free_token.c
 // void	free_token(t_token *head);
-t_token	*find_heredoc(t_token *token);
-
-//cmd_env.c
-char 	*change_cmd_to_env(char *cmd, t_flag flag, t_info *info);
-
-//tokenize_utill.c
-void	make_token_node(char *cmd, t_flag flag, t_info *info);
-int		token_len_check(char *s, int i, t_flag *flag);
+t_token	*find_heredoc(t_token *token, int *child_number);
 
 //print_node.c
 void	print_t_token(t_info *info);
@@ -185,7 +94,7 @@ int		check_order(t_token *tokens, t_debug *debug);
 
 //set_type.c
 int		set_type(t_token *head);
-int		syntax_word(t_token *tokens,t_debug *debug);
+int		syntax_word(t_token *tokens, t_debug *debug);
 
 //tree_util.c
 t_tree	*dup_node(t_token *token, int child_number, int child_child);
@@ -249,9 +158,10 @@ int		change_stdin(int fd);
 
 //heredoc.c
 int		heredoc(t_info *info);
+int		type_count(t_token *head, int type);
 
 //execve.c
-void		run_execve(char **cmd_data, char *env, char **origin_env);
+void	run_execve(char **cmd_data, char *env_path, char **env_array);
 
 //action/action_tree.c
 void	action(t_info *info, int in, int out);
@@ -261,4 +171,5 @@ void	single_tree(t_info *info, t_tree *tree, int in, int out);
 void	preorder_traverse(t_info *info, t_tree *tree);
 
 void	execv_cmd(t_info *info, char **str);
+
 #endif

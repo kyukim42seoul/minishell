@@ -1,17 +1,16 @@
 
 NAME = minishell
 #CC = gcc
-CC = gcc# -g3 -fsanitize=address
+CC = gcc -g3 -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
 CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
 LIBRARYS = -lreadline
 # LDFLAGS = -L/usr/local/opt/readline/lib
 # CPPFLAGS = -I/usr/local/opt/readline/include
-#  LIBRARYS = -lreadline
 
 LIB_NAME	= libft.a
-# SRCS_DIR	= ./srcs/
+# INC_DIR	= ../include/
 LIB_DIR		= ./lib/
 
 OBJECTS = ./srcs/proto.o \
@@ -26,7 +25,6 @@ OBJECTS = ./srcs/proto.o \
 		./srcs/tokenize/tokenize.o \
 		./srcs/tokenize/tokenize_cmd_env.o \
 		./srcs/tokenize/tokenize_util.o \
-		./srcs/free_token.o \
 		./srcs/print_node.o \
 		./srcs/syntax/syntax_hub.o \
 		./srcs/syntax/check_order.o \

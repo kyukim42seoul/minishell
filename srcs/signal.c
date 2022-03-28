@@ -6,17 +6,17 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:25:32 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/23 15:46:01 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/25 18:36:28 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "proto.h"
+#include "../include/minishell.h"
 
 void	signal_handler_quit(int pid)
 {
 	if (pid == 0)
 	{
-		exit_signal = SIGQUIT_WITH_FORK;
+		g_exit_signal = SIGQUIT_WITH_FORK;
 		write(1, "^\\", 2);
 		write(1, "Quit: 3\n", 9);
 	}
@@ -40,13 +40,13 @@ void	signal_handler(int signum)
 		{
 			write(1, "\n", 1);
 			rl_on_new_line();
-			exit_signal = 1;
+			g_exit_signal = 1;
 			rl_replace_line("", 1);
 			rl_redisplay();
 		}
 		else
 		{
-			exit_signal = SIGINT_WITH_FORK;
+			g_exit_signal = SIGINT_WITH_FORK;
 			write(1, "^C", 2);
 			write(1, "\n", 1);
 		}
@@ -66,7 +66,7 @@ void	set_signal(void)
 {
 	struct termios	term;
 
-	exit_signal = 0;
+	g_exit_signal = 0;
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
