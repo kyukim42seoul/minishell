@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 19:11:03 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/28 20:10:25 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 22:01:55 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,10 @@ void	implement_cmd(t_info *info, char **cmd);
 int		str_len(char **str);
 void	env_add(t_info *info, char *key, char *content);
 int		check_builtin(t_tree *tree);
+
+//error_one.c
+void	action_error(char *cmd, int status);
+void	error_one(char *cmd, int status);
 
 //builtin_env.c
 void	builtin_env(t_info *info, char **str);

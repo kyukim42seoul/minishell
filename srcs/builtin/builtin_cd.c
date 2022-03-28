@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:19:57 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 18:35:31 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 21:58:43 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,7 @@ void	builtin_cd(t_info *info, char **str)
 	else
 		path = ft_strdup(*str);
 	if (chdir(path) == -1)
-	{
-		printf("bash: cd: %s: No such file or directory\n", *str);
-		g_exit_signal = 1;
-	}
+		error_one(*str, 1);
 	else
 		change_env(info);
 	free(path);

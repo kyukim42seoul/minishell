@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 19:08:40 by kyukim            #+#    #+#             */
-/*   Updated: 2022/03/28 20:08:18 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 21:20:54 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,9 @@
 void	exit_signal_by_result(int result, char **cmd_data)
 {
 	if (result == 2)
-	{
-		printf("bash: %s: is a directory\n", cmd_data[0]);
-		g_exit_signal = 126;
-	}
+		action_error(cmd_data[0], 126);
 	else if (result == 0)
-	{
-		printf("bash: %s: No such file or directory\n", cmd_data[0]);
-		g_exit_signal = 127;
-	}
+		action_error(cmd_data[0], 1270);
 }
 
 void	run_execve(char **cmd, char *env_path, char **env, char *mini)

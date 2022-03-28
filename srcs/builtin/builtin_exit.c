@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:20 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/25 18:35:49 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 22:10:07 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 void	check_exit_arguments(t_info *info, char **str)
 {
 	if ((*(++str)) != NULL)
-	{
-		g_exit_signal = 1;
-		printf("bash: exit: too many arguments\n");
-	}
+		error_one(NULL, 4);
 	else
 	{
 		if (info->root->right == NULL)
@@ -29,8 +26,10 @@ void	check_exit_arguments(t_info *info, char **str)
 
 void	builtin_exit(t_info *info, char **str)
 {
-	int	i;
+	int		i;
+	char	*error;
 
+	error = NULL;
 	if (*(++str) == NULL)
 	{
 		if (info->root->right == NULL)
@@ -44,7 +43,9 @@ void	builtin_exit(t_info *info, char **str)
 		{
 			if (info->root->right == NULL)
 				printf("exit\n");
-			printf("bash: exit: %s: numeric argument required\n", *str);
+			error = ft_strjoin(ft_strjoin("bash: exit: ", *str),
+					": numeric argument required\n");
+			write(2, error, ft_strlen(error));
 			exit(255);
 		}
 	}
