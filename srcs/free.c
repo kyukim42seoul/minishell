@@ -1,4 +1,14 @@
-#include "proto.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 19:09:21 by kyukim            #+#    #+#             */
+/*   Updated: 2022/03/28 18:33:14 by kyukim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 void	free_token(t_token *head)
 {
@@ -46,6 +56,5 @@ void	free_before_newline(t_info *info)
 	del_token(info->t_head);
 	//del_heredoc(info->heredoc);
 	postorder_del_tree(info->root);
-	//free_token(info->t_head);
-	info->my_num = 0;
+	free(info->heredoc);
 }

@@ -1,4 +1,20 @@
+<<<<<<< Updated upstream
 #include "../proto.h"
+=======
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redir.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 19:08:52 by kyukim            #+#    #+#             */
+/*   Updated: 2022/03/28 18:24:14 by kyukim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell.h"
+>>>>>>> Stashed changes
 
 int	right_redir(char *path)
 {
@@ -75,21 +91,27 @@ int	left_redir(char *path)
 	return (EXIT_SUCCESS);
 }
 
+/*
+	각 자식 프로세스가 자기 번호(info->my_num) 보다 같거나 작은 use_number 를 가진 heredoce 을 건너뜀.
+	자기 번호보다 큰 use_number 의 첫 heredoc 혹은 heredoc 배열 끝(use_number = -1)에 도착.
+	자기 번호의 마지막 heredoc 으로 가야 하기때문에 index--;
+	해당 heredoc[index] 에서 stdin 연결
+*/
+
 int	left_doulbe_redir(t_info *info, t_tree *root)
 {
 	int	index;
 	int	i;
 
 	index = 0;
-	i = 0;
-	while (root->my_number != info->heredoc[index].use_number)
+	while (info->heredoc[index].use_number != root->my_number)
 		index++;
-	if (root->my_number == info->heredoc[index].use_number)
+	while (root->my_my > 0)
 	{
-		while (root->my_my > i++)
-			index++;
-		change_stdin(info->heredoc[index].pip[0]);
+		root->my_my--;
+		index++;
 	}
+	change_stdin(info->heredoc[index].pip[0]);
 	return (EXIT_SUCCESS);
 }
 

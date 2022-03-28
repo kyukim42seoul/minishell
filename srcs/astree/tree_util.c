@@ -1,4 +1,16 @@
-#include "../proto.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree_util.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 19:08:24 by kyukim            #+#    #+#             */
+/*   Updated: 2022/03/28 18:33:13 by kyukim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell.h"
 
 t_tree	*dup_node(t_token *token, int child_number, int child_child)
 {
@@ -14,8 +26,16 @@ t_tree	*dup_node(t_token *token, int child_number, int child_child)
 	new->left = NULL;
 	new->right = NULL;
 	new->prepip = -1;
-	new->my_number = child_number;
-	new->my_my = child_child;
+	if (token->type == LEFT_DOUBLE_REDI)
+	{
+		new->my_number = child_number;
+		new->my_my = child_child;
+	}
+	else
+	{
+		new->my_number = 0;
+		new->my_my = 0;
+	}
 	return (new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 16:03:25 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/24 20:18:20 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/28 18:33:17 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	fork_tree(t_info *info, t_tree *root, int *in, int *out)
 		exit(1);
 	else if (pid == 0)
 	{
-		info->my_num = root->my_number;
 		pipe_setting(root);
 		root->right = NULL;
 		preorder_traverse(info, root);
@@ -75,10 +74,8 @@ void	action(t_info *info, int in, int out)
 {
 	t_tree	*cur_tree;
 	int		status;
-	int		child_number;
 
 	status = 0;
-	child_number = 0;
 	cur_tree = info->root;
 	heredoc(info);
 	in = dup(STDIN_FILENO);
@@ -90,6 +87,7 @@ void	action(t_info *info, int in, int out)
 		while (cur_tree)
 		{
 			if (cur_tree->right)
+<<<<<<< Updated upstream
 			{
 				pipe(cur_tree->pip);
 				cur_tree->right->prepip = dup(cur_tree->pip[0]);
@@ -97,8 +95,11 @@ void	action(t_info *info, int in, int out)
 			}
 			cur_tree->my_number = child_number;
 			fork_tree(info, cur_tree, &in, &out);
+=======
+				pipe_tree(cur_tree);
+			fork_tree(info, cur_tree, in, out);
+>>>>>>> Stashed changes
 			cur_tree = cur_tree->right;
-			child_number++;
 		}
 		child_exit_signal(status);
 	}

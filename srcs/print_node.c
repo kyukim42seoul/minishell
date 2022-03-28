@@ -1,4 +1,16 @@
-#include "proto.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_node.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/25 19:10:42 by kyukim            #+#    #+#             */
+/*   Updated: 2022/03/28 18:33:59 by kyukim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/minishell.h"
 
 void	print_t_token(t_info *info)
 {
@@ -79,3 +91,4 @@ void	print_tree(t_tree *root, int level)
 		print_tree(root->left, level + 1);
 	}
 }
+
