@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:44 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/28 20:59:17 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/28 21:41:44 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,9 @@ int	str_len(char **str)
 	return (len);
 }
 
-void	chekc_before_error_ms()
-{
-    ssize_t nr;
-	char buf[255];
-	
-    nr = read(0, buf, 255);
-    if(nr == -1) 
-	{
-        fprintf(stderr, "Failed to read file.\n");
-    	exit(0);
-    }
-    else 
-		printf("%s\n", buf);
-
-}
-
 void	implement_cmd(t_info *info, char **cmd)
 {
 	char	*env_path;
-	char	*error;
 
 	env_path = 0;
 	if (!ft_strncmp("env", cmd[0], 4))
@@ -98,9 +81,6 @@ void	implement_cmd(t_info *info, char **cmd)
 	{
 		env_path = (char *)find_content_from_key(info->e_head, "PATH");
 		run_execve(cmd, env_path, info->env_array, info->minishell);
-		error = ft_strjoin(ft_strjoin("bash: ", cmd[0]), ": command not found\n");
-		write(2, error, ft_strlen(error));
-		g_exit_signal = 127;
-		free(error);
+		action_error(cmd[0], 127);
 	}
 }
