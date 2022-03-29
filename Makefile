@@ -1,3 +1,14 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/03/29 16:28:21 by kyukim            #+#    #+#              #
+#    Updated: 2022/03/29 16:32:53 by kyukim           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = minishell
 CC = gcc
@@ -9,7 +20,7 @@ LIBRARYS = -lreadline
 # CPPFLAGS = -I/usr/local/opt/readline/include
 
 LIB_NAME	= libft.a
-LIB_DIR		= ./lib/
+LIB_DIR		= ./lib/no
 
 OBJECTS = ./srcs/proto.o \
 		./srcs/signal.o \
