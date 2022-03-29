@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 19:08:24 by kyukim            #+#    #+#             */
-/*   Updated: 2022/03/28 18:40:59 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/29 15:59:35 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ t_tree	*type_only_node(int type)
 	new->data[1] = NULL;
 	new->my_number = 0;
 	new->my_my = 0;
+	new->prepip = 0;
+	new->pip[0] = 0;
+	new->pip[1] = 0;
 	new->left = NULL;
 	new->right = NULL;
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: kyukim <kyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 19:08:44 by kyukim            #+#    #+#             */
-/*   Updated: 2022/03/25 20:55:54 by kyukim           ###   ########.fr       */
+/*   Updated: 2022/03/29 16:17:50 by kyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ void	get_input(t_info *info, int index, char *eof)
 		free(line);
 }
 
+void	init_heredocpipe(t_heredoc *heredoc)
+{
+	heredoc->pip[0] = 0;
+	heredoc->pip[1] = 0;
+}
+
 int	heredoc(t_info *info)
 {
 	int		index;
@@ -84,6 +90,7 @@ int	heredoc(t_info *info)
 	child_number = 0;
 	count = type_count(info->t_head, LEFT_DOUBLE_REDI);
 	info->heredoc = (t_heredoc *)malloc(sizeof(t_heredoc) * (count + 1));
+	init_heredocpipe(info->heredoc);
 	info->heredoc[count].use_number = -1;
 	cur = info->t_head->next;
 	while (count > 0)
