@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 19:11:03 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/28 22:01:55 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/29 14:17:23 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		characters_len(char *cmd, int i);
 void	del_token(t_token *head);
 void	free_before_newline(t_info *info);
 
-// void	free_token(t_token *head);
+// void	free_token;
 t_token	*find_heredoc(t_token *token, int *child_number);
 
 //print_node.c
@@ -130,7 +130,7 @@ int		check_builtin(t_tree *tree);
 
 //error_one.c
 void	action_error(char *cmd, int status);
-void	error_one(char *cmd, int status);
+void	error_one(char **cmd, int status);
 
 //builtin_env.c
 void	builtin_env(t_info *info, char **str);

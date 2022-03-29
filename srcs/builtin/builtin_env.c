@@ -6,7 +6,7 @@
 /*   By: kbaek <kbaek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:20:14 by kbaek             #+#    #+#             */
-/*   Updated: 2022/03/28 22:29:32 by kbaek            ###   ########.fr       */
+/*   Updated: 2022/03/29 14:51:04 by kbaek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,22 @@ void	print_env_out(t_list *env)
 void	builtin_env(t_info *info, char **str)
 {
 	char	*error;
+	char	*start;
 
 	error = NULL;
+	start = NULL;
 	if (*(++str))
 	{
 		if (((*str)[0] == '-' && (*str)[1] && (*str)[1] != '-')
 			|| ((*str)[0] == '-' && (*str)[1] && (*str)[1] == '-' && (*str)[2]))
-			error_one(&(*str)[1], 3);
+			error_one(str, 3);
 		else
 		{
-			error = ft_strjoin(ft_strjoin("env: ", *str),
-					": No such file or directory\n");
+			start = ft_strjoin("env: ", *str);
+			error = ft_strjoin(start, ": No such file or directory\n");
 			write(2, error, ft_strlen(error));
 			free(error);
+			free(start);
 			g_exit_signal = 127;
 		}
 		return ;
