@@ -47,3 +47,41 @@
 					그리고 두 플래그 중 하나가 서면 반대편 플래그를 무시한다.
 			'"' 나 ''' 가 홀수로 들어 온 상태에서는 들어오는 모든 input 이 출력 문자열(혹은 인자)로 취급된다.
 				echo "hi" "hello 이후에 ''' 가 들어오면 
+
+# Project Title
+
+minishell
+
+
+## Description
+
+간단하지만 아름다운 쉘 만들기.
+
+## Getting Started
+
+### Need
+
+* bash shell for testing and compareing
+* C Language
+
+### Installing
+
+* brew install readline
+
+### Executing program
+
+* make
+* run ./minishell
+* and treat it like a bash shell ^0^
+```
+echo $USER
+```
+
+
+## Authors
+
+42 seoul intra id
+
+[kyukim](https://profile.intra.42.fr/users/kyukim)
+[kbaek](https://profile.intra.42.fr/users/kbaek)
+
