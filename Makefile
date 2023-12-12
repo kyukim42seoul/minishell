@@ -12,15 +12,15 @@
 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
-CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
+#CFLAGS = -Wall -Wextra -Werror
+#LDFLAGS = -L/${HOME}/.brew/opt/readline/lib
+#CPPFLAGS = -I/${HOME}/.brew/opt/readline/include
 LIBRARYS = -lreadline
-# LDFLAGS = -L/usr/local/opt/readline/lib
-# CPPFLAGS = -I/usr/local/opt/readline/include
+ LDFLAGS = -L/usr/local/opt/readline/lib
+ CPPFLAGS = -I/usr/local/opt/readline/include
 
 LIB_NAME	= libft.a
-LIB_DIR		= ./lib/no
+LIB_DIR		= ./lib
 
 OBJECTS = ./srcs/proto.o \
 		./srcs/signal.o \

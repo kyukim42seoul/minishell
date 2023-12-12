@@ -60,12 +60,12 @@ int	main(int argc, char *argv[], char *env[])
 	copy_env(env);
 	while (1)
 	{
-		full_cmd = readline("> ");//enter 쳤을 때 full_cmd 에 할당
+		full_cmd = readline("> "); //enter 쳤을 때 full_cmd 에 할당
 		if (sh_strcmp(full_cmd, "exit") == 0)
 			break ;
 		else if (full_cmd)
 		{
-			printf("full_cmd : %s\n", full_cmd);
+			//printf("full_cmd : %s\n", full_cmd); // 디버그용
 			tokenize_fullcmd(info, full_cmd);
 		}
 		else

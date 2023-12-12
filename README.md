@@ -70,6 +70,9 @@ minishell
 
 ### Executing program
 
+* MAC 환경 -> Makefile 의 LDFLAG, CPPFLAG 중 위에 두 개 주석처리 후 아래 두 개 오픈
+* Makefile 의 CFLAG 주석처리
+* Makefile 의 LIB_DIR -> ./lib 로 수정
 * make
 * run ./minishell
 * and treat it like a bash shell ^0^
